@@ -1,11 +1,18 @@
-import Toast from './Toast.js'
-import CanvasFilters from './CanvasFilters.js'
+import Toast from './Toast'
+import CanvasFilters from './CanvasFilters'
+import DomTools from './DomTools'
 
-//styles
 import '../styles/main.scss'
 
-const toast = new Toast();
-toast.displayMessage('hello world', 3000)
+function App() {
+  const toast = new Toast()
+  const tools = new DomTools()
+  const filters = new CanvasFilters()
+
+  console.log('App initiated')
+
+  toast.displayMessage('Hello world', 2000)
+} App()
 
 //------------Dom Elements-------------//
 
@@ -41,40 +48,6 @@ let isSelecting = false
 let image
 let imageName
 
-
-const tools = {
-  /**
-   * Creates an element with set children and set attributes, in the end
-   * appends it to the element given in the arguments
-   * @param {string} elementType is a string defining the html element to create
-   * @param {string} elementInnerHTML is a string that defines the HTML inside the 
-   * element created (can be any HTML) 
-   * TODO:Protect the innerHTML for dangerous code
-   * @param {array} elementAttributes is a list where each item is an array with 2 items
-   * first item is a element attribute type string, second one the attribute value also 
-   * as a string
-   * @param {HTMLElement} elementToAppendTo is a HTML element that will be father to the 
-   * element created 
-   * @returns {HTMLElement} the function returns the HTML element created
-   */
-  createElement: (elementType, elementInnerHTML = '', elementAttributes, elementToAppendTo) => {
-    const element = document.createElement(elementType)
-    element.innerHTML = elementInnerHTML
-    elementAttributes.forEach(atribute => {
-      element.setAttribute(`${atribute[0]}`, `${atribute[1]}`)
-    })
-    elementToAppendTo.append(element)
-    return element
-  },
-  changeTextOnElement: (text, element) => {
-    element.textContent = text
-  },
-  elementVisibility: (elementsArray, displayMode = 'flex') => {
-    elementsArray.forEach(element => {
-      element.style.display = displayMode
-    })
-  }
-}
 
 //When an image is uploaded using the file input
 toolbar_upload_input.addEventListener('change', () => {
