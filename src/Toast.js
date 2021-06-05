@@ -27,7 +27,7 @@ class Toast {
     //get body to use it as a parent for the toast html span
     const body = document.querySelector('body')
     //set the default style
-    this.setStyle({
+    this.toast.setStyle({
       display: 'none',
       color: '#ffffff',
       position: 'absolute',

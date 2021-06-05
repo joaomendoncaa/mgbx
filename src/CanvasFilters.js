@@ -1,42 +1,17 @@
 class CanvasFilters {
-  constructor(context) {
+  constructor(canvasContext) {
     this._filters = {
 
     }
-    this._context = context
+    this._context = canvasContext
   }
 
-  get filter() {
-    return this._filter
+  get filters() {
+    return this._filters
   }
 
-  get value() {
-    return this._value
-  }
-
-  get min() {
-    return this._min
-  }
-
-  get max() {
-    return this._max
-  }
-
-  get unit() {
-    return this._unit
-  }
-
-  set value(newValue) {
-    console.log(`Changed ${this.filter} value to ${value}`)
-    this._value = newValue
-  }
-
-  changeValue(value) {
-    this._value = value
-  }
-
-  applyFilter() {
-    return `${this.filter}(${this.value}${this.unit})`
+  get context() {
+    return this._context
   }
 }
 
