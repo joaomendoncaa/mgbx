@@ -43,6 +43,11 @@ DOM['toolbar_upload_input'].addEventListener('change', () => {
     tools.elementVisibility([
       DOM['toolbar_upload_btn']
     ], 'none')
+
+    tools.elementVisibility([
+      DOM['toolbar_save_btn'],
+      DOM['toolbar_clear_btn']
+    ], 'flex')
   }
 })
 
@@ -238,67 +243,4 @@ DOM['toolbar_clear_btn'].onclick = () => {
 
   //add upload button back in
   DOM['toolbar_upload_btn'].style.display = 'flex'
-}
-
-function createFilter(filter) {
-  //generates the filter interface in the DOM
-  tools.createElement(
-    'div',
-    `
-            <div class="filter-header">
-                <span class="filter-span">
-                    <img class="filter-icon" src="src/img/filter-icons/icon-${filter}.svg" alt="${filter} Icon">
-                    ${filter}
-                </span>
-                <button class="remove-filter-btn" id="remove-filter-${filter}">
-                    <img src="src/img/icons/icon-remove-filter.svg" alt="Remove Icon" class="remove-filter-svg">
-                </button>
-            </div>
-            <input type="range" min="1" max="100" value="50" id="${filter}" class="filter-input"/>
-        `,
-    [
-      ['class', 'filter-wrapper'],
-      ['id', `filter-wrapper-${filter}`]
-    ],
-    filterSection
-  )
-
-  //Get the element in the DOM
-  setBehaviourToAllFilters()
-
-  //Add Listeners to change the values of the picture
-  //whenever the filter is added listen to their value changes
-  // sepiaControls.addEventListener('input', event => {
-  //     brightness.changeValue(event.target.value)
-  //     applyFilter(event.target.id, ctx)
-  // })
-}
-
-function setBehaviourToAllFilters() {
-  const filterWrappers = document.querySelectorAll('.filter-wrapper')
-  const filtersRemoveBtn = document.querySelectorAll('.remove-filter-btn')
-
-  filtersRemoveBtn.forEach(button => {
-    button.addEventListener('click', event => {
-      console.log(event.target.parentElement.id)
-    })
-  })
-}
-
-function removeFilter(filter) {
-  console.log('remove filter')
-}
-
-function applyFilter(filterName, context) {
-
-  // console.log('apply filter was called')
-
-  // ctx.clearRect(0, 0, image.width, image.height)
-
-  image_preview.style.filter = brightness.applyFilter()
-
-  //draw image with new filter
-  // context.filter = brightness.applyFilter()
-  // ctx.drawImage(image, 0, 0)
-  // imagePreview.src = canvas.toDataURL()
 }

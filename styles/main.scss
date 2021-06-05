@@ -252,26 +252,41 @@ main {
       border-top: 1px solid rgba(255, 255, 255, 0.15);
       border-bottom: 1px solid rgba(255, 255, 255, 0.15);
     }
+  }
 
-    .selection_crop_btn {
-      position: absolute;
+  .selection_crop_btn {
+    position: absolute;
 
-      z-index: 3;
+    z-index: 3;
 
-      top: 110%;
-      right: 0;
-      bottom: 0;
-      left: 50%;
+    width: max-content;
+    height: max-content;
 
-      transform: translateX(-50%);
+    top: 105%;
+    right: 0;
+    bottom: 0;
+    left: 50%;
 
-      cursor: pointer;
-      padding: .75rem 1.5rem;
-  
-      border: 0;
-      border-radius: 99vw;
-  
-      transition: background .05s ease-in-out; 
+    transform: translateX(-50%);
+
+    cursor: pointer;
+    padding: .75rem 1.5rem;
+
+    border: 0;
+    border-radius: 99vw;
+
+    transition: background .05s ease-in-out; 
+
+    background: $text;
+    
+
+    .selection_crop_btn_text {
+      color: $blue-dark;
+      font-size: 0.8rem;
+    }
+
+    &:hover {
+      background: darken($text, 5%);
     }
   }
 }
