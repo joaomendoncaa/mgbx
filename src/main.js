@@ -228,11 +228,16 @@ DOM['toolbar_clear_btn'].onclick = () => {
   DOM['selection_tool'].style.display = 'none'
   DOM['image_preview'].src = ''
 
+  DOM['main_header_span'].textContent = 'No Image uploaded'
+
   //remove all the elements needed
   DOM['image_preview'].style.display = 'none'
   DOM['toolbar_clear_btn'].style.display = 'none'
   DOM['selection_crop_btn'].style.display = 'none'
   DOM['toolbar_save_btn'].style.display = 'none'
+
+  //add upload button back in
+  DOM['toolbar_upload_btn'].style.display = 'flex'
 }
 
 function createFilter(filter) {
