@@ -1,39 +1,15 @@
 import Toast from './Toast'
 import CanvasFilters from './CanvasFilters'
 import DomTools from './DomTools'
+import Canvas from './Canvas'
+
+import DOM from './DomElements'
 
 import '../styles/main.scss'
 
-function App() {
-  const toast = new Toast()
-  const tools = new DomTools()
-  const filters = new CanvasFilters()
-
-  console.log('App initiated')
-
-  toast.displayMessage('Hello world', 2000)
-} App()
-
-//------------Dom Elements-------------//
-
-//Toolbar upload image Button 
-const toolbar_upload_btn = document.querySelector('.toolbar_upload_btn')
-const toolbar_upload_input = document.querySelector('.toolbar_upload_input')
-//Toolbar save image button
-const toolbar_save_btn = document.querySelector('.toolbar_save_btn')
-//Toolbar crop selection button
-const toolbar_clear_btn = document.querySelector('.toolbar_clear_btn')
-//Crop button
-const selection_crop_btn = document.querySelector('.selection_crop_btn')
-//Canvas
-const image_preview = document.querySelector('.image_preview')
-const selection_tool = document.querySelector('.selection_tool')
-//Header span
-const main_header_span = document.querySelector('.main_header_span')
-
-const filterSection = document.querySelector('.menu-right-filters')
-const filterSelectForm = document.getElementById('filter-select-form')
-const filterSelect = document.getElementById('filter-select')
+const toast = new Toast()
+const tools = new DomTools()
+const filters = new CanvasFilters()
 
 //Global Variables
 let canvas = document.createElement('canvas')
@@ -50,10 +26,10 @@ let imageName
 
 
 //When an image is uploaded using the file input
-toolbar_upload_input.addEventListener('change', () => {
+DOM['toolbar_upload_input'].addEventListener('change', () => {
   //get the file
-  let file = toolbar_upload_input.files[0]
-  tools.changeTextOnElement(file.name, main_header_span)
+  let file = DOM['toolbar_upload_input'].files[0]
+  tools.changeTextOnElement(file.name, DOM['main_header_span'])
   imageName = file.name
   //read the file
   let reader = new FileReader()
@@ -65,14 +41,14 @@ toolbar_upload_input.addEventListener('change', () => {
     image.onload = onLoadImage
 
     tools.elementVisibility([
-      toolbar_upload_btn
+      DOM['toolbar_upload_btn']
     ], 'none')
   }
 })
 
 //simulate the click on the input type file whenever the user clicks on the btnSelectImage
-toolbar_upload_btn.onclick = () => {
-  toolbar_upload_input.click()
+DOM['toolbar_upload_btn'].onclick = () => {
+  DOM['toolbar_upload_input'].click()
 }
 
 const events = {
@@ -97,46 +73,46 @@ const events = {
     let endY = event.clientY
     let { offsetX, offsetY } = event
 
-    selection_tool.style.display = 'initial'
+    DOM['selection_tool'].style.display = 'initial'
 
     function drawRectanglePositiveXPositiveY() {
-      selection_tool.style.width = (endX - startX) + 'px'
-      selection_tool.style.height = (endY - startY) + 'px'
-      selection_tool.style.left = startX + 'px'
-      selection_tool.style.top = startY + 'px'
+      DOM['selection_tool'].style.width = (endX - startX) + 'px'
+      DOM['selection_tool'].style.height = (endY - startY) + 'px'
+      DOM['selection_tool'].style.left = startX + 'px'
+      DOM['selection_tool'].style.top = startY + 'px'
 
-      selectionOriginCoordinates.x = offsetX - Number(selection_tool.style.width.replace('px', ''))
-      selectionOriginCoordinates.y = offsetY - Number(selection_tool.style.height.replace('px', ''))
+      selectionOriginCoordinates.x = offsetX - Number(DOM['selection_tool'].style.width.replace('px', ''))
+      selectionOriginCoordinates.y = offsetY - Number(DOM['selection_tool'].style.height.replace('px', ''))
     }
 
     function drawRectanglePositiveXNegativeY() {
-      selection_tool.style.width = (endX - startX) + 'px'
-      selection_tool.style.height = (startY - endY) + 'px'
-      selection_tool.style.left = startX + 'px'
-      selection_tool.style.top = endY + 'px'
+      DOM['selection_tool'].style.width = (endX - startX) + 'px'
+      DOM['selection_tool'].style.height = (startY - endY) + 'px'
+      DOM['selection_tool'].style.left = startX + 'px'
+      DOM['selection_tool'].style.top = endY + 'px'
 
-      selectionOriginCoordinates.x = offsetX - Number(selection_tool.style.width.replace('px', ''))
+      selectionOriginCoordinates.x = offsetX - Number(DOM['selection_tool'].style.width.replace('px', ''))
       selectionOriginCoordinates.y = offsetY
     }
 
     function drawRectangleNegativeXNegativeY() {
-      selection_tool.style.width = (startX - endX) + 'px'
-      selection_tool.style.height = (startY - endY) + 'px'
-      selection_tool.style.left = endX + 'px'
-      selection_tool.style.top = endY + 'px'
+      DOM['selection_tool'].style.width = (startX - endX) + 'px'
+      DOM['selection_tool'].style.height = (startY - endY) + 'px'
+      DOM['selection_tool'].style.left = endX + 'px'
+      DOM['selection_tool'].style.top = endY + 'px'
 
       selectionOriginCoordinates.x = offsetX
       selectionOriginCoordinates.y = offsetY
     }
 
     function drawRectangleNegativeXPositiveY() {
-      selection_tool.style.width = (startX - endX) + 'px'
-      selection_tool.style.height = (endY - startY) + 'px'
-      selection_tool.style.left = endX + 'px'
-      selection_tool.style.top = startY + 'px'
+      DOM['selection_tool'].style.width = (startX - endX) + 'px'
+      DOM['selection_tool'].style.height = (endY - startY) + 'px'
+      DOM['selection_tool'].style.left = endX + 'px'
+      DOM['selection_tool'].style.top = startY + 'px'
 
       selectionOriginCoordinates.x = offsetX
-      selectionOriginCoordinates.y = offsetY - Number(selection_tool.style.height.replace('px', ''))
+      selectionOriginCoordinates.y = offsetY - Number(DOM['selection_tool'].style.height.replace('px', ''))
     }
 
     if (endX < startX && endY < startY) {
@@ -163,12 +139,12 @@ const events = {
   mouseup(event) {
     isSelecting = false
     //show the crop button
-    selection_crop_btn.style.display = 'flex'
+    DOM['selection_crop_btn'].style.display = 'flex'
   }
 }
 
 Object.keys(events).forEach(key => {
-  image_preview.addEventListener(key, events[key])
+  DOM['image_preview'].addEventListener(key, events[key])
 })
 
 
@@ -181,19 +157,13 @@ const onLoadImage = () => {
 
   ctx.drawImage(image, 0, 0)
 
-  image_preview.style.display = 'initial'
-  image_preview.src = canvas.toDataURL()
+  DOM['image_preview'].style.display = 'initial'
+  DOM['image_preview'].src = canvas.toDataURL()
 }
 
-const scale = 0.5;
-
-selection_crop_btn.onclick = () => {
+DOM['selection_crop_btn'].onclick = () => {
   const { width: imageWidth, height: imageHeight } = image
-  const { width: previewImageWidth, height: previewImageHeight } = image_preview
-  // const [previewImageWidth, previewImageHeight] = [
-  //     (((1 * imagePreview.width) / scale) - (imagePreview.width * scale)),
-  //     (((1 * imagePreview.height) / scale) - (imagePreview.width * scale))
-  // ]
+  const { width: previewImageWidth, height: previewImageHeight } = DOM['image_preview']
 
   const [widthRatio, heightRatio] = [
     Number(imageWidth / previewImageWidth),
@@ -201,8 +171,8 @@ selection_crop_btn.onclick = () => {
   ]
 
   const [selectionWidth, selectionHeight] = [
-    Number(selection_tool.style.width.replace('px', '')),
-    Number(selection_tool.style.height.replace('px', ''))
+    Number(DOM['selection_tool'].style.width.replace('px', '')),
+    Number(DOM['selection_tool'].style.height.replace('px', ''))
   ]
 
   const [croppedWidth, croppedHeight] = [
@@ -234,38 +204,35 @@ selection_crop_btn.onclick = () => {
   ctx.putImageData(croppedImage, 0, 0)
 
   //hide the selection tool
-  selection_tool.style.display = 'none'
+  DOM['selection_tool'].style.display = 'none'
 
   //update the imagePreview
-  image_preview.src = canvas.toDataURL()
+  DOM['image_preview'].src = canvas.toDataURL()
 
   //show save image button
-  toolbar_clear_btn.style.display = 'flex'
-  toolbar_save_btn.style.display = 'flex'
-  selection_crop_btn.style.display = 'none'
+  DOM['toolbar_clear_btn'].style.display = 'flex'
+  DOM['toolbar_save_btn'].style.display = 'flex'
+  DOM['selection_crop_btn'].style.display = 'none'
 }
 
-toolbar_save_btn.onclick = () => {
+DOM['toolbar_save_btn'].onclick = () => {
   const a = document.createElement('a')
   a.download = imageName.split('.').join("") + '-cropped.jpeg'
   a.href = canvas.toDataURL()
   a.click()
 }
 
-toolbar_clear_btn.onclick = () => {
+DOM['toolbar_clear_btn'].onclick = () => {
   //clear the context and erase the image selected
   ctx.clearRect(0, 0, ctx.width, ctx.height)
-  selection_tool.style.display = 'none'
-  image_preview.src = ''
+  DOM['selection_tool'].style.display = 'none'
+  DOM['image_preview'].src = ''
 
   //remove all the elements needed
-  image_preview.style.display = 'none'
-  toolbar_clear_btn.style.display = 'none'
-  selection_crop_btn.style.display = 'none'
-  toolbar_save_btn.style.display = 'none'
-
-  //turn on the no image warning
-  noImage.style.display = "flex"
+  DOM['image_preview'].style.display = 'none'
+  DOM['toolbar_clear_btn'].style.display = 'none'
+  DOM['selection_crop_btn'].style.display = 'none'
+  DOM['toolbar_save_btn'].style.display = 'none'
 }
 
 function createFilter(filter) {
