@@ -1,4 +1,4 @@
-export default class Toast {
+class Toast {
   constructor() {
     this._toast = document.createElement('span')
     this.init()
@@ -46,3 +46,5 @@ export default class Toast {
     body.append(this.toast)
   }
 }
+
+export default Toast

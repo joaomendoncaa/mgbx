@@ -1,5 +1,7 @@
 import Toast from './Toast.js'
+import CanvasFilters from './CanvasFilters.js'
 
+//styles
 import '../styles/main.scss'
 
 const toast = new Toast();
@@ -74,61 +76,6 @@ const tools = {
   }
 }
 
-class Filter {
-  constructor(filter, value, min, max, unit, context) {
-    this._filter = filter
-    this._value = value
-    this._min = min
-    this._max = max
-    this._unit = unit
-    this._context = context
-  }
-
-  get filter() {
-    return this._filter
-  }
-
-  get value() {
-    return this._value
-  }
-
-  get min() {
-    return this._min
-  }
-
-  get max() {
-    return this._max
-  }
-
-  get unit() {
-    return this._unit
-  }
-
-  set value(newValue) {
-    console.log(`Changed ${this.filter} value to ${value}`)
-    this._value = newValue
-  }
-
-  changeValue(value) {
-    this._value = value
-  }
-
-  applyFilter() {
-    return `${this.filter}(${this.value}${this.unit})`
-  }
-}
-
-//List of image filters instances
-const blur = new Filter('blur', '0', '0', '1000', 'px')
-const brightness = new Filter('brightness', '50', '0', '100', '%')
-const contrast = new Filter('contrast', '100', '0', '200', '%')
-const grayscale = new Filter('grayscale', '100', '0', '100', '%')
-const hueRotate = new Filter('hue-rotate', '180', '0', '360', 'deg')
-const invert = new Filter('invert', '0', '0', '100', '%')
-const opacity = new Filter('opacity', '0', '0', '100', '%')
-const saturate = new Filter('saturate', '50', '0', '100', '%')
-const sepia = new Filter('sepia', '50', '0', '100', '%')
-
 //When an image is uploaded using the file input
 toolbar_upload_input.addEventListener('change', () => {
   //get the file
@@ -143,29 +90,17 @@ toolbar_upload_input.addEventListener('change', () => {
     image = new Image()
     image.src = event.target.result
     image.onload = onLoadImage
+
+    tools.elementVisibility([
+      toolbar_upload_btn
+    ], 'none')
   }
 })
 
 //simulate the click on the input type file whenever the user clicks on the btnSelectImage
 toolbar_upload_btn.onclick = () => {
   toolbar_upload_input.click()
-  tools.elementVisibility([
-    toolbar_upload_btn
-  ], 'none')
 }
-
-// filterSelectForm.addEventListener('submit', event => {
-//     event.preventDefault()
-
-//     const filterSelected = filterSelect.value
-
-//     console.log(`Filter ${filterSelected} was added`)
-
-//     createFilter(filterSelected)
-
-//     filterSelect.selectedIndex = 0
-// })
-
 
 const events = {
   mouseover() {
@@ -173,8 +108,6 @@ const events = {
   },
   mousedown(event) {
     const { clientX, clientY, offsetX, offsetY } = event
-
-    console.log({ clientX, clientY, offsetX, offsetY })
 
     startX = clientX
     startY = clientY
@@ -272,9 +205,6 @@ const onLoadImage = () => {
 
   //clear the context
   ctx.clearRect(0, 0, image.width, image.height)
-
-
-  applyFilter(sepia.applyFilter(), ctx)
 
   ctx.drawImage(image, 0, 0)
 
