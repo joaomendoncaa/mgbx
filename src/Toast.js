@@ -8,7 +8,7 @@ class Toast {
     return this._toast
   }
 
-  displayMessage(messageString, messageDuration = 3000) {
+  displayMessage(messageString, messageDuration) {
     this.toast.textContent = messageString
     this.toast.style.display = 'flex'
     setTimeout(() => {
@@ -27,7 +27,7 @@ class Toast {
     //get body to use it as a parent for the toast html span
     const body = document.querySelector('body')
     //set the default style
-    this.toast.setStyle({
+    this.setStyle({
       display: 'none',
       color: '#ffffff',
       position: 'absolute',
