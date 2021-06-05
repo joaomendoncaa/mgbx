@@ -1,0 +1,323 @@
+//------------------Variables-------------------//
+$blue: #1C1B22;
+$blue-dark: #17171C;
+$blue-accent: #18A0FB;
+$grey: #42414D;
+$grey-dark: #2B2A33;
+$text: #fff;
+$text-secondary: #5C5A6D;
+$breakpoint: 1100px;
+//----------------------------------------------//
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+
+  font-size: 16PX;
+
+  font-family: 'Roboto', sans-serif;
+  color: $text;
+}
+
+body {
+  background: $blue;
+
+  width: 100vw;
+  height: 100vh;
+
+  position: relative;
+
+  display: flex;
+  flex-direction: column;
+}
+
+.main_header {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  padding: 1rem 0;
+  
+  width: 100%;
+
+  background: $blue-dark;
+
+  .header_span {
+    color: white;
+    font-weight: 300;
+    font-size: 1rem;
+  }
+}
+
+main {
+  display: flex;
+  flex-direction: row;
+
+  flex-grow: 1;
+
+  height: auto;
+}
+
+.presets_wrapper {
+  width: 25%;
+  max-width: 300px;
+  height: 100%;
+
+  display: none;
+
+  background: $grey-dark;
+
+  padding: 1rem 1rem;
+
+  .presets_header {
+    width: 100%;
+
+    .presets_header_title {
+      font-weight: 400;
+      font-size: 1.25rem;
+    }
+  }
+}
+
+.canvas_wrapper {
+  flex-grow: 1;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  overflow: scroll;
+
+  scrollbar-width: thin;
+  // scrollbar-color: #b8b8b8 transparent;
+}
+
+.effects_wrapper {
+  width: 25%;
+  max-width: 300px;
+  height: 100%;
+
+  display: none;
+
+  background: $grey-dark;
+
+  padding: 1rem 1rem;
+
+  .effects_header {
+    width: 100%;
+
+    .effects_header_title {
+      font-weight: 400;
+      font-size: 1.25rem;
+    }
+  }
+}
+
+.toolbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  padding: 0.5rem;
+
+  border-radius: 10px;
+
+  background: $blue-dark;
+
+  position: absolute;
+
+  z-index: 1;
+  right: 1rem;
+  left: 1rem;
+  bottom: 1rem;
+
+  .toolbar_rightarea {
+    display: flex;
+    flex-direction: row;
+  }
+
+  .rect_toolbar_btn {
+    cursor: pointer;
+    padding: .75rem 1.5rem;
+
+    border: 0;
+    border-radius: 5px;
+
+    transition: background .05s ease-in-out;
+
+    .rect_toolbar_btn_text {
+      font-size: .9rem;
+    }
+
+    //spacing for the buttons in the toolbar
+    &:not(:last-child) {
+      margin: 0 .5rem 0 0;
+    }
+  }
+
+  .toolbar_upload_btn {
+    background: $blue-accent;
+
+    &:hover {
+      background: darken($color: $blue-accent, $amount: 10%);
+    }
+
+    //hide the original input for files
+    .toolbar_upload_input {
+      display: none;
+    }
+  }
+
+  .toolbar_instructions_btn {
+    background: $grey;
+
+    &:hover {
+      background: darken($color: $grey, $amount: 10%);
+    }
+  } 
+
+  .toolbar_clear_btn {
+    background: $grey;
+
+    display: none;
+
+    &:hover {
+      background: darken($color: $grey, $amount: 10%);
+    }
+  }
+
+  .toolbar_save_btn {
+    background: $blue-accent;
+
+    display: none;
+
+    &:hover {
+      background: darken($color: $blue-accent, $amount: 10%);
+    }
+  }
+}
+
+.image_preview {
+  max-width: 750px;
+  position: relative;
+}
+
+.selection_tool {
+  pointer-events: none;
+  position: absolute;
+  display: none;
+
+  border: 1px dashed white;
+
+  background: rgba(255, 255, 255, 0.025);
+
+  //svg inside the selection tool div
+  .selection_tool_decorator_wrapper {
+    position: relative;
+
+    width: 100%;
+    height: 100%;
+
+    &:after {
+      position: absolute;
+      content: '';
+      top: 0;
+      right: 0;
+      bottom: 0;
+      left: 50%;
+      
+      transform: translate(-50%, -1px);
+
+      width: calc(100% / 3);
+      height: 100%;
+
+      border-right: 1px solid rgba(255, 255, 255, 0.15);
+      border-left: 1px solid rgba(255, 255, 255, 0.15);
+    }
+
+    &:before {
+      position: absolute;
+      content: '';
+      top: 50%;
+      right: 0;
+      bottom: 0;
+      left: 0;
+      
+      transform: translate(-1px, -50%);
+
+      width: 100%;
+      height: calc(100% / 3);
+
+      border-top: 1px solid rgba(255, 255, 255, 0.15);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.15);
+    }
+
+    .selection_crop_btn {
+      position: absolute;
+
+      z-index: 3;
+
+      top: 100%;
+      right: 0;
+      bottom: 0;
+      left: 50%;
+
+      transform: translateX(-50%);
+
+      cursor: pointer;
+      padding: .75rem 1.5rem;
+  
+      border: 0;
+      border-radius: 99vw;
+  
+      transition: background .05s ease-in-out; 
+    }
+  }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+//Responsive is dealt with a message on the screen
+.responsive_error {
+  display: none;
+}
+
+@media (max-width: $breakpoint) {
+  body > *:not(.responsive_error) {
+    display: none;
+  }
+
+  .responsive_error {
+    width: 100vw;
+    height: 100vh;
+  
+    display: flex;
+    flex-direction: center;
+    align-items: center;
+  
+    span {
+      width: 100%;
+      text-align: center;
+      color: $text;
+    }
+  }
+}

@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="favicon.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>ImageBox</title>
+  </head>
+  <body>
+    <!-- Responsivness not available -->
+    <div class="responsive_error">
+      <span>
+        This application is only available in bigger screens at the moment
+      </span>
+    </div>
+
+    <header class="main_header">
+      <span class="main_header_span">No Image uploaded</span>
+    </header>
+
+    <main>
+      <section class="presets_wrapper">
+        <header class="presets_header">
+          <h2 class="presets_header_title">Presets</h2>
+        </header>
+        <div class="presets_list"></div>
+      </section>
+
+      <section class="canvas_wrapper">
+        <img class="image_preview" draggable="false" />
+        <div class="selection_tool">
+          <div class="selection_tool_decorator_wrapper"></div>
+          <!-- Crop Button -->
+          <button class="selection_crop_btn">
+            <span class="selection_crop_btn_text">crop</span>
+          </button>
+        </div>
+      </section>
+
+      <section class="effects_wrapper">
+        <header class="effects_header">
+          <h2 class="effects_header_title">Effects Settings</h2>
+        </header>
+        <div class="effects_list"></div>
+      </section>
+    </main>
+
+    <div class="toolbar">
+      <div class="toolbar_leftarea">
+        <button class="toolbar_instructions_btn rect_toolbar_btn">
+          <span class="rect_toolbar_btn_text">Instructions</span>
+        </button>
+      </div>
+      <div class="toolbar_rightarea">
+        <!-- Clear Canvas -->
+        <button class="toolbar_clear_btn rect_toolbar_btn">
+          <span class="rect_toolbar_btn_text">Clear Canvas</span>
+        </button>
+        <!-- Save Button -->
+        <button class="toolbar_save_btn rect_toolbar_btn">
+          <span class="rect_toolbar_btn_text">Save Image</span>
+        </button>
+        <!-- Upload Button -->
+        <button class="toolbar_upload_btn rect_toolbar_btn">
+          <input type="file" class="toolbar_upload_input" />
+          <span class="rect_toolbar_btn_text">Upload Image</span>
+        </button>
+      </div>
+    </div>
+
+    <!-- Scripts -->
+    <script type="module" src="src/main.js"></script>
+  </body>
+</html>
