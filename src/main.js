@@ -56,6 +56,48 @@ DOM['toolbar_upload_btn'].onclick = () => {
   DOM['toolbar_upload_input'].click()
 }
 
+function parsePixels(integer) {
+  return `${integer}px`
+}
+
+function getPolygonVectorPoints(width, height, top, left) {
+  const widthInt = parseInt(width)
+  const heightInt = parseInt(height)
+  const topInt = parseInt(top)
+  const leftInt = parseInt(left)
+
+  const topLeftCoords = {
+    x: parsePixels(leftInt),
+    y: parsePixels(topInt)
+  }
+  const topRightCoords = {
+    x: parsePixels(leftInt + widthInt),
+    y: parsePixels(topInt)
+  }
+  const bottomRightCoords = {
+    x: parsePixels(leftInt + widthInt),
+    y: parsePixels(topInt + heightInt)
+  }
+  const bottomLeftCoords = {
+    x: parsePixels(leftInt),
+    y: parsePixels(topInt + heightInt)
+  }
+
+  return `polygon( 
+    evenodd,
+    0 0,       
+    100% 0,   
+    100% 100%,
+    0% 100%,  
+    0 0,      
+    ${topLeftCoords.x} ${topLeftCoords.y},
+    ${topRightCoords.x} ${topRightCoords.y},
+    ${bottomRightCoords.x} ${bottomRightCoords.y},
+    ${bottomLeftCoords.x} ${bottomLeftCoords.y},
+    ${topLeftCoords.x} ${topLeftCoords.y}
+   )`
+}
+
 const events = {
   mouseover() {
     this.style.cursor = 'crosshair'
@@ -80,44 +122,92 @@ const events = {
 
     DOM['selection_tool'].style.display = 'initial'
 
-    function drawRectanglePositiveXPositiveY() {
-      DOM['selection_tool'].style.width = (endX - startX) + 'px'
-      DOM['selection_tool'].style.height = (endY - startY) + 'px'
-      DOM['selection_tool'].style.left = startX + 'px'
-      DOM['selection_tool'].style.top = startY + 'px'
+    DOM['selection_tool_mask'].style.display = 'initial'
+    DOM['selection_tool_mask'].style.width = parsePixels(DOM['image_preview'].width)
+    DOM['selection_tool_mask'].style.height = parsePixels(DOM['image_preview'].height)
 
-      selectionOriginCoordinates.x = offsetX - Number(DOM['selection_tool'].style.width.replace('px', ''))
-      selectionOriginCoordinates.y = offsetY - Number(DOM['selection_tool'].style.height.replace('px', ''))
+    function drawRectanglePositiveXPositiveY() {
+      const width = parsePixels(endX - startX)
+      const height = parsePixels(endY - startY)
+      const top = parsePixels(startY)
+      const left = parsePixels(startX)
+
+      tools.styleElement(DOM['selection_tool'], {
+        width,
+        height,
+        top,
+        left
+      })
+
+      tools.styleElement(DOM['selection_tool_mask'], {
+        clipPath: getPolygonVectorPoints(width, height, top, left)
+      })
+
+      selectionOriginCoordinates.x = offsetX - parseInt(DOM['selection_tool'].style.width)
+      selectionOriginCoordinates.y = offsetY - parseInt(DOM['selection_tool'].style.height)
     }
 
     function drawRectanglePositiveXNegativeY() {
-      DOM['selection_tool'].style.width = (endX - startX) + 'px'
-      DOM['selection_tool'].style.height = (startY - endY) + 'px'
-      DOM['selection_tool'].style.left = startX + 'px'
-      DOM['selection_tool'].style.top = endY + 'px'
+      const width = parsePixels(endX - startX)
+      const height = parsePixels(startY - endY)
+      const top = parsePixels(endY)
+      const left = parsePixels(startX)
 
-      selectionOriginCoordinates.x = offsetX - Number(DOM['selection_tool'].style.width.replace('px', ''))
+      tools.styleElement(DOM['selection_tool'], {
+        width,
+        height,
+        top,
+        left
+      })
+
+      tools.styleElement(DOM['selection_tool_mask'], {
+        clipPath: getPolygonVectorPoints(width, height, top, left)
+      })
+
+      selectionOriginCoordinates.x = offsetX - parseInt(DOM['selection_tool'].style.width)
       selectionOriginCoordinates.y = offsetY
     }
 
     function drawRectangleNegativeXNegativeY() {
-      DOM['selection_tool'].style.width = (startX - endX) + 'px'
-      DOM['selection_tool'].style.height = (startY - endY) + 'px'
-      DOM['selection_tool'].style.left = endX + 'px'
-      DOM['selection_tool'].style.top = endY + 'px'
+      const width = parsePixels(startX - endX)
+      const height = parsePixels(startY - endY)
+      const top = parsePixels(endY)
+      const left = parsePixels(endX)
+
+      tools.styleElement(DOM['selection_tool'], {
+        width,
+        height,
+        top,
+        left
+      })
+
+      tools.styleElement(DOM['selection_tool_mask'], {
+        clipPath: getPolygonVectorPoints(width, height, top, left)
+      })
 
       selectionOriginCoordinates.x = offsetX
       selectionOriginCoordinates.y = offsetY
     }
 
     function drawRectangleNegativeXPositiveY() {
-      DOM['selection_tool'].style.width = (startX - endX) + 'px'
-      DOM['selection_tool'].style.height = (endY - startY) + 'px'
-      DOM['selection_tool'].style.left = endX + 'px'
-      DOM['selection_tool'].style.top = startY + 'px'
+      const width = parsePixels(startX - endX)
+      const height = parsePixels(endY - startY)
+      const top = parsePixels(startY)
+      const left = parsePixels(endX)
+
+      tools.styleElement(DOM['selection_tool'], {
+        width,
+        height,
+        top,
+        left
+      })
+
+      tools.styleElement(DOM['selection_tool_mask'], {
+        clipPath: getPolygonVectorPoints(width, height, top, left)
+      })
 
       selectionOriginCoordinates.x = offsetX
-      selectionOriginCoordinates.y = offsetY - Number(DOM['selection_tool'].style.height.replace('px', ''))
+      selectionOriginCoordinates.y = offsetY - parseInt(DOM['selection_tool'].style.height)
     }
 
     if (endX < startX && endY < startY) {
@@ -176,8 +266,8 @@ DOM['selection_crop_btn'].onclick = () => {
   ]
 
   const [selectionWidth, selectionHeight] = [
-    Number(DOM['selection_tool'].style.width.replace('px', '')),
-    Number(DOM['selection_tool'].style.height.replace('px', ''))
+    parseInt(DOM['selection_tool'].style.width),
+    parseInt(DOM['selection_tool'].style.height)
   ]
 
   const [croppedWidth, croppedHeight] = [

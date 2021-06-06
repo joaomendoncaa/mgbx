@@ -10,6 +10,7 @@ export default {
   selection_crop_btn: document.querySelector('.selection_crop_btn'),
   //Canvas
   image_preview: document.querySelector('.image_preview'),
+  selection_tool_mask: document.querySelector('.selection_tool_mask'),
   selection_tool: document.querySelector('.selection_tool'),
   //Header span
   main_header_span: document.querySelector('.main_header_span'),
