@@ -264,10 +264,12 @@ main {
     width: max-content;
     height: max-content;
 
-    top: 105%;
+    top: 100%;
     right: 0;
     bottom: 0;
     left: 50%;
+
+    margin: .5rem 0 0 0;
 
     transform: translateX(-50%);
 
