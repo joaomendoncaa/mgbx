@@ -140,11 +140,16 @@ const events = {
       })
 
       tools.styleElement(DOM['selection_tool_mask'], {
-        clipPath: getPolygonVectorPoints(width, height, top, left)
+        clipPath: getPolygonVectorPoints(
+          width,
+          height,
+          parsePixels(offsetY - parseInt(DOM['selection_tool'].style.height)),
+          parsePixels(offsetX - parseInt(DOM['selection_tool'].style.width))
+        )
       })
 
       selectionOriginCoordinates.x = offsetX - parseInt(DOM['selection_tool'].style.width)
-      selectionOriginCoordinates.y = offsetY - parseInt(DOM['selection_tool'].style.height)
+      selectionOriginCoordinates.y = offsetX - parseInt(DOM['selection_tool'].style.width) - parseInt(DOM['selection_tool'].style.height)
     }
 
     function drawRectanglePositiveXNegativeY() {
@@ -161,7 +166,12 @@ const events = {
       })
 
       tools.styleElement(DOM['selection_tool_mask'], {
-        clipPath: getPolygonVectorPoints(width, height, top, left)
+        clipPath: getPolygonVectorPoints(
+          width,
+          height,
+          parsePixels(offsetY),
+          parsePixels(offsetX - parseInt(DOM['selection_tool'].style.width))
+        )
       })
 
       selectionOriginCoordinates.x = offsetX - parseInt(DOM['selection_tool'].style.width)
@@ -182,7 +192,12 @@ const events = {
       })
 
       tools.styleElement(DOM['selection_tool_mask'], {
-        clipPath: getPolygonVectorPoints(width, height, top, left)
+        clipPath: getPolygonVectorPoints(
+          width,
+          height,
+          parsePixels(offsetY),
+          parsePixels(offsetX)
+        )
       })
 
       selectionOriginCoordinates.x = offsetX
@@ -203,7 +218,12 @@ const events = {
       })
 
       tools.styleElement(DOM['selection_tool_mask'], {
-        clipPath: getPolygonVectorPoints(width, height, top, left)
+        clipPath: getPolygonVectorPoints(
+          width,
+          height,
+          parsePixels(offsetY - parseInt(DOM['selection_tool'].style.height)),
+          parsePixels(offsetX)
+        )
       })
 
       selectionOriginCoordinates.x = offsetX
