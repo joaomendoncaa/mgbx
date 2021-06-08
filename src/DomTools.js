@@ -2,11 +2,21 @@
  * DomTools is a class for utility functions for manipulating the DOM
  */
 class DomTools {
-  styleElement(element, styleDictionary) {
+  styleElement(element, styleMap) {
     if (!element) throw new Error('Element doens\'t exist')
-    const styleAttributes = Object.keys(styleDictionary)
-    styleAttributes.forEach(attribute => {
-      element.style[attribute] = styleDictionary[attribute]
+    const styleAttributesList = Object.keys(styleMap)
+    styleAttributesList.forEach(attribute => {
+      element.style[attribute] = styleMap[attribute]
+    })
+  }
+  styleElements(elementsList, styleMap) {
+    if (!elementsList || elementsList.length < 1) throw new Error('You need to specify at least 1 element')
+    elementsList.forEach(element => {
+      if (!element) throw new Error('Element doens\'t exist')
+      const styleAttributesList = Object.keys(styleMap)
+      styleAttributesList.forEach(attribute => {
+        element.style[attribute] = styleMap[attribute]
+      })
     })
   }
   /**
@@ -16,20 +26,20 @@ class DomTools {
      * @param {string} innerHtml is a string that defines the HTML inside the 
      * element created (can be any HTML) 
      * TODO:Protect the innerHTML for dangerous code
-     * @param {array} attributesDictionary is a list where each item is an array with 2 items
+     * @param {array} attributesMap is a list where each item is an array with 2 items
      * first item is a element attribute type string, second one the attribute value also 
      * as a string
      * @param {HTMLElement} parent is a HTML element that will be father to the 
      * element created 
      * @returns {HTMLElement} the function returns the HTML element created
      */
-  createElement(type, innerHtml = '', attributesDictionary, parent) {
+  createElement(type, innerHtml = '', attributesMap, parent) {
     //instantiates the element on DOM
     const element = document.createElement(type)
     //set's the inner HTML inside the instantiated element
     element.innerHTML = innerHtml
     //
-    this.styleElement(element, attributesDictionary)
+    this.styleElement(element, attributesMap)
     parent.append(element)
     //returns the element created
     return element
@@ -44,8 +54,8 @@ class DomTools {
     }
   }
 
-  elementVisibility(elementsArray, displayMode = 'flex') {
-    elementsArray.forEach(element => {
+  elementVisibility(elementsList, displayMode = 'flex') {
+    elementsList.forEach(element => {
       element.style.display = displayMode
     })
   }

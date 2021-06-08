@@ -1,6 +1,8 @@
 class Toast {
   constructor() {
     this._toast = document.createElement('span')
+    this._queue = []
+    this._isQueueBeingDispatched = false
     this.init()
   }
 
@@ -8,18 +10,71 @@ class Toast {
     return this._toast
   }
 
-  displayMessage(messageString, messageDuration) {
-    this.toast.textContent = messageString
-    this.toast.style.display = 'flex'
-    setTimeout(() => {
-      this.toast.style.display = 'none'
-    }, messageDuration)
+  get queue() {
+    return this._queue
   }
 
-  setStyle(styleDictionary) {
-    const styleAttributes = Object.keys(styleDictionary)
+  get isQueueBeingDispatched() {
+    return this._isQueueBeingDispatched
+  }
+
+  set isQueueBeingDispatched(isQueueBeingDispatched) {
+    this._isQueueBeingDispatched = isQueueBeingDispatched
+  }
+
+  shiftQueue() {
+    this._queue.shift()
+  }
+
+  popQueue() {
+    this._queue.pop()
+  }
+
+  async displayOneMessage() {
+    return new Promise((resolve, reject) => {
+      if (this.queue.length === 0) {
+        this.isQueueBeingDispatched = false
+        reject(false)
+      }
+
+      this.isQueueBeingDispatched = true
+
+      const { message, duration } = this.queue[this.queue.length - 1]
+
+      this.toast.style.display = 'initial'
+      this.toast.textContent = message
+
+      setTimeout(() => {
+        this.toast.style.display = 'none'
+        this.toast.textContent = ''
+        this.popQueue()
+        resolve(true)
+      }, duration)
+    })
+  }
+
+  async _displayMessages() {
+    const hasDisplayedMessage = await this.displayOneMessage()
+    if (hasDisplayedMessage) this._displayMessages()
+  }
+
+  putMessage(messageString, messageDuration) {
+    const newMessage = {
+      message: messageString,
+      duration: messageDuration
+    }
+
+    this.queue.push(newMessage)
+
+    if (this.isQueueBeingDispatched) return
+
+    this._displayMessages()
+  }
+
+  setStyle(styleMap) {
+    const styleAttributes = Object.keys(styleMap)
     styleAttributes.forEach(attribute => {
-      this.toast.style[attribute] = styleDictionary[attribute]
+      this.toast.style[attribute] = styleMap[attribute]
     })
   }
 

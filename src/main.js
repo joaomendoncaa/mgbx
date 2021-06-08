@@ -7,9 +7,22 @@ import DOM from './DomElements'
 
 import '../styles/main.scss'
 
-const toast = new Toast()
-const tools = new DomTools()
+const DOMTools = new DomTools()
 const filters = new CanvasFilters()
+
+
+const toast = new Toast()
+
+toast.setStyle({
+  background: '#ff0000'
+})
+
+toast.putMessage('1', 1000)
+toast.putMessage('2', 2000)
+toast.putMessage('LOL', 2000)
+toast.putMessage('3', 3000)
+toast.putMessage('4', 2000)
+toast.putMessage('5', 1000)
 
 //Global Variables
 let canvas = document.createElement('canvas')
@@ -29,7 +42,7 @@ let imageName
 DOM['toolbar_upload_input'].addEventListener('change', () => {
   //get the file
   let file = DOM['toolbar_upload_input'].files[0]
-  tools.changeTextOnElement(file.name, DOM['main_header_span'])
+  DOMTools.changeTextOnElement(file.name, DOM['main_header_span'])
   imageName = file.name
   //read the file
   let reader = new FileReader()
@@ -40,11 +53,11 @@ DOM['toolbar_upload_input'].addEventListener('change', () => {
     image.src = event.target.result
     image.onload = onLoadImage
 
-    tools.elementVisibility([
+    DOMTools.elementVisibility([
       DOM['toolbar_upload_btn']
     ], 'none')
 
-    tools.elementVisibility([
+    DOMTools.elementVisibility([
       DOM['toolbar_save_btn'],
       DOM['toolbar_clear_btn']
     ], 'flex')
@@ -66,22 +79,22 @@ function getPolygonVectorPoints(width, height, top, left) {
   const topInt = parseInt(top)
   const leftInt = parseInt(left)
 
-  const topLeftCoords = {
-    x: parsePixels(leftInt),
-    y: parsePixels(topInt)
-  }
-  const topRightCoords = {
-    x: parsePixels(leftInt + widthInt),
-    y: parsePixels(topInt)
-  }
-  const bottomRightCoords = {
-    x: parsePixels(leftInt + widthInt),
-    y: parsePixels(topInt + heightInt)
-  }
-  const bottomLeftCoords = {
-    x: parsePixels(leftInt),
-    y: parsePixels(topInt + heightInt)
-  }
+  const topLeftCoords = [
+    parsePixels(leftInt),
+    parsePixels(topInt)
+  ]
+  const topRightCoords = [
+    parsePixels(leftInt + widthInt),
+    parsePixels(topInt)
+  ]
+  const bottomRightCoords = [
+    parsePixels(leftInt + widthInt),
+    parsePixels(topInt + heightInt)
+  ]
+  const bottomLeftCoords = [
+    parsePixels(leftInt),
+    parsePixels(topInt + heightInt)
+  ]
 
   return `polygon( 
     evenodd,
@@ -90,11 +103,11 @@ function getPolygonVectorPoints(width, height, top, left) {
     100% 100%,
     0% 100%,  
     0 0,      
-    ${topLeftCoords.x} ${topLeftCoords.y},
-    ${topRightCoords.x} ${topRightCoords.y},
-    ${bottomRightCoords.x} ${bottomRightCoords.y},
-    ${bottomLeftCoords.x} ${bottomLeftCoords.y},
-    ${topLeftCoords.x} ${topLeftCoords.y}
+    ${topLeftCoords[0]} ${topLeftCoords[1]},
+    ${topRightCoords[0]} ${topRightCoords[1]},
+    ${bottomRightCoords[0]} ${bottomRightCoords[1]},
+    ${bottomLeftCoords[0]} ${bottomLeftCoords[1]},
+    ${topLeftCoords[0]} ${topLeftCoords[1]}
    )`
 }
 
@@ -122,9 +135,11 @@ const events = {
 
     DOM['selection_tool'].style.display = 'initial'
 
-    DOM['selection_tool_mask'].style.display = 'initial'
-    DOM['selection_tool_mask'].style.width = parsePixels(DOM['image_preview'].width)
-    DOM['selection_tool_mask'].style.height = parsePixels(DOM['image_preview'].height)
+    DOMTools.styleElement(DOM['selection_tool_mask'], {
+      display: 'initial',
+      width: parsePixels(DOM['image_preview'].width),
+      height: parsePixels(DOM['image_preview'].height)
+    })
 
     function drawRectanglePositiveXPositiveY() {
       const width = parsePixels(endX - startX)
@@ -132,14 +147,14 @@ const events = {
       const top = parsePixels(startY)
       const left = parsePixels(startX)
 
-      tools.styleElement(DOM['selection_tool'], {
+      DOMTools.styleElement(DOM['selection_tool'], {
         width,
         height,
         top,
         left
       })
 
-      tools.styleElement(DOM['selection_tool_mask'], {
+      DOMTools.styleElement(DOM['selection_tool_mask'], {
         clipPath: getPolygonVectorPoints(
           width,
           height,
@@ -158,14 +173,14 @@ const events = {
       const top = parsePixels(endY)
       const left = parsePixels(startX)
 
-      tools.styleElement(DOM['selection_tool'], {
+      DOMTools.styleElement(DOM['selection_tool'], {
         width,
         height,
         top,
         left
       })
 
-      tools.styleElement(DOM['selection_tool_mask'], {
+      DOMTools.styleElement(DOM['selection_tool_mask'], {
         clipPath: getPolygonVectorPoints(
           width,
           height,
@@ -184,14 +199,14 @@ const events = {
       const top = parsePixels(endY)
       const left = parsePixels(endX)
 
-      tools.styleElement(DOM['selection_tool'], {
+      DOMTools.styleElement(DOM['selection_tool'], {
         width,
         height,
         top,
         left
       })
 
-      tools.styleElement(DOM['selection_tool_mask'], {
+      DOMTools.styleElement(DOM['selection_tool_mask'], {
         clipPath: getPolygonVectorPoints(
           width,
           height,
@@ -210,14 +225,14 @@ const events = {
       const top = parsePixels(startY)
       const left = parsePixels(endX)
 
-      tools.styleElement(DOM['selection_tool'], {
+      DOMTools.styleElement(DOM['selection_tool'], {
         width,
         height,
         top,
         left
       })
 
-      tools.styleElement(DOM['selection_tool_mask'], {
+      DOMTools.styleElement(DOM['selection_tool_mask'], {
         clipPath: getPolygonVectorPoints(
           width,
           height,
@@ -230,26 +245,10 @@ const events = {
       selectionOriginCoordinates.y = offsetY - parseInt(DOM['selection_tool'].style.height)
     }
 
-    if (endX < startX && endY < startY) {
-      drawRectangleNegativeXNegativeY()
-      return
-    }
-
-    if (endX > startX && endY > startY) {
-      drawRectanglePositiveXPositiveY()
-      return
-    }
-
-    if (endX > startX && endY < startY) {
-      drawRectanglePositiveXNegativeY()
-      return
-    }
-
-    if (endX < startX && endY > startY) {
-      drawRectangleNegativeXPositiveY()
-      return
-    }
-
+    if (endX < startX && endY < startY) return drawRectangleNegativeXNegativeY()
+    if (endX > startX && endY > startY) return drawRectanglePositiveXPositiveY()
+    if (endX > startX && endY < startY) return drawRectanglePositiveXNegativeY()
+    if (endX < startX && endY > startY) return drawRectangleNegativeXPositiveY()
   },
   mouseup(event) {
     isSelecting = false
@@ -276,14 +275,27 @@ const onLoadImage = () => {
   DOM['image_preview'].src = canvas.toDataURL()
 }
 
+//Crop button is clicked to crop the image selected
 DOM['selection_crop_btn'].onclick = () => {
   const { width: imageWidth, height: imageHeight } = image
   const { width: previewImageWidth, height: previewImageHeight } = DOM['image_preview']
 
+  //get the aspect ratio of the image
   const [widthRatio, heightRatio] = [
     Number(imageWidth / previewImageWidth),
     Number(imageHeight / previewImageHeight)
   ]
+
+  // console.log("Valores", {
+  //   parseInt: {
+  //     value: parseInt(DOM['selection_tool'].style.width),
+  //     type: typeof parseInt(DOM['selection_tool'].style.width)
+  //   },
+  //   replaceMethod: {
+  //     value: Number(DOM['selection_tool'].style.width.replace('px', '')),
+  //     type: typeof Number(DOM['selection_tool'].style.width.replace('px', ''))
+  //   }
+  // })
 
   const [selectionWidth, selectionHeight] = [
     parseInt(DOM['selection_tool'].style.width),
@@ -301,12 +313,7 @@ DOM['selection_crop_btn'].onclick = () => {
   ]
 
   //get the cropped image from the canvas context
-  const croppedImage = ctx.getImageData(
-    actualX,
-    actualY,
-    croppedWidth,
-    croppedHeight
-  )
+  const croppedImage = ctx.getImageData(actualX, actualY, croppedWidth, croppedHeight)
 
   //delete canvas context
   ctx.clearRect(0, 0, ctx.width, ctx.height)
@@ -324,10 +331,13 @@ DOM['selection_crop_btn'].onclick = () => {
   //update the imagePreview
   DOM['image_preview'].src = canvas.toDataURL()
 
-  //show save image button
+  //show Elements
   DOM['toolbar_clear_btn'].style.display = 'flex'
   DOM['toolbar_save_btn'].style.display = 'flex'
+
+  //Hide elements
   DOM['selection_crop_btn'].style.display = 'none'
+  DOM['selection_tool_mask'].style.display = 'none'
 }
 
 DOM['toolbar_save_btn'].onclick = () => {
@@ -350,6 +360,7 @@ DOM['toolbar_clear_btn'].onclick = () => {
   DOM['toolbar_clear_btn'].style.display = 'none'
   DOM['selection_crop_btn'].style.display = 'none'
   DOM['toolbar_save_btn'].style.display = 'none'
+  DOM['selection_tool_mask'].style.display = 'none'
 
   //add upload button back in
   DOM['toolbar_upload_btn'].style.display = 'flex'
