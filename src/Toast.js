@@ -1,23 +1,34 @@
 class Toast {
   constructor() {
-    this._toast = document.createElement('span')
-    this._toastTimeBar = document.createElement('span')
+    this._toast = null
+    this._toastTimeBar = null
+    this._defaultStyle = {}
     this._highPriorityQueue = []
     this._normalPriorityQueue = []
     this._lowPriorityQueue = []
     this._areQueuesBeingDispatched = false
-    this.init()
+    this.__init__()
   }
 
-  get toast() { return this._toast }
+  get toast() {
+    return this._toast
+  }
 
-  get toastTimeBar() { return this._toastTimeBar }
+  get toastTimeBar() {
+    return this._toastTimeBar
+  }
 
-  get highPriorityQueue() { return this._highPriorityQueue }
+  get highPriorityQueue() {
+    return this._highPriorityQueue
+  }
 
-  get normalPriorityQueue() { return this._normalPriorityQueue }
+  get normalPriorityQueue() {
+    return this._normalPriorityQueue
+  }
 
-  get lowPriorityQueue() { return this._lowPriorityQueue }
+  get lowPriorityQueue() {
+    return this._lowPriorityQueue
+  }
 
   get areQueuesBeingDispatched() {
     return this._areQueuesBeingDispatched
@@ -25,6 +36,19 @@ class Toast {
 
   set areQueuesBeingDispatched(isQueueBeingDispatched) {
     this._areQueuesBeingDispatched = isQueueBeingDispatched
+  }
+
+  _generateRandomClassPrefix(prefixLength) {
+    let finalClassPrefix = ''
+
+    const letters = ['t', 'T', 'o', 'O', 'a', 'A', 's', 'S', 't', 'T', 'j', 'J', 's', 'S']
+
+    for (let i = 0; i < prefixLength; i++) {
+      const randomIndex = Math.floor(Math.random() * 10)
+      finalClassPrefix += letters[randomIndex]
+    }
+
+    return finalClassPrefix
   }
 
   _getFirstItemInQueue(queuePriority) {
@@ -59,11 +83,6 @@ class Toast {
       const { message, duration } = this._getFirstItemInQueue(messagePriority)
 
       if (!message) reject(null)
-
-      console.log(`⚠️ Will display ${messagePriority} priority message.`, {
-        message,
-        duration
-      })
 
       this.toast.style.display = 'initial'
       this.toast.textContent = message
@@ -115,15 +134,12 @@ class Toast {
 
     switch (messagePriority) {
       case 'high':
-        console.log('Added high priority message')
         this._highPriorityQueue.unshift(newMessage)
         break
       case 'normal':
-        console.log('Added normal priority message')
         this._normalPriorityQueue.unshift(newMessage)
         break
       case 'low':
-        console.log('Added low priority message')
         this._lowPriorityQueue.unshift(newMessage)
         break
     }
@@ -151,10 +167,17 @@ class Toast {
     })
   }
 
-  init() {
+  __init__() {
     //get body to use it as a parent for the toast html span
     const body = document.querySelector('body')
-    //set the default style
+
+    body.innerHTML += /*HTML*/`
+    <span class="${_generateRandomClassPrefix()}_toast">
+      <span class="${_generateRandomClassPrefix()}_toast_timer"></span>
+    </span>
+    `
+
+
     this.setStyle({
       overflow: 'hidden',
       display: 'none',
@@ -178,8 +201,7 @@ class Toast {
       }
     })
     //append the toast html element to document's body
-    body.append(this.toast)
-    this.toast.append(this.toastTimeBar)
+
   }
 }
 
