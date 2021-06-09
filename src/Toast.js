@@ -19,82 +19,91 @@ class Toast {
 
   get lowPriorityQueue() { return this._lowPriorityQueue }
 
-  get areQueueBeingDispatched() {
+  get areQueuesBeingDispatched() {
     return this._areQueuesBeingDispatched
   }
 
-  set areQueueBeingDispatched(isQueueBeingDispatched) {
+  set areQueuesBeingDispatched(isQueueBeingDispatched) {
     this._areQueuesBeingDispatched = isQueueBeingDispatched
   }
 
-  async displayOneMessage() {
-    return new Promise((resolve, reject) => {
-      const hasHighPriorityMessages = this.highPriorityQueue.length !== 0 ? true : false
-      const hasNormalPriorityMessages = this.normalPriorityQueue.length !== 0 ? true : false
-      const hasLowPriorityMessages = this.lowPriorityQueue.length !== 0 ? true : false
+  _getFirstItemInQueue(queuePriority) {
+    switch (queuePriority) {
+      case 'high':
+        return this.highPriorityQueue[this.highPriorityQueue.length - 1]
+      case 'normal':
+        return this.normalPriorityQueue[this.normalPriorityQueue.length - 1]
+      case 'low':
+        return this.lowPriorityQueue[this.lowPriorityQueue.length - 1]
+    }
+  }
 
-      console.log({
-        hasHighPriorityMessages,
-        hasNormalPriorityMessages,
-        hasLowPriorityMessages
+  _removeFirstItemInQueue(queuePriority) {
+    switch (queuePriority) {
+      case 'high':
+        this._highPriorityQueue.shift()
+        break
+      case 'normal':
+        this._normalPriorityQueue.shift()
+        break
+      case 'low':
+        this._lowPriorityQueue.shift()
+        break
+    }
+  }
+
+  async _displayOneMessageByPriority(messagePriority) {
+    return new Promise((resolve, reject) => {
+      this.areQueuesBeingDispatched = true
+
+      const { message, duration } = this._getFirstItemInQueue(messagePriority)
+
+      if (!message) reject(null)
+
+      console.log(`⚠️ Will display ${messagePriority} priority message.`, {
+        message,
+        duration
       })
 
-      if (!hasHighPriorityMessages && !hasNormalPriorityMessages && !hasLowPriorityMessages) {
-        this.isQueueBeingDispatched = false
-        reject(false)
-      }
+      this.toast.style.display = 'initial'
+      this.toast.textContent = message
 
-      this.isQueueBeingDispatched = true
-
-      if (hasHighPriorityMessages) {
-        const { message, duration } = this.highPriorityQueue[this.highPriorityQueue.length - 1]
-
-        this.toast.style.display = 'initial'
-        this.toast.textContent = message
-
-        setTimeout(() => {
-          this.toast.style.display = 'none'
-          this.toast.textContent = ''
-          this._highPriorityQueue.shift()
-          resolve(true)
-          return
-        }, duration)
-      } else if (hasNormalPriorityMessages) {
-        const { message, duration } = this.normalPriorityQueue[this.normalPriorityQueue.length - 1]
-
-        this.toast.style.display = 'initial'
-        this.toast.textContent = message
-
-        setTimeout(() => {
-          this.toast.style.display = 'none'
-          this.toast.textContent = ''
-          this._normalPriorityQueue.shift()
-          resolve(true)
-          return
-        }, duration)
-      } else if (hasLowPriorityMessages) {
-        const { message, duration } = this.lowPriorityQueue[this.lowPriorityQueue.length - 1]
-
-        this.toast.style.display = 'initial'
-        this.toast.textContent = message
-
-        setTimeout(() => {
-          this.toast.style.display = 'none'
-          this.toast.textContent = ''
-          this._lowPriorityQueue.shift()
-          resolve(true)
-          return
-        }, duration)
-      }
+      setTimeout(() => {
+        this.toast.style.display = 'none'
+        this.toast.textContent = ''
+        this._removeFirstItemInQueue(messagePriority)
+        resolve(true)
+        return
+      }, duration)
     })
   }
 
-  async _displayMessages() {
-    try {
-      const hasDisplayedMessage = await this.displayOneMessage()
-      if (hasDisplayedMessage) this._displayMessages()
-    } catch (error) {
-      console.log(error)
+  async _displayAllMessages() {
+    const hasHighPriorityMessages = this.highPriorityQueue.length !== 0 ? true : false
+    const hasNormalPriorityMessages = this.normalPriorityQueue.length !== 0 ? true : false
+    const hasLowPriorityMessages = this.lowPriorityQueue.length !== 0 ? true : false
+
+    if (!hasHighPriorityMessages && !hasNormalPriorityMessages && !hasLowPriorityMessages) {
+      this.areQueuesBeingDispatched = false
+      return
+    }
+
+    if (hasHighPriorityMessages) {
+      const hasDisplayedMessage = await this._displayOneMessageByPriority('high')
+      if (hasDisplayedMessage) return this._displayAllMessages()
+      throw new Error('Error trying to display high priority message')
+    }
+
+    if (hasNormalPriorityMessages) {
+      const hasDisplayedMessage = await this._displayOneMessageByPriority('normal')
+      if (hasDisplayedMessage) return this._displayAllMessages()
+      throw new Error('Error trying to display normal priority message')
+    }
+
+    if (hasLowPriorityMessages) {
+      const hasDisplayedMessage = await this._displayOneMessageByPriority('low')
+      if (hasDisplayedMessage) return this._displayAllMessages()
+      throw new Error('Error trying to display low priority message')
     }
   }
 
@@ -119,9 +128,9 @@ class Toast {
         break
     }
 
-    if (this.areQueueBeingDispatched) return
+    if (this.areQueuesBeingDispatched) return
 
-    this._displayMessages()
+    this._displayAllMessages()
   }
 
   _setToastTimeBarStyle(styleMap) {
