@@ -1,5 +1,3 @@
-import './Toast.scss'
-
 class Toast {
   constructor() {
     this._toast = null
@@ -116,15 +114,39 @@ class Toast {
       this.toast.style.display = 'initial'
       this.toastTextHeading.textContent = message
 
-      this.toastTimeBar.style.display = 'flex'
-      this.toastTimeBar.style.animation = `shrink ${duration}ms forwards`
+      const styleToInjectId = this._generateRandomClassPrefix(10) + '_style'
+      const animationClass = this._generateRandomClassPrefix(10) + '_toast_anim'
+
+      const keyframesName = this._generateRandomClassPrefix(10) + '_toast_anim_keyframes'
+
+      const styleToInject = /*HTML*/`
+        <style type="text/css" id="${styleToInjectId}">
+          .${animationClass} {
+            animation: ${keyframesName} ${duration}ms;
+          }
+
+          @keyframes ${keyframesName} {
+            to {
+              width: 0%;
+            }
+          }
+        </style>
+      `
+
+      const body = document.querySelector('body')
+      body.insertAdjacentHTML('afterbegin', styleToInject)
+
+      this.toastTimeBar.style.display = 'initial'
+      this.toastTimeBar.classList.add(animationClass)
 
       setTimeout(() => {
         this.toast.style.display = 'none'
         this.toastTextHeading.textContent = ''
-
-        this.toastTimeBar.style.animation = `none`
         this.toastTimeBar.style.display = 'none'
+
+        const styleInjectedNode = document.querySelector(`style#${styleToInjectId}`)
+
+        styleInjectedNode.remove()
 
         this._removeFirstItemInQueue(messagePriority)
         resolve(true)
