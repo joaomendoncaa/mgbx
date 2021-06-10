@@ -17,5 +17,5 @@ export default {
 
   filterSection: document.querySelector('.menu-right-filters'),
   filterSelectForm: document.getElementById('filter-select-form'),
-  filterSelect: document.getElementById('filter-select'),
+  filterSelect: document.getElementById('filter-select')
 }
