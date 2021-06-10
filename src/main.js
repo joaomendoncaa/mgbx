@@ -9,67 +9,12 @@ import '../styles/main.scss'
 
 const DOMTools = new DomTools()
 const filters = new CanvasFilters()
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 const toast = new Toast()
 
 toast.putMessage('Low priority message', 2000, 'low')
-
 toast.putMessage('Low priority message', 5000, 'low')
 toast.putMessage('Normal priority message', 3000, 'normal')
 toast.putMessage('High priority message', 2000, 'high')
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 //Global Variables
 let canvas = document.createElement('canvas')
