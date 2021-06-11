@@ -1,3 +1,7 @@
+/**
+ * A module with the map for all the elements 
+ * in the DOM used in the app
+ */
 export default {
   //Toolbar upload image Button 
   toolbar_upload_btn: document.querySelector('.toolbar_upload_btn'),
@@ -14,8 +18,10 @@ export default {
   selection_tool: document.querySelector('.selection_tool'),
   //Header span
   main_header_span: document.querySelector('.main_header_span'),
-
-  filterSection: document.querySelector('.menu-right-filters'),
-  filterSelectForm: document.getElementById('filter-select-form'),
-  filterSelect: document.getElementById('filter-select')
+  //Presets
+  presets_wrapper: document.querySelector('.presets_wrapper'),
+  presets_list: document.querySelector('.presets_list'),
+  //Effects
+  effects_wrapper: document.querySelector('.effects_wrapper'),
+  effects_list: document.querySelector('.effects_list')
 }

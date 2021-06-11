@@ -51,7 +51,8 @@ DOM['toolbar_upload_input'].addEventListener('change', () => {
 
     DOMTools.elementVisibility([
       DOM['toolbar_save_btn'],
-      DOM['toolbar_clear_btn']
+      DOM['toolbar_clear_btn'],
+      DOM['effects_wrapper']
     ], 'flex')
   }
 })

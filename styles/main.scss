@@ -88,9 +88,6 @@ main {
   align-items: center;
 
   overflow: scroll;
-
-  scrollbar-width: thin;
-  // scrollbar-color: #b8b8b8 transparent;
 }
 
 .effects_wrapper {
@@ -111,6 +108,11 @@ main {
       font-weight: 400;
       font-size: 1.25rem;
     }
+  }
+
+  .effects_list {
+    display: flex;
+    flex-direction: column;
   }
 }
 
