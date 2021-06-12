@@ -1,3 +1,31 @@
+/**
+ * TOAST CLASS
+ * 
+ * This class is aimed at serving as a library to create Toasts in apps.
+ * The way you show a toast in screen is by using the putMessage() method!
+ * It takes as parameters:
+ * {string} for the message that will be displayed
+ * {int} in milliseconds for the time the message will be up on the screen
+ * {string} as 'high' | 'normal' | 'low' for the priority of the message
+ * 
+ * Diferent priotities will pop in different times!
+ * (if a 'high' priority message is added to the list at the same time as
+ * a 'normal' message, the 'high' priority get's displayed first).
+ * 
+ * Here's an example of how to put a message with putMessage() method
+ * 
+ * const Toast = new Toast()
+ * Toast.putMessage('Low priority message', 2000, 'low')
+ * 
+ * 
+ * You can also style the toast differently with setStyle() method.
+ * It takes as parameters:
+ * {object} with a map for each CSS property
+ * here is an example:
+ * 
+ * const Toast = new Toast()
+ * Toast.setStyle({ background: 'red' })
+ */
 class Toast {
   constructor() {
     this._toast = null

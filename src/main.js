@@ -1,5 +1,5 @@
 import Toast from './Toast'
-import CanvasFilters from './CanvasFilters'
+import Filters from './Filters'
 import DomTools from './DomTools'
 import Canvas from './Canvas'
 
@@ -7,14 +7,11 @@ import DOM from './DomElements'
 
 import '../styles/main.scss'
 
-const DOMTools = new DomTools()
-const filters = new CanvasFilters()
 const toast = new Toast()
+const DOMTools = new DomTools()
 
-toast.putMessage('Low priority message', 2000, 'low')
-toast.putMessage('Low priority message', 5000, 'low')
-toast.putMessage('Normal priority message', 3000, 'normal')
-toast.putMessage('High priority message', 2000, 'high')
+const filters = new Filters()
+
 
 //Global Variables
 let canvas = document.createElement('canvas')
@@ -52,7 +49,8 @@ DOM['toolbar_upload_input'].addEventListener('change', () => {
     DOMTools.elementVisibility([
       DOM['toolbar_save_btn'],
       DOM['toolbar_clear_btn'],
-      DOM['effects_wrapper']
+      DOM['effects_wrapper'],
+      DOM['presets_wrapper']
     ], 'flex')
   }
 })

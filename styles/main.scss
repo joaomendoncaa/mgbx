@@ -66,6 +66,8 @@ main {
 
   display: none;
 
+  flex-direction: column;
+
   background: $grey-dark;
 
   padding: 1rem 1rem;
@@ -96,6 +98,8 @@ main {
   height: 100%;
 
   display: none;
+
+  flex-direction: column;
 
   background: $grey-dark;
 
