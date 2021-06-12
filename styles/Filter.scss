@@ -1,0 +1,28 @@
+.filter_wrapper {
+  width: 100%;
+
+  display: flex;
+  flex-direction: column;
+
+  padding: 0 1rem;
+}
+
+.filter_header {
+  width: 100%;
+  
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.filter_input {
+  width: 100%;
+}
+
+.filter_values_wrapper {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}

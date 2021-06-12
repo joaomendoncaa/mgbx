@@ -2,6 +2,18 @@
  * DomTools is a class for utility functions for manipulating the DOM
  */
 class DomTools {
+  generateRandomClassPrefix(prefixLength) {
+    let finalClassPrefix = ''
+
+    const letters = ['i', 'I', 'm', 'M', 'a', 'A', 'g', 'G', 'e', 'E', 'b', 'B', 'o', 'O', 'x', 'X']
+
+    for (let i = 0; i < prefixLength; i++) {
+      const randomIndex = Math.floor(Math.random() * letters.length)
+      finalClassPrefix += letters[randomIndex]
+    }
+
+    return finalClassPrefix
+  }
   styleElement(element, styleMap) {
     if (!element) throw new Error('Element doens\'t exist')
     const styleAttributesList = Object.keys(styleMap)

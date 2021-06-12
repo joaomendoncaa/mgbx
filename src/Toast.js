@@ -1,12 +1,17 @@
-/**
+import DomTools from './DomTools'
+
+const DOMTools = new DomTools()
+
+class Toast {
+  /**
  * TOAST CLASS
  * 
  * This class is aimed at serving as a library to create Toasts in apps.
  * The way you show a toast in screen is by using the putMessage() method!
  * It takes as parameters:
- * {string} for the message that will be displayed
- * {int} in milliseconds for the time the message will be up on the screen
- * {string} as 'high' | 'normal' | 'low' for the priority of the message
+ * @param {string} message the message that will be displayed
+ * @param {int} duration in milliseconds for the time the message will be up on the screen
+ * @param {string} priority as 'high' | 'normal' | 'low' for the priority of the message
  * 
  * Diferent priotities will pop in different times!
  * (if a 'high' priority message is added to the list at the same time as
@@ -26,7 +31,6 @@
  * const Toast = new Toast()
  * Toast.setStyle({ background: 'red' })
  */
-class Toast {
   constructor() {
     this._toast = null
     this._toastTextHeading = null
@@ -37,6 +41,10 @@ class Toast {
     this._lowPriorityQueue = []
     this._areQueuesBeingDispatched = false
     this.__init__()
+  }
+
+  get domTools() {
+    return this._domTools
   }
 
   get toast() {
@@ -84,26 +92,13 @@ class Toast {
   }
 
   _generateToastClass() {
-    const toastClass = this._generateRandomClassPrefix(10) + '_toast'
+    const toastClass = DOMTools.generateRandomClassPrefix(10) + '_toast'
     return toastClass
   }
 
   _generateToastTimeBarClass() {
-    const toastTimeBarClass = this._generateRandomClassPrefix(10) + '_toast_timebar'
+    const toastTimeBarClass = DOMTools.generateRandomClassPrefix(10) + '_toast_timebar'
     return toastTimeBarClass
-  }
-
-  _generateRandomClassPrefix(prefixLength) {
-    let finalClassPrefix = ''
-
-    const letters = ['t', 'T', 'o', 'O', 'a', 'A', 's', 'S', 't', 'T', 'j', 'J', 's', 'S']
-
-    for (let i = 0; i < prefixLength; i++) {
-      const randomIndex = Math.floor(Math.random() * 10)
-      finalClassPrefix += letters[randomIndex]
-    }
-
-    return finalClassPrefix
   }
 
   _getFirstItemInQueue(queuePriority) {
@@ -142,10 +137,10 @@ class Toast {
       this.toast.style.display = 'initial'
       this.toastTextHeading.textContent = message
 
-      const styleToInjectId = this._generateRandomClassPrefix(10) + '_style'
-      const animationClass = this._generateRandomClassPrefix(10) + '_toast_anim'
+      const styleToInjectId = DOMTools.generateRandomClassPrefix(10) + '_style'
+      const animationClass = DOMTools.generateRandomClassPrefix(10) + '_toast_anim'
 
-      const keyframesName = this._generateRandomClassPrefix(10) + '_toast_anim_keyframes'
+      const keyframesName = DOMTools.generateRandomClassPrefix(10) + '_toast_anim_keyframes'
 
       const styleToInject = /*HTML*/`
         <style type="text/css" id="${styleToInjectId}">
