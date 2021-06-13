@@ -69,8 +69,8 @@ class Filter {
     this.parentDomElement.insertAdjacentHTML('beforeend', /*HTML*/`
       <div class="filter_wrapper">
         <header class="filter_header">
-          <h1>${this.name.toUpperCase()}</h1>
-          <button>${this._resetIcon()}</button>
+          <h3>${DOMTools.capitalizeFirstLetter(this.name)}</h3>
+          <button class="filter_reset_btn">${this._resetIcon()}</button>
         </header>
         <input 
           class="filter_input"

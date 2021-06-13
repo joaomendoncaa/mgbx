@@ -9,7 +9,7 @@
   padding: 1rem 1rem;
 
   &:hover {
-    background: darken($grey-dark, 1%);
+    background: darken($grey-dark, 2%);
   }
 }
 
@@ -20,6 +20,18 @@
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
+
+  > h3 {
+    font-size: 0.9rem;
+    font-weight: 400;
+  }
+}
+
+.filter_reset_btn {
+  cursor: pointer;
+
+  border: 0;
+  border-radius: 99vw;
 }
 
 .filter_input {
