@@ -1,13 +1,4 @@
-//------------------Variables-------------------//
-$blue: #1C1B22;
-$blue-dark: #17171C;
-$blue-accent: #18A0FB;
-$grey: #42414D;
-$grey-dark: #2B2A33;
-$text: #fff;
-$text-secondary: #5C5A6D;
-$breakpoint: 1100px;
-//----------------------------------------------//
+@import './Variables.scss';
 
 * {
   margin: 0;
@@ -70,14 +61,16 @@ main {
 
   background: $grey-dark;
 
-  padding: 1rem 1rem;
-
   .presets_header {
     width: 100%;
 
+    padding: 2rem 0;
+
     .presets_header_title {
-      font-weight: 400;
-      font-size: 1.25rem;
+      padding: 0 1rem;
+      font-weight: 600;
+      font-size: 0.9rem;
+      color: $grey;
     }
   }
 }
@@ -103,14 +96,16 @@ main {
 
   background: $grey-dark;
 
-  padding: 1rem 1rem;
-
   .effects_header {
     width: 100%;
 
+    padding: 2rem 0;
+
     .effects_header_title {
-      font-weight: 400;
-      font-size: 1.25rem;
+      padding: 0 1rem;
+      font-weight: 600;
+      font-size: 0.9rem;
+      color: $grey;
     }
   }
 
