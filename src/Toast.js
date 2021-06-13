@@ -1,6 +1,4 @@
-import DomTools from './DomTools'
-
-const DOMTools = new DomTools()
+import DOMTools from './DomTools'
 
 class Toast {
   /**

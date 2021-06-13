@@ -1,5 +1,5 @@
 import Toast from './Toast'
-import DomTools from './DomTools'
+import DOMTools from './DomTools'
 import Filter from './Filter'
 import Canvas from './Canvas'
 
@@ -8,7 +8,6 @@ import DOM from './DomElements'
 import '../styles/main.scss'
 
 const toast = new Toast()
-const DOMTools = new DomTools()
 
 const blur = new Filter(DOM['effects_list'], 'blur', 'px', 0, 20, 0, 0)
 const brightness = new Filter(DOM['effects_list'], 'brightness', '%', 0, 200, 100, 100)
