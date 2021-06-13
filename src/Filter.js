@@ -1,6 +1,6 @@
-import DomTools from './DomTools'
-
-const DOMTools = new DomTools()
+import DOMTools from './DomTools'
+import DOM from './DomElements'
+import icons from './Icons'
 
 import '../styles/Filter.scss'
 
@@ -57,12 +57,6 @@ class Filter {
     this._current = value
   }
 
-  _resetIcon() {
-    return /*HTML*/`
-      <span>reset</span>
-    `
-  }
-
   __init__() {
     this.current = this.def
 
@@ -70,7 +64,7 @@ class Filter {
       <div class="filter_wrapper">
         <header class="filter_header">
           <h3>${DOMTools.capitalizeFirstLetter(this.name)}</h3>
-          <button class="filter_reset_btn">${this._resetIcon()}</button>
+          <button class="filter_reset_btn">${icons.reset}</button>
         </header>
         <input 
           class="filter_input"
@@ -78,6 +72,7 @@ class Filter {
           min="${this.min}" 
           max="${this.max}" 
           value="${this.current}" 
+          onChange="(event) => { console.log(event) }"
         />
         <section class="filter_values_wrapper">
           <span class="filter_min">${this.min}</span>

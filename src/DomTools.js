@@ -1,14 +1,14 @@
 /**
  * DomTools is a class for utility functions for manipulating the DOM
  */
-class DomTools {
-  capitalizeFirstLetter(string) {
+export default {
+  capitalizeFirstLetter: (string) => {
     const lowerCaseString = string.toLowerCase()
     const upperCaseFirstLetter = lowerCaseString.charAt(0).toUpperCase()
     const stringRemainign = lowerCaseString.slice(1)
     return upperCaseFirstLetter + stringRemainign
-  }
-  generateRandomClassPrefix(prefixLength) {
+  },
+  generateRandomClassPrefix: (prefixLength) => {
     let finalClassPrefix = ''
 
     const letters = ['i', 'I', 'm', 'M', 'a', 'A', 'g', 'G', 'e', 'E', 'b', 'B', 'o', 'O', 'x', 'X']
@@ -19,15 +19,15 @@ class DomTools {
     }
 
     return finalClassPrefix
-  }
-  styleElement(element, styleMap) {
+  },
+  styleElement: (element, styleMap) => {
     if (!element) throw new Error('Element doens\'t exist')
     const styleAttributesList = Object.keys(styleMap)
     styleAttributesList.forEach(attribute => {
       element.style[attribute] = styleMap[attribute]
     })
-  }
-  styleElements(elementsList, styleMap) {
+  },
+  styleElements: (elementsList, styleMap) => {
     if (!elementsList || elementsList.length < 1) throw new Error('You need to specify at least 1 element')
     elementsList.forEach(element => {
       if (!element) throw new Error('Element doens\'t exist')
@@ -36,7 +36,7 @@ class DomTools {
         element.style[attribute] = styleMap[attribute]
       })
     })
-  }
+  },
   /**
      * Creates an element with set children and set attributes, in the end
      * appends it to the element given in the arguments
@@ -51,7 +51,7 @@ class DomTools {
      * element created 
      * @returns {HTMLElement} the function returns the HTML element created
      */
-  createElement(type, innerHtml = '', attributesMap, parent) {
+  createElement: (type, innerHtml = '', attributesMap, parent) => {
     //instantiates the element on DOM
     const element = document.createElement(type)
     //set's the inner HTML inside the instantiated element
@@ -61,22 +61,18 @@ class DomTools {
     parent.append(element)
     //returns the element created
     return element
-  }
-
-  changeTextOnElement(text, element) {
+  },
+  changeTextOnElement: (text, element) => {
     try {
       element.textContent = text
     } catch (err) {
       console.log(err)
       return err
     }
-  }
-
-  elementVisibility(elementsList, displayMode = 'flex') {
+  },
+  elementVisibility: (elementsList, displayMode = 'flex') => {
     elementsList.forEach(element => {
       element.style.display = displayMode
     })
   }
 }
-
-export default DomTools
