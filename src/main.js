@@ -1,17 +1,15 @@
 import Toast from './Toast'
 import DOMTools from './DomTools'
 import Filter from './Filter'
-import Canvas from './Canvas'
-
 import DOM from './DomElements'
-
+import Canvas from './Canvas'
 import '../styles/main.scss'
 
 const toast = new Toast()
 
-const blur = new Filter(DOM['effects_list'], 'blur', 'px', 0, 20, 0, 0)
-const brightness = new Filter(DOM['effects_list'], 'brightness', '%', 0, 200, 100, 100)
-const constrast = new Filter(DOM['effects_list'], 'constrast', '%', 0, 20, 0, 0)
+const blur = new Filter(DOM['effects_list'], 'blur', 'px', 0, 20, 0)
+const brightness = new Filter(DOM['effects_list'], 'brightness', '%', 0, 200, 100)
+const constrast = new Filter(DOM['effects_list'], 'constrast', '%', 0, 20, 0)
 
 
 //Global Variables

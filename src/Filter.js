@@ -1,7 +1,6 @@
 import DOMTools from './DomTools'
 import DOM from './DomElements'
 import icons from './Icons'
-
 import '../styles/Filter.scss'
 
 class Filter {
@@ -24,7 +23,7 @@ class Filter {
     this._min = min
     this._max = max
     this._def = def
-    this._current = 0
+    this._current = def
 
     this.__init__()
   }
@@ -58,8 +57,6 @@ class Filter {
   }
 
   __init__() {
-    this.current = this.def
-
     this.parentDomElement.insertAdjacentHTML('beforeend', /*HTML*/`
       <div class="filter_wrapper">
         <header class="filter_header">
@@ -68,11 +65,11 @@ class Filter {
         </header>
         <input 
           class="filter_input"
+          data-filter="${this.name}"
           type="range" 
           min="${this.min}" 
           max="${this.max}" 
-          value="${this.current}" 
-          onChange="(event) => { console.log(event) }"
+          value="${this.current}"
         />
         <section class="filter_values_wrapper">
           <span class="filter_min">${this.min}</span>
@@ -80,6 +77,16 @@ class Filter {
         </section>
       </div>
     `)
+
+    const inputElement = document.querySelector('.filter_input')
+
+    inputElement.addEventListener('input', (event) => {
+      console.log(event.target)
+    })
+
+    // DOM['filter_input'].addEventListener('change', (event) => {
+    //   console.log(event)
+    // })
   }
 }
 
