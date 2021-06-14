@@ -84,9 +84,8 @@ class Filter {
     //gets the percentage of progression on the input
     let value = (this.current - this.min) / (this.max - this.min) * 100
     //updates the background with the percentage value calculated above
-    const backgroundStyle = 'linear-gradient(to right, #18A0FB 0%, #18A0FB ' + value + '%, lighten(#2B2A33, 5%) ' + value + '%, lighten(#2B2A33, 5%) 100%)'
-    // console.log(backgroundStyle)
-    this.inputElement.style.background = backgroundStyle
+    const backgroundStyle = 'linear-gradient(to right, #18A0FB 0%, #18A0FB ' + value + '%, #2B2A33 ' + value + '%, #2B2A33 100%)'
+    this.inputElement.style.background = `${backgroundStyle}`
   }
 
   __init__() {
