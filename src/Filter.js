@@ -74,6 +74,12 @@ class Filter {
     this._inputElement = htmlElement
   }
 
+  _resetValue() {
+    this.current = this.def
+    this._updateInputBarWidth()
+    this.filterUpdateCallback(this.name, this.current, this.metric)
+  }
+
   _updateInputBarWidth() {
     //gets the percentage of progression on the input
     let value = (this.current - this.min) / (this.max - this.min) * 100
@@ -85,12 +91,13 @@ class Filter {
 
   __init__() {
     const filterInputClass = DOMTools.generateRandomClassPrefix(10) + '_filter_input'
+    const filterResetButtonClass = DOMTools.generateRandomClassPrefix(10) + '_filter_reset_btn'
 
     this.parentDomElement.insertAdjacentHTML('beforeend', /*HTML*/`
       <div class="filter_wrapper">
         <header class="filter_header">
           <h3>${DOMTools.capitalizeFirstLetter(this.name)}</h3>
-          <button class="filter_reset_btn">${icons.reset}</button>
+          <button class="filter_reset_btn ${filterResetButtonClass}">${icons.reset}</button>
         </header>
         <input 
           class="filter_input ${filterInputClass}"
@@ -108,6 +115,7 @@ class Filter {
     `)
 
     let input = document.querySelector(`.${filterInputClass}`)
+    let resetBtn = document.querySelector(`.${filterResetButtonClass}`)
 
     input.addEventListener('input', (event) => {
       const { value, dataset } = event.target
@@ -118,6 +126,11 @@ class Filter {
       //updates the input background for visual representation on the range progress
       this._updateInputBarWidth()
       this.filterUpdateCallback(this.name, this.current, this.metric)
+    })
+
+    resetBtn.addEventListener('click', (event) => {
+      input.value = this.def
+      this._resetValue()
     })
 
     this.inputElement = input
