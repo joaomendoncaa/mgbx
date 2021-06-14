@@ -8,6 +8,14 @@ import '../styles/main.scss'
 const toast = new Toast()
 
 const blur = new Filter(DOM['effects_list'], 'blur', 'px', 0, 20, 0, updateFilters)
+const brightness = new Filter(DOM['effects_list'], 'brightness', '%', 0, 200, 100, updateFilters)
+const contrast = new Filter(DOM['effects_list'], 'contrast', '%', 0, 200, 100, updateFilters)
+const grayscale = new Filter(DOM['effects_list'], 'grayscale', '%', 0, 100, 0, updateFilters)
+const hueRotate = new Filter(DOM['effects_list'], 'hue-rotate', 'deg', 0, 360, 0, updateFilters)
+const invert = new Filter(DOM['effects_list'], 'invert', '%', 0, 100, 0, updateFilters)
+const opacity = new Filter(DOM['effects_list'], 'opacity', '%', 0, 100, 100, updateFilters)
+const saturate = new Filter(DOM['effects_list'], 'saturate', '%', 0, 100, 0, updateFilters)
+const sepia = new Filter(DOM['effects_list'], 'sepia', '%', 0, 200, 100, updateFilters)
 
 
 //Global Variables
