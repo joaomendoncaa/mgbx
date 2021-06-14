@@ -7,9 +7,7 @@ import '../styles/main.scss'
 
 const toast = new Toast()
 
-const blur = new Filter(DOM['effects_list'], 'blur', 'px', 0, 20, 0)
-const brightness = new Filter(DOM['effects_list'], 'brightness', '%', 0, 200, 100)
-const constrast = new Filter(DOM['effects_list'], 'constrast', '%', 0, 20, 0)
+const blur = new Filter(DOM['effects_list'], 'blur', 'px', 0, 20, 0, updateFilters)
 
 
 //Global Variables
@@ -24,6 +22,29 @@ let selectionOriginCoordinates = {
 let isSelecting = false
 let image
 let imageName
+
+let filterList = {}
+
+function updateFilters(filterName, filterValue, filterUnit) {
+  console.log({
+    filterName,
+    filterValue,
+    filterUnit
+  })
+  filterList[filterName] = `${filterValue}${filterUnit}`
+
+  let filterString = ''
+
+  Object.keys(filterList).map(filterName => {
+    filterString += `${filterName}(${filterList[filterName]}) `
+  })
+
+  injectFilterInImage(filterString)
+}
+
+function injectFilterInImage(filterString) {
+  DOM['image_preview'].style.filter = filterString
+}
 
 
 //When an image is uploaded using the file input
@@ -275,17 +296,6 @@ DOM['selection_crop_btn'].onclick = () => {
     Number(imageWidth / previewImageWidth),
     Number(imageHeight / previewImageHeight)
   ]
-
-  // console.log("Valores", {
-  //   parseInt: {
-  //     value: parseInt(DOM['selection_tool'].style.width),
-  //     type: typeof parseInt(DOM['selection_tool'].style.width)
-  //   },
-  //   replaceMethod: {
-  //     value: Number(DOM['selection_tool'].style.width.replace('px', '')),
-  //     type: typeof Number(DOM['selection_tool'].style.width.replace('px', ''))
-  //   }
-  // })
 
   const [selectionWidth, selectionHeight] = [
     parseInt(DOM['selection_tool'].style.width),

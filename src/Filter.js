@@ -16,16 +16,22 @@ class Filter {
    * @param {number} def 
    * @param {number} current 
    */
-  constructor(parentDomElement, name, metric, min, max, def) {
+  constructor(parentDomElement, name, metric, min, max, def, filterUpdateCallback) {
     this._parentDomElement = parentDomElement
+    this._inputElement = null
     this._name = name
     this._metric = metric
     this._min = min
     this._max = max
     this._def = def
     this._current = def
+    this._filterUpdateCallback = filterUpdateCallback
 
     this.__init__()
+  }
+
+  get filterUpdateCallback() {
+    return this._filterUpdateCallback
   }
 
   get name() {
@@ -52,11 +58,34 @@ class Filter {
     return this._parentDomElement
   }
 
+  get inputElement() {
+    return this._inputElement
+  }
+
+  get current() {
+    return this._current
+  }
+
   set current(value) {
     this._current = value
   }
 
+  set inputElement(htmlElement) {
+    this._inputElement = htmlElement
+  }
+
+  _updateInputBarWidth() {
+    //gets the percentage of progression on the input
+    let value = (this.current - this.min) / (this.max - this.min) * 100
+    //updates the background with the percentage value calculated above
+    const backgroundStyle = 'linear-gradient(to right, #18A0FB 0%, #18A0FB ' + value + '%, lighten(#2B2A33, 5%) ' + value + '%, lighten(#2B2A33, 5%) 100%)'
+    // console.log(backgroundStyle)
+    this.inputElement.style.background = backgroundStyle
+  }
+
   __init__() {
+    const filterInputClass = DOMTools.generateRandomClassPrefix(10) + '_filter_input'
+
     this.parentDomElement.insertAdjacentHTML('beforeend', /*HTML*/`
       <div class="filter_wrapper">
         <header class="filter_header">
@@ -64,7 +93,7 @@ class Filter {
           <button class="filter_reset_btn">${icons.reset}</button>
         </header>
         <input 
-          class="filter_input"
+          class="filter_input ${filterInputClass}"
           data-filter="${this.name}"
           type="range" 
           min="${this.min}" 
@@ -78,15 +107,21 @@ class Filter {
       </div>
     `)
 
-    const inputElement = document.querySelector('.filter_input')
+    let input = document.querySelector(`.${filterInputClass}`)
 
-    inputElement.addEventListener('input', (event) => {
-      console.log(event.target)
+    input.addEventListener('input', (event) => {
+      const { value, dataset } = event.target
+      const { filter } = dataset.filter
+
+      //sets the current value of the input on the object instance
+      this._current = value
+      //updates the input background for visual representation on the range progress
+      this._updateInputBarWidth()
+      this.filterUpdateCallback(this.name, this.current, this.metric)
     })
 
-    // DOM['filter_input'].addEventListener('change', (event) => {
-    //   console.log(event)
-    // })
+    this.inputElement = input
+    this._updateInputBarWidth()
   }
 }
 

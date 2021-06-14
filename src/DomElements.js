@@ -24,6 +24,4 @@ export default {
   //Effects
   effects_wrapper: document.querySelector('.effects_wrapper'),
   effects_list: document.querySelector('.effects_list'),
-  //Filters
-  filter_input: document.querySelector('.filter_input'),
 }
