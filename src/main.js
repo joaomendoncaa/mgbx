@@ -14,8 +14,8 @@ const grayscale = new Filter(DOM['effects_list'], 'grayscale', '%', 0, 100, 0, u
 const hueRotate = new Filter(DOM['effects_list'], 'hue-rotate', 'deg', 0, 360, 0, updateFilters)
 const invert = new Filter(DOM['effects_list'], 'invert', '%', 0, 100, 0, updateFilters)
 const opacity = new Filter(DOM['effects_list'], 'opacity', '%', 0, 100, 100, updateFilters)
-const saturate = new Filter(DOM['effects_list'], 'saturate', '%', 0, 100, 0, updateFilters)
-const sepia = new Filter(DOM['effects_list'], 'sepia', '%', 0, 200, 100, updateFilters)
+const saturate = new Filter(DOM['effects_list'], 'saturate', '%', 0, 200, 100, updateFilters)
+const sepia = new Filter(DOM['effects_list'], 'sepia', '%', 0, 200, 0, updateFilters)
 
 
 //Global Variables
@@ -53,6 +53,18 @@ function updateFilters(filterName, filterValue, filterUnit) {
 function injectFilterInImage(filterString) {
   DOM['image_preview'].style.filter = filterString
 }
+
+DOM['effects_header_reset_btn'].addEventListener('click', () => {
+  blur.reset()
+  brightness.reset()
+  contrast.reset()
+  grayscale.reset()
+  hueRotate.reset()
+  invert.reset()
+  opacity.reset()
+  saturate.reset()
+  sepia.reset()
+})
 
 
 //When an image is uploaded using the file input
