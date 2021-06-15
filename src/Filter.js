@@ -1,6 +1,6 @@
 import DOMTools from './DomTools'
 import DOM from './DomElements'
-import icons from './Icons'
+import icons from './SvgIcons'
 import '../styles/Filter.scss'
 
 class Filter {
@@ -88,6 +88,16 @@ class Filter {
     this.inputElement.style.background = `${backgroundStyle}`
   }
 
+  _handleInputUpdate(event) {
+    const { value } = event.target
+
+    //sets the current value of the input on the object instance
+    this._current = value
+    //updates the input background for visual representation on the range progress
+    this._updateInputBarWidth()
+    this.filterUpdateCallback(this.name, this.current, this.metric)
+  }
+
   __init__() {
     const filterInputClass = DOMTools.generateRandomClassPrefix(10) + '_filter_input'
     const filterResetButtonClass = DOMTools.generateRandomClassPrefix(10) + '_filter_reset_btn'
@@ -115,15 +125,7 @@ class Filter {
     let input = document.querySelector(`.${filterInputClass}`)
     let resetBtn = document.querySelector(`.${filterResetButtonClass}`)
 
-    input.addEventListener('input', (event) => {
-      const { value, dataset } = event.target
-
-      //sets the current value of the input on the object instance
-      this._current = value
-      //updates the input background for visual representation on the range progress
-      this._updateInputBarWidth()
-      this.filterUpdateCallback(this.name, this.current, this.metric)
-    })
+    input.addEventListener('input', this._handleInputUpdate)
 
     resetBtn.addEventListener('click', (event) => {
       input.value = this.def
