@@ -1,2 +1,2 @@
 # mgbx
-Rudimentary image manipulation tool made with vanilla JS. =D
+Image manipulation web app made with vanilla JavaScript from scratch. 
