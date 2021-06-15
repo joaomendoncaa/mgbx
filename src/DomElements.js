@@ -24,4 +24,5 @@ export default {
   //Effects
   effects_wrapper: document.querySelector('.effects_wrapper'),
   effects_list: document.querySelector('.effects_list'),
+  effects_header_reset_btn: document.querySelector('.effects_header_reset_btn'),
 }
