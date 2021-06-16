@@ -34,11 +34,6 @@ let imageName
 let filterList = {}
 
 function updateFilters(filterName, filterValue, filterUnit) {
-  console.log({
-    filterName,
-    filterValue,
-    filterUnit
-  })
   filterList[filterName] = `${filterValue}${filterUnit}`
 
   let filterString = ''

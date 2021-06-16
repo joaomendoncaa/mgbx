@@ -76,26 +76,18 @@ class Filter {
 
   reset() {
     this.current = this.def
+    this.inputElement.value = this.def
     this._updateInputBarWidth()
     this.filterUpdateCallback(this.name, this.current, this.metric)
   }
 
   _updateInputBarWidth() {
+    console.log('updatedInputBarWidth')
     //gets the percentage of progression on the input
     let value = (this.current - this.min) / (this.max - this.min) * 100
     //updates the background with the percentage value calculated above
     const backgroundStyle = 'linear-gradient(to right, #18A0FB 0%, #18A0FB ' + value + '%, #454351 ' + value + '%, #454351 100%)'
     this.inputElement.style.background = `${backgroundStyle}`
-  }
-
-  _handleInputUpdate(event) {
-    const { value } = event.target
-
-    //sets the current value of the input on the object instance
-    this._current = value
-    //updates the input background for visual representation on the range progress
-    this._updateInputBarWidth()
-    this.filterUpdateCallback(this.name, this.current, this.metric)
   }
 
   __init__() {
@@ -125,7 +117,14 @@ class Filter {
     let input = document.querySelector(`.${filterInputClass}`)
     let resetBtn = document.querySelector(`.${filterResetButtonClass}`)
 
-    input.addEventListener('input', this._handleInputUpdate)
+    input.addEventListener('input', (event) => {
+      const { value } = event.target
+      //sets the current value of the input on the object instance
+      this._current = value
+      //updates the input background for visual representation on the range progress
+      this._updateInputBarWidth()
+      this.filterUpdateCallback(this.name, this.current, this.metric)
+    })
 
     resetBtn.addEventListener('click', (event) => {
       input.value = this.def
