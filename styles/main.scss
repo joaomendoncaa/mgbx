@@ -14,7 +14,7 @@
 body {
   background: $blue;
 
-  width: 100vw;
+  // width: 100vw;
   height: 100vh;
 
   position: relative;
@@ -102,23 +102,22 @@ main {
     justify-content: space-between;
     align-items: center;
 
-    padding: 2rem 0;
+    padding: 2rem 1rem;
 
     .effects_header_title {
-      padding: 0 1rem;
       font-weight: 600;
       font-size: 0.9rem;
       color: $grey;
     }
 
     .effects_header_reset_btn {
-      border: 0;
+      border: 1px solid red;
       border-radius: 3.5px;
 
       cursor: pointer;
 
-      background: $grey;
-      color: white;
+      background: rgba(255 ,0 ,0, .1);
+      color: red;
       font-size: 0.8rem;
       padding: .25rem .75rem;
     }
@@ -217,6 +216,9 @@ main {
 
 .image_preview {
   max-width: 1000px;
+
+  overflow: hidden;
+
   position: relative;
 }
 
@@ -281,11 +283,17 @@ main {
     }
   }
 
-  .selection_crop_btn {
-    pointer-events: all;
+  .selection_tool_controls {
     position: absolute;
 
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+
     z-index: 3;
+
+    margin: .5rem 0 0 0;
 
     width: max-content;
     height: max-content;
@@ -295,9 +303,16 @@ main {
     bottom: 0;
     left: 50%;
 
-    margin: .5rem 0 0 0;
-
     transform: translateX(-50%);
+  }
+
+  .selection_crop_btn {
+    pointer-events: all;
+    
+    width: max-content;
+    height: max-content;
+
+    margin: 0 .5rem 0 0;
 
     cursor: pointer;
     padding: .75rem 1.5rem;
@@ -317,6 +332,27 @@ main {
 
     &:hover {
       background: darken($text, 5%);
+    }
+  }
+
+  .selection_cancel_btn {
+    cursor: pointer;
+    pointer-events: all;
+
+    color: red;
+    border: 0;
+    border-radius: 99vw;
+
+    background: rgba(255, 0, 0, .5);
+
+    width: max-content;
+    height: max-content;
+
+    padding: .75rem 1.5rem;
+
+    .selection_cancel_btn_text {
+      color: $text;
+      font-size: 0.8rem;
     }
   }
 }
