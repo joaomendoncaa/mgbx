@@ -61,6 +61,14 @@ DOM['effects_header_reset_btn'].addEventListener('click', () => {
   sepia.reset()
 })
 
+DOM['selection_cancel_btn'].addEventListener('click', () => {
+  DOMTools.elementVisibility([
+    DOM['selection_tool'],
+    DOM['selection_tool_mask'],
+    DOM['selection_crop_btn'],
+    DOM['selection_cancel_btn'],
+  ], 'none')
+})
 
 //When an image is uploaded using the file input
 DOM['toolbar_upload_input'].addEventListener('change', () => {
@@ -280,6 +288,7 @@ const events = {
     isSelecting = false
     //show the crop button
     DOM['selection_crop_btn'].style.display = 'flex'
+    DOM['selection_cancel_btn'].style.display = 'flex'
   }
 }
 

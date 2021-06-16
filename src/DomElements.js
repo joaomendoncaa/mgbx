@@ -12,6 +12,7 @@ export default {
   toolbar_clear_btn: document.querySelector('.toolbar_clear_btn'),
   //Crop button
   selection_crop_btn: document.querySelector('.selection_crop_btn'),
+  selection_cancel_btn: document.querySelector('.selection_cancel_btn'),
   //Canvas
   image_preview: document.querySelector('.image_preview'),
   selection_tool_mask: document.querySelector('.selection_tool_mask'),
