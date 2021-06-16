@@ -19,6 +19,7 @@ class Filter {
   constructor(parentDomElement, name, metric, min, max, def, filterUpdateCallback) {
     this._parentDomElement = parentDomElement
     this._inputElement = null
+    this._currentValueElement = null
     this._name = name
     this._metric = metric
     this._min = min
@@ -28,6 +29,10 @@ class Filter {
     this._filterUpdateCallback = filterUpdateCallback
 
     this.__init__()
+  }
+
+  get currentValueElement() {
+    return this._currentValueElement
   }
 
   get filterUpdateCallback() {
@@ -74,15 +79,19 @@ class Filter {
     this._inputElement = htmlElement
   }
 
+  set currentValueElement(htmlElement) {
+    this._currentValueElement = htmlElement
+  }
+
   reset() {
     this.current = this.def
     this.inputElement.value = this.def
+    this.currentValueElement.textContent = this.def
     this._updateInputBarWidth()
     this.filterUpdateCallback(this.name, this.current, this.metric)
   }
 
   _updateInputBarWidth() {
-    console.log('updatedInputBarWidth')
     //gets the percentage of progression on the input
     let value = (this.current - this.min) / (this.max - this.min) * 100
     //updates the background with the percentage value calculated above
@@ -93,11 +102,15 @@ class Filter {
   __init__() {
     const filterInputClass = DOMTools.generateRandomClassPrefix(10) + '_filter_input'
     const filterResetButtonClass = DOMTools.generateRandomClassPrefix(10) + '_filter_reset_btn'
+    const filterCurrentClass = DOMTools.generateRandomClassPrefix(10) + '_filter_current'
 
     this.parentDomElement.insertAdjacentHTML('beforeend', /*HTML*/`
       <div class="filter_wrapper">
         <header class="filter_header">
-          <h3>${DOMTools.capitalizeFirstLetter(this.name)}</h3>
+          <div class="filter_header_info">
+            <h3 class="filter_header_info_title">${DOMTools.capitalizeFirstLetter(this.name)}</h3>
+            <span class="filter_header_info_current ${filterCurrentClass}"></span>
+          </div>
           <button class="filter_reset_btn ${filterResetButtonClass}">${icons.reset}</button>
         </header>
         <input 
@@ -107,21 +120,17 @@ class Filter {
           max="${this.max}" 
           value="${this.current}"
         />
-        <section class="filter_values_wrapper">
-          <span class="filter_min">${this.min}</span>
-          <span class="filter_max">${this.max}</span>
-        </section>
       </div>
     `)
 
     let input = document.querySelector(`.${filterInputClass}`)
     let resetBtn = document.querySelector(`.${filterResetButtonClass}`)
+    let currentValueSpan = document.querySelector(`.${filterCurrentClass}`)
 
     input.addEventListener('input', (event) => {
       const { value } = event.target
-      //sets the current value of the input on the object instance
       this._current = value
-      //updates the input background for visual representation on the range progress
+      this.currentValueElement.textContent = this.current
       this._updateInputBarWidth()
       this.filterUpdateCallback(this.name, this.current, this.metric)
     })
@@ -132,6 +141,8 @@ class Filter {
     })
 
     this.inputElement = input
+    this.currentValueElement = currentValueSpan
+    this.currentValueElement.textContent = this.def
     this._updateInputBarWidth()
   }
 }
