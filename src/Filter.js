@@ -86,7 +86,7 @@ class Filter {
   reset() {
     this.current = this.def
     this.inputElement.value = this.def
-    this.currentValueElement.textContent = this.def
+    this._updateFilterValueSpan(this.def)
     this._updateInputBarWidth()
     this.filterUpdateCallback(this.name, this.current, this.metric)
   }
@@ -97,6 +97,10 @@ class Filter {
     //updates the background with the percentage value calculated above
     const backgroundStyle = 'linear-gradient(to right, #18A0FB 0%, #18A0FB ' + value + '%, #454351 ' + value + '%, #454351 100%)'
     this.inputElement.style.background = `${backgroundStyle}`
+  }
+
+  _updateFilterValueSpan(newValue) {
+    this.currentValueElement.textContent = newValue + ' ' + this.metric
   }
 
   __init__() {
@@ -130,7 +134,7 @@ class Filter {
     input.addEventListener('input', (event) => {
       const { value } = event.target
       this._current = value
-      this.currentValueElement.textContent = this.current
+      this._updateFilterValueSpan(this.current)
       this._updateInputBarWidth()
       this.filterUpdateCallback(this.name, this.current, this.metric)
     })
@@ -142,7 +146,7 @@ class Filter {
 
     this.inputElement = input
     this.currentValueElement = currentValueSpan
-    this.currentValueElement.textContent = this.def
+    this._updateFilterValueSpan(this.def)
     this._updateInputBarWidth()
   }
 }
