@@ -1,5 +1,4 @@
 import DOMTools from './DomTools'
-import DOM from './DomElements'
 import icons from './SvgIcons'
 import '../styles/Filter.scss'
 
