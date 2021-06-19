@@ -17,25 +17,15 @@ class App {
     this.__init__()
   }
 
-  get header() {
-    return this._header
-  }
+  get header() { return this._header }
 
-  get canvas() {
-    return this._canvas
-  }
+  get canvas() { return this._canvas }
 
-  get image() {
-    return this._image
-  }
+  get image() { return this._image }
 
-  set canvas(canvas) {
-    this._canvas = canvas
-  }
+  set canvas(canvas) { this._canvas = canvas }
 
-  set image(image) {
-    this._image = image
-  }
+  set image(image) { this._image = image }
 
   onLoadImageFromReader() {
     this.canvas = new Canvas(this.image)
@@ -92,7 +82,7 @@ class App {
   }
 
   onClickEffectsHeaderResetBtn() {
-    this.canvas.resetAllFilters()
+    this.canvas.resetFilters()
   }
 
   onClickSelectionCropBtn() {

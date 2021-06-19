@@ -33,6 +33,10 @@ class Canvas {
     this.canvas.height = height
   }
 
+  resetFilters() {
+    this.filters.reset()
+  }
+
   __init__() {
 
   }

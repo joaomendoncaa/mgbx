@@ -60,8 +60,6 @@ class CanvasFilters {
     Object.keys(this.filters).map(filterName => {
       filtersFinalString += `${filterName}(${this.filters[filterName]}) `
     })
-
-    console.log(this.filters)
     return filtersFinalString
   }
 
