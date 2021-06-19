@@ -41,53 +41,29 @@ class Toast {
     this.__init__()
   }
 
-  get domTools() {
-    return this._domTools
-  }
+  get domTools() { return this._domTools }
 
-  get toast() {
-    return this._toast
-  }
+  get toast() { return this._toast }
 
-  get toastTimeBar() {
-    return this._toastTimeBar
-  }
+  get toastTimeBar() { return this._toastTimeBar }
 
-  get toastTextHeading() {
-    return this._toastTextHeading
-  }
+  get toastTextHeading() { return this._toastTextHeading }
 
-  get highPriorityQueue() {
-    return this._highPriorityQueue
-  }
+  get highPriorityQueue() { return this._highPriorityQueue }
 
-  get normalPriorityQueue() {
-    return this._normalPriorityQueue
-  }
+  get normalPriorityQueue() { return this._normalPriorityQueue }
 
-  get lowPriorityQueue() {
-    return this._lowPriorityQueue
-  }
+  get lowPriorityQueue() { return this._lowPriorityQueue }
 
-  get areQueuesBeingDispatched() {
-    return this._areQueuesBeingDispatched
-  }
+  get areQueuesBeingDispatched() { return this._areQueuesBeingDispatched }
 
-  set toast(htmlElement) {
-    this._toast = htmlElement
-  }
+  set toast(htmlElement) { this._toast = htmlElement }
 
-  set toastTimeBar(htmlElement) {
-    this._toastTimeBar = htmlElement
-  }
+  set toastTimeBar(htmlElement) { this._toastTimeBar = htmlElement }
 
-  set toastTextHeading(htmlElement) {
-    this._toastTextHeading = htmlElement
-  }
+  set toastTextHeading(htmlElement) { this._toastTextHeading = htmlElement }
 
-  set areQueuesBeingDispatched(isQueueBeingDispatched) {
-    this._areQueuesBeingDispatched = isQueueBeingDispatched
-  }
+  set areQueuesBeingDispatched(isQueueBeingDispatched) { this._areQueuesBeingDispatched = isQueueBeingDispatched }
 
   _generateToastClass() {
     const toastClass = DOMTools.generateRandomClassPrefix(10) + '_toast'

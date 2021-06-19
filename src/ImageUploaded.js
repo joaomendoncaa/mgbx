@@ -6,25 +6,15 @@ class ImageUploaded {
     this.__init__()
   }
 
-  get image() {
-    return this._image
-  }
+  get image() { return this._image }
 
-  get imageName() {
-    return this._imageName
-  }
+  get imageName() { return this._imageName }
 
-  set imageName(name) {
-    this._imageName = name
-  }
+  set imageName(name) { this._imageName = name }
 
-  getBlob() {
-    return this.image
-  }
+  getBlob() { return this.image }
 
-  getName() {
-    return this._imageName
-  }
+  getName() { return this._imageName }
 
   __init__() {
     this.imageName = this.image.name

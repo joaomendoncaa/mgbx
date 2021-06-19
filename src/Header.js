@@ -6,13 +6,9 @@ class Header {
     this._headerEditing = DOM['main_header_editing']
   }
 
-  get headerSpan() {
-    return this._headerSpan
-  }
+  get headerSpan() { return this._headerSpan }
 
-  get headerEditing() {
-    return this._headerEditing
-  }
+  get headerEditing() { return this._headerEditing }
 
   changeSpanText(textString, editingToggle) {
     this.headerSpan.textContent = textString

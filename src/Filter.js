@@ -30,57 +30,31 @@ class Filter {
     this.__init__()
   }
 
-  get currentValueElement() {
-    return this._currentValueElement
-  }
+  get currentValueElement() { return this._currentValueElement }
 
-  get filterUpdateCallback() {
-    return this._filterUpdateCallback
-  }
+  get filterUpdateCallback() { return this._filterUpdateCallback }
 
-  get name() {
-    return this._name
-  }
+  get name() { return this._name }
 
-  get metric() {
-    return this._metric
-  }
+  get metric() { return this._metric }
 
-  get min() {
-    return this._min
-  }
+  get min() { return this._min }
 
-  get max() {
-    return this._max
-  }
+  get max() { return this._max }
 
-  get def() {
-    return this._def
-  }
+  get def() { return this._def }
 
-  get parentDomElement() {
-    return this._parentDomElement
-  }
+  get parentDomElement() { return this._parentDomElement }
 
-  get inputElement() {
-    return this._inputElement
-  }
+  get inputElement() { return this._inputElement }
 
-  get current() {
-    return this._current
-  }
+  get current() { return this._current }
 
-  set current(value) {
-    this._current = value
-  }
+  set current(value) { this._current = value }
 
-  set inputElement(htmlElement) {
-    this._inputElement = htmlElement
-  }
+  set inputElement(htmlElement) { this._inputElement = htmlElement }
 
-  set currentValueElement(htmlElement) {
-    this._currentValueElement = htmlElement
-  }
+  set currentValueElement(htmlElement) { this._currentValueElement = htmlElement }
 
   reset() {
     this.current = this.def

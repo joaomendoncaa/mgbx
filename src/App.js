@@ -160,11 +160,12 @@ class App {
   onClickToolbarClearBtn() {
     //clear the context and erase the image selected
     this.canvas.ctx.clearRect(0, 0, this.canvas.ctx.width, this.canvas.ctx.height)
+    this.canvas = null
 
     DOM['selection_tool'].style.display = 'none'
     DOM['image_preview'].src = ''
 
-    DOM['main_header_span'].textContent = 'No Image uploaded'
+    this.header.changeSpanText('No Image uploaded', false)
 
     //remove all the elements needed
     DOM['image_preview'].style.display = 'none'
@@ -172,6 +173,9 @@ class App {
     DOM['selection_crop_btn'].style.display = 'none'
     DOM['toolbar_save_btn'].style.display = 'none'
     DOM['selection_tool_mask'].style.display = 'none'
+    DOM['effects_wrapper'].style.display = 'none'
+    DOM['presets_wrapper'].style.display = 'none'
+    DOM['effects_list'].innerHTML = ''
 
     //add upload button back in
     DOM['toolbar_upload_btn'].style.display = 'flex'
