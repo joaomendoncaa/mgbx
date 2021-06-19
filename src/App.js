@@ -92,15 +92,7 @@ class App {
   }
 
   onClickEffectsHeaderResetBtn() {
-    blur.reset()
-    brightness.reset()
-    contrast.reset()
-    grayscale.reset()
-    hueRotate.reset()
-    invert.reset()
-    opacity.reset()
-    saturate.reset()
-    sepia.reset()
+    this.canvas.resetAllFilters()
   }
 
   onClickSelectionCropBtn() {

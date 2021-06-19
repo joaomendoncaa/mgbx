@@ -19,6 +19,7 @@ export default {
   selection_tool: document.querySelector('.selection_tool'),
   //Header span
   main_header_span: document.querySelector('.main_header_span'),
+  main_header_editing: document.querySelector('.main_header_editing'),
   //Presets
   presets_wrapper: document.querySelector('.presets_wrapper'),
   presets_list: document.querySelector('.presets_list'),

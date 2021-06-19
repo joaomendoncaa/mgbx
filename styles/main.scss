@@ -34,6 +34,13 @@ body {
 
   background: $blue-dark;
 
+  .main_header_editing {
+    display: none;
+    color: $grey;
+    margin: 0 .4rem 0 0;
+    font-size: .85rem;
+  }
+
   .main_header_span {
     color: white;
     font-weight: 400;
