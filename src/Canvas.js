@@ -55,7 +55,7 @@ class Canvas {
     DOM['image_preview'].style.filter = filterString
   }
 
-  resetFilters() {
+  resetAllFilters() {
     this.filters.blur.reset()
     this.filters.brightness.reset()
     this.filters.contrast.reset()
@@ -65,6 +65,15 @@ class Canvas {
     this.filters.opacity.reset()
     this.filters.saturate.reset()
     this.filters.sepia.reset()
+  }
+
+  toDataURL() {
+    return this.canvas.toDataURL()
+  }
+
+  setSize(width, height) {
+    this.canvas.width = width
+    this.canvas.height = height
   }
 
   __init__() {

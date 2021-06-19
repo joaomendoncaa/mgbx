@@ -22,6 +22,10 @@ class ImageUploaded {
     return this.image
   }
 
+  getName() {
+    return this._imageName
+  }
+
   __init__() {
     this.imageName = this.image.name
   }

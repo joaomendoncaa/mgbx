@@ -5,7 +5,6 @@ import Canvas from './Canvas'
 import ImageUploaded from './ImageUploaded'
 import Header from './Header'
 
-
 import '../styles/main.scss'
 
 class App {
@@ -16,6 +15,10 @@ class App {
     this._toast = new Toast()
 
     this.__init__()
+  }
+
+  get header() {
+    return this._header
   }
 
   get canvas() {
@@ -37,14 +40,11 @@ class App {
   onLoadImageFromReader() {
     this.canvas = new Canvas(this.image)
 
-    this.canvas.width = this.image.width
-    this.canvas.height = this.image.height
+    this.canvas.setSize(this.image.width, this.image.height)
 
     this.canvas.ctx.clearRect(0, 0, this.image.width, this.image.height)
 
     this.canvas.ctx.drawImage(this.image, 0, 0)
-
-    console.log(this.canvas)
 
     DOM['image_preview'].style.display = 'initial'
     DOM['image_preview'].src = this.canvas.toDataURL()
@@ -55,7 +55,7 @@ class App {
 
     this.image = new ImageUploaded(imageUploaded)
 
-    DOMTools.changeTextOnElement(this.image.name, DOM['main_header_span'])
+    this.header.changeSpanText(this.image.getName(), true)
 
     let reader = new FileReader()
     reader.readAsDataURL(this.image.getBlob())
@@ -123,23 +123,23 @@ class App {
     ]
 
     //get the cropped image from the canvas context
-    const croppedImage = this.ctx.getImageData(actualX, actualY, croppedWidth, croppedHeight)
+    const croppedImage = this.canvas.ctx.getImageData(actualX, actualY, croppedWidth, croppedHeight)
 
-    //delete canvas context
-    ctx.clearRect(0, 0, ctx.width, ctx.height)
+    this.canvas.ctx.clearRect(0, 0, this.canvas.ctx.width, this.canvas.ctx.height)
 
     //ajust propotions to the new image
-    image.width = canvas.width = croppedWidth
-    image.height = canvas.height = croppedHeight
+    this.image.width = croppedWidth
+    this.image.height = croppedHeight
+    this.canvas.setSize(croppedWidth, croppedHeight)
 
     //add the cropped image to the context
-    ctx.putImageData(croppedImage, 0, 0)
+    this.canvas.ctx.putImageData(croppedImage, 0, 0)
 
     //hide the selection tool
     DOM['selection_tool'].style.display = 'none'
 
     //update the imagePreview
-    DOM['image_preview'].src = canvas.toDataURL()
+    DOM['image_preview'].src = this.canvas.toDataURL()
 
     //show Elements
     DOM['toolbar_clear_btn'].style.display = 'flex'

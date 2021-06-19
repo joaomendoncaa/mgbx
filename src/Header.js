@@ -14,18 +14,15 @@ class Header {
     return this._headerEditing
   }
 
-  changeSpanText(textString) {
+  changeSpanText(textString, editingToggle) {
     this.headerSpan.textContent = textString
-  }
 
-  editingToggle() {
-    const currentDisplayStyle = this.headerEditing.style.display
-    switch (currentDisplayStyle) {
-      case 'flex':
-        this.headerEditing.style.display = 'none'
-        break
-      case 'none':
+    switch (editingToggle) {
+      case true:
         this.headerEditing.style.display = 'flex'
+        break
+      case false:
+        this.headerEditing.style.display = 'none'
         break
     }
   }
