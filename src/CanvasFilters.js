@@ -48,7 +48,7 @@ class CanvasFilters {
   }
 
   applyFiltersOnCanvasContext() {
-    this.context.filter = this.getFiltersString()
+    console.log(ctx, this.getFiltersString())
   }
 
   applyFiltersOnImagePreview() {

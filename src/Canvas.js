@@ -37,6 +37,10 @@ class Canvas {
     this.filters.reset()
   }
 
+  applyFiltersToCtx() {
+    this.filters.applyFiltersOnCanvasContext()
+  }
+
   __init__() {
 
   }

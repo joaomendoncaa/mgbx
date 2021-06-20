@@ -85,11 +85,11 @@
 
   &::-webkit-slider-thumb {
     box-shadow: 0px 0px 0px #000031;
-    border: 2px solid #00001e;
+    border: 3px solid $grey-dark;
     height: 20px;
     width: 19px;
     border-radius: 19px;
-    background: transparent;
+    background: $text;
     cursor: pointer;
     -webkit-appearance: none;
     margin-top: -8px;
@@ -109,6 +109,10 @@
     border: 0;
   }
 
+  &:hover::-moz-range-track {
+    height: 8px;
+  }
+
   &::-moz-range-thumb {
     box-shadow: none;
     border: 3px solid $grey-dark;
@@ -117,6 +121,14 @@
     border-radius: 19px;
     background: #ffffff;
     cursor: pointer;
+
+    transition: transform .075s linear;
+
+    transform-origin: center;
+
+    &:hover {
+      transform: scale(1.05);
+    }
   }
 
   &::-ms-track {

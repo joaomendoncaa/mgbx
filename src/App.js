@@ -142,9 +142,11 @@ class App {
 
   onClickToolbarSaveBtn() {
     const a = document.createElement('a')
-    a.download = this.image.name.split('.').join("") + '-cropped.jpeg'
-    a.href = canvas.toDataURL()
-    a.click()
+    console.log(this.image.getName)
+    a.download = this.image.getName().split('.').join("") + '-cropped.jpeg'
+    this.canvas.applyFiltersToCtx()
+    a.href = this.canvas.toDataURL()
+    // a.click()
   }
 
   onClickToolbarClearBtn() {
