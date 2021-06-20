@@ -63,7 +63,7 @@ class App {
         DOM['toolbar_save_btn'],
         DOM['toolbar_clear_btn'],
         DOM['effects_wrapper'],
-        DOM['presets_wrapper']
+        DOM['history_wrapper']
       ], 'flex')
     })
   }
@@ -140,13 +140,17 @@ class App {
     DOM['selection_tool_mask'].style.display = 'none'
   }
 
+  /**
+   * Creates an anchor element in the document and gives it a href of the canvas data
+   * and a download of the image name
+   */
   onClickToolbarSaveBtn() {
     const a = document.createElement('a')
-    console.log(this.image.getName)
-    a.download = this.image.getName().split('.').join("") + '-cropped.jpeg'
+    a.download = this.image.getName() + '-cropped.jpeg'
     this.canvas.applyFiltersToCtx()
+    this.canvas.ctx.drawImage(this.image, 0, 0)
     a.href = this.canvas.toDataURL()
-    // a.click()
+    a.click()
   }
 
   onClickToolbarClearBtn() {
@@ -166,7 +170,7 @@ class App {
     DOM['toolbar_save_btn'].style.display = 'none'
     DOM['selection_tool_mask'].style.display = 'none'
     DOM['effects_wrapper'].style.display = 'none'
-    DOM['presets_wrapper'].style.display = 'none'
+    DOM['history_wrapper'].style.display = 'none'
     DOM['effects_list'].innerHTML = ''
 
     //add upload button back in

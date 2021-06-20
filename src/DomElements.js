@@ -20,9 +20,9 @@ export default {
   //Header span
   main_header_span: document.querySelector('.main_header_span'),
   main_header_editing: document.querySelector('.main_header_editing'),
-  //Presets
-  presets_wrapper: document.querySelector('.presets_wrapper'),
-  presets_list: document.querySelector('.presets_list'),
+  //History
+  history_wrapper: document.querySelector('.history_wrapper'),
+  history_list: document.querySelector('.history_list'),
   //Effects
   effects_wrapper: document.querySelector('.effects_wrapper'),
   effects_list: document.querySelector('.effects_list'),
