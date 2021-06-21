@@ -4,9 +4,5 @@ Image manipulation web app made with vanilla JavaScript from scratch.
 
 # TODO
 
-[x] Hover effects on filter dial
-[x] Save image feature
-[] Animation on reset filter
-[] SVG on cancel selection
-[] Refactor of selection tool
-[] ! Historic feature
+[] reset button animation
+[] history feature
