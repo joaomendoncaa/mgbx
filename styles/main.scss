@@ -57,7 +57,7 @@ main {
   height: auto;
 }
 
-.presets_wrapper {
+.history_wrapper {
   width: 15%;
   max-width: 250px;
   height: 100%;
@@ -68,12 +68,12 @@ main {
 
   background: $grey-dark;
 
-  .presets_header {
+  .history_header {
     width: 100%;
 
     padding: 2rem 0;
 
-    .presets_header_title {
+    .history_header_title {
       padding: 0 1rem;
       font-weight: 600;
       font-size: 0.9rem;

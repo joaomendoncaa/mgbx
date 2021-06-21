@@ -1,9 +1,9 @@
-import DOM from './DomElements'
+import $ from './DomElements'
 
 class Header {
   constructor() {
-    this._headerSpan = DOM['main_header_span']
-    this._headerEditing = DOM['main_header_editing']
+    this._headerSpan = $('.main_header_span')
+    this._headerEditing = $('.main_header_editing')
   }
 
   get headerSpan() { return this._headerSpan }

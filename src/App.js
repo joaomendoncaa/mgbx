@@ -1,9 +1,11 @@
 import Toast from './Toast'
 import DOMTools from './DomTools'
-import DOM from './DomElements'
+import $ from './DomElements'
 import Canvas from './Canvas'
 import ImageUploaded from './ImageUploaded'
 import Header from './Header'
+import Toolbar from './Toolbar'
+import SelectionTool from './SelectionTool'
 
 import '../styles/main.scss'
 
@@ -12,10 +14,13 @@ class App {
     this._image = null
     this._canvas = null
     this._header = new Header()
+    this._toolbar = new Toolbar()
     this._toast = new Toast()
 
     this.__init__()
   }
+
+  get toolbar() { return this._toolbar }
 
   get header() { return this._header }
 
@@ -36,12 +41,12 @@ class App {
 
     this.canvas.ctx.drawImage(this.image, 0, 0)
 
-    DOM['image_preview'].style.display = 'initial'
-    DOM['image_preview'].src = this.canvas.toDataURL()
+    $('.image_preview').style.display = 'initial'
+    $('.image_preview').src = this.canvas.toDataURL()
   }
 
   onChangeToolbarUploadInput() {
-    const imageUploaded = DOM['toolbar_upload_input'].files[0]
+    const imageUploaded = $('.toolbar_upload_input').files[0]
 
     this.image = new ImageUploaded(imageUploaded)
 
@@ -56,28 +61,28 @@ class App {
       this.image.addEventListener('load', this.onLoadImageFromReader.bind(this))
 
       DOMTools.elementVisibility([
-        DOM['toolbar_upload_btn']
+        $('.toolbar_upload_btn')
       ], 'none')
 
       DOMTools.elementVisibility([
-        DOM['toolbar_save_btn'],
-        DOM['toolbar_clear_btn'],
-        DOM['effects_wrapper'],
-        DOM['history_wrapper']
+        $('.toolbar_save_btn'),
+        $('.toolbar_clear_btn'),
+        $('.effects_wrapper'),
+        $('.history_wrapper')
       ], 'flex')
     })
   }
 
   onClickToolbarUploadBtn() {
-    DOM['toolbar_upload_input'].click()
+    $('.toolbar_upload_input').click()
   }
 
   onClickSelectionCancelBtn() {
     DOMTools.elementVisibility([
-      DOM['selection_tool'],
-      DOM['selection_tool_mask'],
-      DOM['selection_crop_btn'],
-      DOM['selection_cancel_btn'],
+      $('.selection_tool'),
+      $('.selection_tool_mask'),
+      $('.selection_crop_btn'),
+      $('.selection_cancel_btn'),
     ], 'none')
   }
 
@@ -89,7 +94,7 @@ class App {
     const imageWidth = this.image.width
     const imageHeight = this.image.height
 
-    const { width: previewImageWidth, height: previewImageHeight } = DOM['image_preview']
+    const { width: previewImageWidth, height: previewImageHeight } = $('.image_preview')
 
     //get the aspect ratio of the image
     const [widthRatio, heightRatio] = [
@@ -98,8 +103,8 @@ class App {
     ]
 
     const [selectionWidth, selectionHeight] = [
-      parseInt(DOM['selection_tool'].style.width),
-      parseInt(DOM['selection_tool'].style.height)
+      parseInt($('.selection_tool').style.width),
+      parseInt($('.selection_tool').style.height)
     ]
 
     const [croppedWidth, croppedHeight] = [
@@ -126,18 +131,18 @@ class App {
     this.canvas.ctx.putImageData(croppedImage, 0, 0)
 
     //hide the selection tool
-    DOM['selection_tool'].style.display = 'none'
+    $('.selection_tool').style.display = 'none'
 
     //update the imagePreview
-    DOM['image_preview'].src = this.canvas.toDataURL()
+    $('.image_preview').src = this.canvas.toDataURL()
 
     //show Elements
-    DOM['toolbar_clear_btn'].style.display = 'flex'
-    DOM['toolbar_save_btn'].style.display = 'flex'
+    $('.toolbar_clear_btn').style.display = 'flex'
+    $('.toolbar_save_btn').style.display = 'flex'
 
     //Hide elements
-    DOM['selection_crop_btn'].style.display = 'none'
-    DOM['selection_tool_mask'].style.display = 'none'
+    $('.selection_crop_btn').style.display = 'none'
+    $('.selection_tool_mask').style.display = 'none'
   }
 
   /**
@@ -158,34 +163,34 @@ class App {
     this.canvas.ctx.clearRect(0, 0, this.canvas.ctx.width, this.canvas.ctx.height)
     this.canvas = null
 
-    DOM['selection_tool'].style.display = 'none'
-    DOM['image_preview'].src = ''
+    $('.selection_tool').style.display = 'none'
+    $('.image_preview').src = ''
 
     this.header.changeSpanText('No Image uploaded', false)
 
     //remove all the elements needed
-    DOM['image_preview'].style.display = 'none'
-    DOM['toolbar_clear_btn'].style.display = 'none'
-    DOM['selection_crop_btn'].style.display = 'none'
-    DOM['toolbar_save_btn'].style.display = 'none'
-    DOM['selection_tool_mask'].style.display = 'none'
-    DOM['effects_wrapper'].style.display = 'none'
-    DOM['history_wrapper'].style.display = 'none'
-    DOM['effects_list'].innerHTML = ''
+    $('.image_preview').style.display = 'none'
+    $('.toolbar_clear_btn').style.display = 'none'
+    $('.selection_crop_btn').style.display = 'none'
+    $('.toolbar_save_btn').style.display = 'none'
+    $('.selection_tool_mask').style.display = 'none'
+    $('.effects_wrapper').style.display = 'none'
+    $('.history_wrapper').style.display = 'none'
+    $('.effects_list').innerHTML = ''
 
     //add upload button back in
-    DOM['toolbar_upload_btn'].style.display = 'flex'
+    $('.toolbar_upload_btn').style.display = 'flex'
   }
 
   //on app init
   __init__() {
-    DOM['toolbar_upload_btn'].addEventListener('click', () => this.onClickToolbarUploadBtn())
-    DOM['toolbar_upload_input'].addEventListener('change', () => this.onChangeToolbarUploadInput())
-    DOM['selection_cancel_btn'].addEventListener('click', () => this.onClickSelectionCancelBtn())
-    DOM['effects_header_reset_btn'].addEventListener('click', () => this.onClickEffectsHeaderResetBtn())
-    DOM['selection_crop_btn'].addEventListener('click', () => this.onClickSelectionCropBtn())
-    DOM['toolbar_save_btn'].addEventListener('click', () => this.onClickToolbarSaveBtn())
-    DOM['toolbar_clear_btn'].addEventListener('click', () => this.onClickToolbarClearBtn())
+    $('.toolbar_upload_btn').addEventListener('click', () => this.onClickToolbarUploadBtn())
+    $('.toolbar_upload_input').addEventListener('change', () => this.onChangeToolbarUploadInput())
+    $('.selection_cancel_btn').addEventListener('click', () => this.onClickSelectionCancelBtn())
+    $('.effects_header_reset_btn').addEventListener('click', () => this.onClickEffectsHeaderResetBtn())
+    $('.selection_crop_btn').addEventListener('click', () => this.onClickSelectionCropBtn())
+    $('.toolbar_save_btn').addEventListener('click', () => this.onClickToolbarSaveBtn())
+    $('.toolbar_clear_btn').addEventListener('click', () => this.onClickToolbarClearBtn())
   }
 }
 
@@ -263,12 +268,12 @@ const events = {
     let endY = event.clientY
     let { offsetX, offsetY } = event
 
-    DOM['selection_tool'].style.display = 'initial'
+    $('.selection_tool').style.display = 'initial'
 
-    DOMTools.styleElement(DOM['selection_tool_mask'], {
+    DOMTools.styleElement($('.selection_tool_mask'), {
       display: 'initial',
-      width: parsePixels(DOM['image_preview'].width),
-      height: parsePixels(DOM['image_preview'].height)
+      width: parsePixels($('.image_preview').width),
+      height: parsePixels($('.image_preview').height)
     })
 
     function drawRectanglePositiveXPositiveY() {
@@ -277,24 +282,24 @@ const events = {
       const top = parsePixels(startY)
       const left = parsePixels(startX)
 
-      DOMTools.styleElement(DOM['selection_tool'], {
+      DOMTools.styleElement($('.selection_tool'), {
         width,
         height,
         top,
         left
       })
 
-      DOMTools.styleElement(DOM['selection_tool_mask'], {
+      DOMTools.styleElement($('.selection_tool_mask'), {
         clipPath: getPolygonVectorPoints(
           width,
           height,
-          parsePixels(offsetY - parseInt(DOM['selection_tool'].style.height)),
-          parsePixels(offsetX - parseInt(DOM['selection_tool'].style.width))
+          parsePixels(offsetY - parseInt($('.selection_tool').style.height)),
+          parsePixels(offsetX - parseInt($('.selection_tool').style.width))
         )
       })
 
-      selectionOriginCoordinates.x = offsetX - parseInt(DOM['selection_tool'].style.width)
-      selectionOriginCoordinates.y = offsetY - parseInt(DOM['selection_tool'].style.height)
+      selectionOriginCoordinates.x = offsetX - parseInt($('.selection_tool').style.width)
+      selectionOriginCoordinates.y = offsetY - parseInt($('.selection_tool').style.height)
     }
 
     function drawRectanglePositiveXNegativeY() {
@@ -303,23 +308,23 @@ const events = {
       const top = parsePixels(endY)
       const left = parsePixels(startX)
 
-      DOMTools.styleElement(DOM['selection_tool'], {
+      DOMTools.styleElement($('.selection_tool'), {
         width,
         height,
         top,
         left
       })
 
-      DOMTools.styleElement(DOM['selection_tool_mask'], {
+      DOMTools.styleElement($('.selection_tool_mask'), {
         clipPath: getPolygonVectorPoints(
           width,
           height,
           parsePixels(offsetY),
-          parsePixels(offsetX - parseInt(DOM['selection_tool'].style.width))
+          parsePixels(offsetX - parseInt($('.selection_tool').style.width))
         )
       })
 
-      selectionOriginCoordinates.x = offsetX - parseInt(DOM['selection_tool'].style.width)
+      selectionOriginCoordinates.x = offsetX - parseInt($('.selection_tool').style.width)
       selectionOriginCoordinates.y = offsetY
     }
 
@@ -329,14 +334,14 @@ const events = {
       const top = parsePixels(endY)
       const left = parsePixels(endX)
 
-      DOMTools.styleElement(DOM['selection_tool'], {
+      DOMTools.styleElement($('.selection_tool'), {
         width,
         height,
         top,
         left
       })
 
-      DOMTools.styleElement(DOM['selection_tool_mask'], {
+      DOMTools.styleElement($('.selection_tool_mask'), {
         clipPath: getPolygonVectorPoints(
           width,
           height,
@@ -355,24 +360,24 @@ const events = {
       const top = parsePixels(startY)
       const left = parsePixels(endX)
 
-      DOMTools.styleElement(DOM['selection_tool'], {
+      DOMTools.styleElement($('.selection_tool'), {
         width,
         height,
         top,
         left
       })
 
-      DOMTools.styleElement(DOM['selection_tool_mask'], {
+      DOMTools.styleElement($('.selection_tool_mask'), {
         clipPath: getPolygonVectorPoints(
           width,
           height,
-          parsePixels(offsetY - parseInt(DOM['selection_tool'].style.height)),
+          parsePixels(offsetY - parseInt($('.selection_tool').style.height)),
           parsePixels(offsetX)
         )
       })
 
       selectionOriginCoordinates.x = offsetX
-      selectionOriginCoordinates.y = offsetY - parseInt(DOM['selection_tool'].style.height)
+      selectionOriginCoordinates.y = offsetY - parseInt($('.selection_tool').style.height)
     }
 
     if (endX < startX && endY < startY) return drawRectangleNegativeXNegativeY()
@@ -383,11 +388,11 @@ const events = {
   mouseup(event) {
     isSelecting = false
     //show the crop button
-    DOM['selection_crop_btn'].style.display = 'flex'
-    DOM['selection_cancel_btn'].style.display = 'flex'
+    $('.selection_crop_btn').style.display = 'flex'
+    $('.selection_cancel_btn').style.display = 'flex'
   }
 }
 
 Object.keys(events).forEach(key => {
-  DOM['image_preview'].addEventListener(key, events[key])
+  $('.image_preview').addEventListener(key, events[key])
 })

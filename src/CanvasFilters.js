@@ -1,19 +1,19 @@
-import DOM from './DomElements'
+import $ from './DomElements'
 import Filter from './Filter'
 
 class CanvasFilters {
   constructor(context) {
     this._context = context
     this._filters = {}
-    this._blur = new Filter(DOM['effects_list'], 'blur', 'px', 0, 20, 0, (a, b, c) => this.updateFiltersMap(a, b, c))
-    this._brightness = new Filter(DOM['effects_list'], 'brightness', '%', 0, 200, 100, (a, b, c) => this.updateFiltersMap(a, b, c))
-    this._contrast = new Filter(DOM['effects_list'], 'contrast', '%', 0, 200, 100, (a, b, c) => this.updateFiltersMap(a, b, c))
-    this._grayscale = new Filter(DOM['effects_list'], 'grayscale', '%', 0, 100, 0, (a, b, c) => this.updateFiltersMap(a, b, c))
-    this._hueRotate = new Filter(DOM['effects_list'], 'hue-rotate', 'deg', 0, 360, 0, (a, b, c) => this.updateFiltersMap(a, b, c))
-    this._invert = new Filter(DOM['effects_list'], 'invert', '%', 0, 100, 0, (a, b, c) => this.updateFiltersMap(a, b, c))
-    this._opacity = new Filter(DOM['effects_list'], 'opacity', '%', 0, 100, 100, (a, b, c) => this.updateFiltersMap(a, b, c))
-    this._saturate = new Filter(DOM['effects_list'], 'saturate', '%', 0, 200, 100, (a, b, c) => this.updateFiltersMap(a, b, c))
-    this._sepia = new Filter(DOM['effects_list'], 'sepia', '%', 0, 200, 0, (a, b, c) => this.updateFiltersMap(a, b, c))
+    this._blur = new Filter($('.effects_list'), 'blur', 'px', 0, 20, 0, (a, b, c) => this.updateFiltersMap(a, b, c))
+    this._brightness = new Filter($('.effects_list'), 'brightness', '%', 0, 200, 100, (a, b, c) => this.updateFiltersMap(a, b, c))
+    this._contrast = new Filter($('.effects_list'), 'contrast', '%', 0, 200, 100, (a, b, c) => this.updateFiltersMap(a, b, c))
+    this._grayscale = new Filter($('.effects_list'), 'grayscale', '%', 0, 100, 0, (a, b, c) => this.updateFiltersMap(a, b, c))
+    this._hueRotate = new Filter($('.effects_list'), 'hue-rotate', 'deg', 0, 360, 0, (a, b, c) => this.updateFiltersMap(a, b, c))
+    this._invert = new Filter($('.effects_list'), 'invert', '%', 0, 100, 0, (a, b, c) => this.updateFiltersMap(a, b, c))
+    this._opacity = new Filter($('.effects_list'), 'opacity', '%', 0, 100, 100, (a, b, c) => this.updateFiltersMap(a, b, c))
+    this._saturate = new Filter($('.effects_list'), 'saturate', '%', 0, 200, 100, (a, b, c) => this.updateFiltersMap(a, b, c))
+    this._sepia = new Filter($('.effects_list'), 'sepia', '%', 0, 200, 0, (a, b, c) => this.updateFiltersMap(a, b, c))
   }
 
   get context() { return this._context }
@@ -43,7 +43,7 @@ class CanvasFilters {
   setFilter(key, value) { this._filters[key] = value }
 
   updateFiltersMap(filterName, filterValue, filterUnit) {
-    this.setFilter(filterName, `${filterValue}${filterUnit}`)
+    this.setFilter(filterName, `$(f.)lterValue}$(f.)lterUnit}`)
     this.applyFiltersOnImagePreview(this.getFiltersString())
   }
 
@@ -52,13 +52,13 @@ class CanvasFilters {
   }
 
   applyFiltersOnImagePreview() {
-    DOM['image_preview'].style.filter = this.getFiltersString()
+    $('.image_preview').style.filter = this.getFiltersString()
   }
 
   getFiltersString() {
     let filtersFinalString = ''
     Object.keys(this.filters).map(filterName => {
-      filtersFinalString += `${filterName}(${this.filters[filterName]}) `
+      filtersFinalString += `$(f.)lterName}($(t.)is.filters[filterName]}) `
     })
     return filtersFinalString
   }
