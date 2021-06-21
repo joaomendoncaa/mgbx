@@ -16,7 +16,6 @@ class Toolbar {
   }
 
   get leftArea() { return this._leftArea }
-
   get rightArea() { return this._rightArea }
 
   __init__() {

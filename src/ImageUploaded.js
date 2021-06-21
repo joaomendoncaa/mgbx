@@ -7,7 +7,6 @@ class ImageUploaded {
   }
 
   get image() { return this._image }
-
   get imageName() { return this._imageName }
 
   set imageName(name) { this._imageName = name }

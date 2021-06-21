@@ -11,17 +11,12 @@ class Canvas {
   }
 
   get image() { return this._image }
-
   get canvas() { return this._canvas }
-
   get ctx() { return this._ctx }
-
   get filters() { return this._filters }
 
   set canvas(canvas) { this._canvas = canvas }
-
   set ctx(ctx) { this._ctx = ctx }
-
   set filters(filters) { this._filters = filters }
 
   toDataURL() {

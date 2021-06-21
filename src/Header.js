@@ -7,7 +7,6 @@ class Header {
   }
 
   get headerSpan() { return this._headerSpan }
-
   get headerEditing() { return this._headerEditing }
 
   changeSpanText(textString, editingToggle) {

@@ -17,25 +17,15 @@ class CanvasFilters {
   }
 
   get context() { return this._context }
-
   get filters() { return this._filters }
-
   get blur() { return this._blur }
-
   get brightness() { return this._brightness }
-
   get contrast() { return this._contrast }
-
   get grayscale() { return this._grayscale }
-
   get hueRotate() { return this._hueRotate }
-
   get invert() { return this._invert }
-
   get opacity() { return this._opacity }
-
   get saturate() { return this._saturate }
-
   get sepia() { return this._sepia }
 
   set filters(filters) { this._filters = filters }

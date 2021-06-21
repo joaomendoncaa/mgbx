@@ -16,20 +16,18 @@ class App {
     this._header = new Header()
     this._toolbar = new Toolbar()
     this._toast = new Toast()
+    this._selectionTool = new SelectionTool()
 
     this.__init__()
   }
 
+  get selectionTool() { return this._selectionTool }
   get toolbar() { return this._toolbar }
-
   get header() { return this._header }
-
   get canvas() { return this._canvas }
-
   get image() { return this._image }
 
   set canvas(canvas) { this._canvas = canvas }
-
   set image(image) { this._image = image }
 
   onLoadImageFromReader() {
@@ -113,8 +111,8 @@ class App {
     ]
 
     const [actualX, actualY] = [
-      Number(selectionOriginCoordinates.x * widthRatio),
-      Number(selectionOriginCoordinates.y * heightRatio)
+      Number(this.selectionTool.selectionOriginCoordinates.x * widthRatio),
+      Number(this.selectionTool.selectionOriginCoordinates.y * heightRatio)
     ]
 
     //get the cropped image from the canvas context
@@ -195,204 +193,3 @@ class App {
 }
 
 export default App
-
-let startX
-let startY
-let selectionOriginCoordinates = {
-  x: 0,
-  y: 0
-}
-let isSelecting = false
-
-function parsePixels(integer) {
-  return `${integer}px`
-}
-
-function getPolygonVectorPoints(width, height, top, left) {
-  const widthInt = parseInt(width)
-  const heightInt = parseInt(height)
-  const topInt = parseInt(top)
-  const leftInt = parseInt(left)
-
-  const topLeftCoords = [
-    parsePixels(leftInt),
-    parsePixels(topInt)
-  ]
-  const topRightCoords = [
-    parsePixels(leftInt + widthInt),
-    parsePixels(topInt)
-  ]
-  const bottomRightCoords = [
-    parsePixels(leftInt + widthInt),
-    parsePixels(topInt + heightInt)
-  ]
-  const bottomLeftCoords = [
-    parsePixels(leftInt),
-    parsePixels(topInt + heightInt)
-  ]
-
-  return `polygon( 
-    evenodd,
-    0 0,       
-    100% 0,   
-    100% 100%,
-    0% 100%,  
-    0 0,      
-    ${topLeftCoords[0]} ${topLeftCoords[1]},
-    ${topRightCoords[0]} ${topRightCoords[1]},
-    ${bottomRightCoords[0]} ${bottomRightCoords[1]},
-    ${bottomLeftCoords[0]} ${bottomLeftCoords[1]},
-    ${topLeftCoords[0]} ${topLeftCoords[1]}
-   )`
-}
-
-const events = {
-  mouseover() {
-    this.style.cursor = 'crosshair'
-  },
-  mousedown(event) {
-    const { clientX, clientY, offsetX, offsetY } = event
-
-    startX = clientX
-    startY = clientY
-
-    selectionOriginCoordinates.x = offsetX
-    selectionOriginCoordinates.y = offsetY
-
-    isSelecting = true
-  },
-  mousemove(event) {
-    if (!isSelecting) return
-
-    let endX = event.clientX
-    let endY = event.clientY
-    let { offsetX, offsetY } = event
-
-    $('.selection_tool').style.display = 'initial'
-
-    DOMTools.styleElement($('.selection_tool_mask'), {
-      display: 'initial',
-      width: parsePixels($('.image_preview').width),
-      height: parsePixels($('.image_preview').height)
-    })
-
-    function drawRectanglePositiveXPositiveY() {
-      const width = parsePixels(endX - startX)
-      const height = parsePixels(endY - startY)
-      const top = parsePixels(startY)
-      const left = parsePixels(startX)
-
-      DOMTools.styleElement($('.selection_tool'), {
-        width,
-        height,
-        top,
-        left
-      })
-
-      DOMTools.styleElement($('.selection_tool_mask'), {
-        clipPath: getPolygonVectorPoints(
-          width,
-          height,
-          parsePixels(offsetY - parseInt($('.selection_tool').style.height)),
-          parsePixels(offsetX - parseInt($('.selection_tool').style.width))
-        )
-      })
-
-      selectionOriginCoordinates.x = offsetX - parseInt($('.selection_tool').style.width)
-      selectionOriginCoordinates.y = offsetY - parseInt($('.selection_tool').style.height)
-    }
-
-    function drawRectanglePositiveXNegativeY() {
-      const width = parsePixels(endX - startX)
-      const height = parsePixels(startY - endY)
-      const top = parsePixels(endY)
-      const left = parsePixels(startX)
-
-      DOMTools.styleElement($('.selection_tool'), {
-        width,
-        height,
-        top,
-        left
-      })
-
-      DOMTools.styleElement($('.selection_tool_mask'), {
-        clipPath: getPolygonVectorPoints(
-          width,
-          height,
-          parsePixels(offsetY),
-          parsePixels(offsetX - parseInt($('.selection_tool').style.width))
-        )
-      })
-
-      selectionOriginCoordinates.x = offsetX - parseInt($('.selection_tool').style.width)
-      selectionOriginCoordinates.y = offsetY
-    }
-
-    function drawRectangleNegativeXNegativeY() {
-      const width = parsePixels(startX - endX)
-      const height = parsePixels(startY - endY)
-      const top = parsePixels(endY)
-      const left = parsePixels(endX)
-
-      DOMTools.styleElement($('.selection_tool'), {
-        width,
-        height,
-        top,
-        left
-      })
-
-      DOMTools.styleElement($('.selection_tool_mask'), {
-        clipPath: getPolygonVectorPoints(
-          width,
-          height,
-          parsePixels(offsetY),
-          parsePixels(offsetX)
-        )
-      })
-
-      selectionOriginCoordinates.x = offsetX
-      selectionOriginCoordinates.y = offsetY
-    }
-
-    function drawRectangleNegativeXPositiveY() {
-      const width = parsePixels(startX - endX)
-      const height = parsePixels(endY - startY)
-      const top = parsePixels(startY)
-      const left = parsePixels(endX)
-
-      DOMTools.styleElement($('.selection_tool'), {
-        width,
-        height,
-        top,
-        left
-      })
-
-      DOMTools.styleElement($('.selection_tool_mask'), {
-        clipPath: getPolygonVectorPoints(
-          width,
-          height,
-          parsePixels(offsetY - parseInt($('.selection_tool').style.height)),
-          parsePixels(offsetX)
-        )
-      })
-
-      selectionOriginCoordinates.x = offsetX
-      selectionOriginCoordinates.y = offsetY - parseInt($('.selection_tool').style.height)
-    }
-
-    if (endX < startX && endY < startY) return drawRectangleNegativeXNegativeY()
-    if (endX > startX && endY > startY) return drawRectanglePositiveXPositiveY()
-    if (endX > startX && endY < startY) return drawRectanglePositiveXNegativeY()
-    if (endX < startX && endY > startY) return drawRectangleNegativeXPositiveY()
-  },
-  mouseup(event) {
-    isSelecting = false
-    //show the crop button
-    $('.selection_crop_btn').style.display = 'flex'
-    $('.selection_cancel_btn').style.display = 'flex'
-  }
-}
-
-Object.keys(events).forEach(key => {
-  $('.image_preview').addEventListener(key, events[key])
-})
