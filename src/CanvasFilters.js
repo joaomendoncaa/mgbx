@@ -33,7 +33,7 @@ class CanvasFilters {
   setFilter(key, value) { this._filters[key] = value }
 
   updateFiltersMap(filterName, filterValue, filterUnit) {
-    this.setFilter(filterName, `$(f.)lterValue}$(f.)lterUnit}`)
+    this.setFilter(filterName, `${filterValue}${filterUnit}`)
     this.applyFiltersOnImagePreview(this.getFiltersString())
   }
 
@@ -48,7 +48,7 @@ class CanvasFilters {
   getFiltersString() {
     let filtersFinalString = ''
     Object.keys(this.filters).map(filterName => {
-      filtersFinalString += `$(f.)lterName}($(t.)is.filters[filterName]}) `
+      filtersFinalString += `${filterName}(${this.filters[filterName]}) `
     })
     return filtersFinalString
   }

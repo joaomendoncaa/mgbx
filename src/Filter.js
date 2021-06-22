@@ -1,4 +1,5 @@
 import DOMTools from './DomTools'
+import $ from './DomElements'
 import icons from './SvgIcons'
 import '../styles/Filter.scss'
 
@@ -19,6 +20,7 @@ class Filter {
     this._parentDomElement = parentDomElement
     this._inputElement = null
     this._currentValueElement = null
+    this._resetButtonElement = null
     this._name = name
     this._metric = metric
     this._min = min
@@ -30,6 +32,7 @@ class Filter {
     this.__init__()
   }
 
+  get resetButtonElement() { return this._resetButtonElement }
   get currentValueElement() { return this._currentValueElement }
   get filterUpdateCallback() { return this._filterUpdateCallback }
   get name() { return this._name }
@@ -44,6 +47,7 @@ class Filter {
   set current(value) { this._current = value }
   set inputElement(htmlElement) { this._inputElement = htmlElement }
   set currentValueElement(htmlElement) { this._currentValueElement = htmlElement }
+  set resetButtonElement(htmlElement) { this._resetButtonElement = htmlElement }
 
   reset() {
     this.current = this.def
@@ -63,6 +67,19 @@ class Filter {
 
   _updateFilterValueSpan(newValue) {
     this.currentValueElement.textContent = newValue + ' ' + this.metric
+  }
+
+  _handleResetFilter(e) {
+    input.value = this.def
+    this.reset()
+  }
+
+  _handleInputData(event) {
+    const { value } = event.target
+    this._current = value
+    this._updateFilterValueSpan(this.current)
+    this._updateInputBarWidth()
+    this.filterUpdateCallback(this.name, this.current, this.metric)
   }
 
   __init__() {
@@ -89,25 +106,13 @@ class Filter {
       </div>
     `)
 
-    let input = document.querySelector(`.${filterInputClass}`)
-    let resetBtn = document.querySelector(`.${filterResetButtonClass}`)
-    let currentValueSpan = document.querySelector(`.${filterCurrentClass}`)
+    this.inputElement = document.querySelector(`.${filterInputClass}`)
+    this.currentValueElement = document.querySelector(`.${filterCurrentClass}`)
+    this.resetButtonElement = document.querySelector(`.${filterResetButtonClass}`)
 
-    input.addEventListener('input', (event) => {
-      const { value } = event.target
-      this._current = value
-      this._updateFilterValueSpan(this.current)
-      this._updateInputBarWidth()
-      this.filterUpdateCallback(this.name, this.current, this.metric)
-    })
+    this.inputElement.addEventListener('input', (event) => { this._handleInputData(event) })
+    this.resetButtonElement.addEventListener('click', (event) => { this._handleResetFilter(event) })
 
-    resetBtn.addEventListener('click', (event) => {
-      input.value = this.def
-      this.reset()
-    })
-
-    this.inputElement = input
-    this.currentValueElement = currentValueSpan
     this._updateFilterValueSpan(this.def)
     this._updateInputBarWidth()
   }
