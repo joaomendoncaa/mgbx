@@ -1,13 +1,13 @@
-@import './Variables.scss';
+@import "./Variables.scss";
 
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
 
-  font-size: 16PX;
+  font-size: 16px;
 
-  font-family: 'Roboto', sans-serif;
+  font-family: "Roboto", sans-serif;
   color: $text;
 }
 
@@ -29,7 +29,7 @@ body {
   align-items: center;
 
   padding: 1rem 0;
-  
+
   width: 100%;
 
   background: $blue-dark;
@@ -37,14 +37,14 @@ body {
   .main_header_editing {
     display: none;
     color: $grey;
-    margin: 0 .4rem 0 0;
-    font-size: .85rem;
+    margin: 0 0.4rem 0 0;
+    font-size: 0.85rem;
   }
 
   .main_header_span {
     color: white;
     font-weight: 400;
-    font-size: .85rem;
+    font-size: 0.85rem;
   }
 }
 
@@ -55,31 +55,6 @@ main {
   flex-grow: 1;
 
   height: auto;
-}
-
-.history_wrapper {
-  width: 15%;
-  max-width: 250px;
-  height: 100%;
-
-  display: none;
-
-  flex-direction: column;
-
-  background: $grey-dark;
-
-  .history_header {
-    width: 100%;
-
-    padding: 2rem 0;
-
-    .history_header_title {
-      padding: 0 1rem;
-      font-weight: 600;
-      font-size: 0.9rem;
-      color: $grey;
-    }
-  }
 }
 
 .canvas_wrapper {
@@ -121,10 +96,10 @@ main {
 
       cursor: pointer;
 
-      background: rgba(255 ,0 ,0, .1);
+      background: rgba(255, 0, 0, 0.1);
       color: red;
       font-size: 0.8rem;
-      padding: .25rem .75rem;
+      padding: 0.25rem 0.75rem;
     }
   }
 
@@ -159,20 +134,20 @@ main {
 
   .rect_toolbar_btn {
     cursor: pointer;
-    padding: .75rem 1.5rem;
+    padding: 0.75rem 1.5rem;
 
     border: 0;
     border-radius: 5px;
 
-    transition: background .05s ease-in-out;
+    transition: background 0.05s ease-in-out;
 
     .rect_toolbar_btn_text {
-      font-size: .85rem;
+      font-size: 0.85rem;
     }
 
     //spacing for the buttons in the toolbar
     &:not(:last-child) {
-      margin: 0 .5rem 0 0;
+      margin: 0 0.5rem 0 0;
     }
   }
 
@@ -196,7 +171,7 @@ main {
     &:hover {
       background: darken($color: $grey, $amount: 10%);
     }
-  } 
+  }
 
   .toolbar_clear_btn {
     background: $grey;
@@ -255,12 +230,12 @@ main {
 
     &:after {
       position: absolute;
-      content: '';
+      content: "";
       top: 0;
       right: 0;
       bottom: 0;
       left: 50%;
-      
+
       transform: translate(-50%, -1px);
 
       width: calc(100% / 3);
@@ -272,12 +247,12 @@ main {
 
     &:before {
       position: absolute;
-      content: '';
+      content: "";
       top: 50%;
       right: 0;
       bottom: 0;
       left: 0;
-      
+
       transform: translate(-1px, -50%);
 
       width: 100%;
@@ -298,7 +273,7 @@ main {
 
     z-index: 3;
 
-    margin: .5rem 0 0 0;
+    margin: 0.5rem 0 0 0;
 
     width: max-content;
     height: max-content;
@@ -313,22 +288,21 @@ main {
 
   .selection_crop_btn {
     pointer-events: all;
-    
+
     width: max-content;
     height: max-content;
 
-    margin: 0 .5rem 0 0;
+    margin: 0 0.5rem 0 0;
 
     cursor: pointer;
-    padding: .75rem 1.5rem;
+    padding: 0.75rem 1.5rem;
 
     border: 0;
     border-radius: 99vw;
 
-    transition: background .05s ease-in-out; 
+    transition: background 0.05s ease-in-out;
 
     background: $text;
-    
 
     .selection_crop_btn_text {
       color: $blue-dark;
@@ -348,12 +322,12 @@ main {
     border: 0;
     border-radius: 99vw;
 
-    background: rgba(255, 0, 0, .5);
+    background: rgba(255, 0, 0, 0.5);
 
     width: max-content;
     height: max-content;
 
-    padding: .75rem 1.5rem;
+    padding: 0.75rem 1.5rem;
 
     .selection_cancel_btn_text {
       color: $text;
@@ -361,27 +335,6 @@ main {
     }
   }
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 //Responsive is dealt with a message on the screen
 .responsive_error {
@@ -396,11 +349,11 @@ main {
   .responsive_error {
     width: 100vw;
     height: 100vh;
-  
+
     display: flex;
     flex-direction: center;
     align-items: center;
-  
+
     span {
       width: 100%;
       text-align: center;

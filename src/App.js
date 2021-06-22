@@ -6,6 +6,7 @@ import ImageUploaded from './ImageUploaded'
 import Header from './Header'
 import Toolbar from './Toolbar'
 import SelectionTool from './SelectionTool'
+import CanvasHistory from './CanvasHistory'
 
 import '../styles/main.scss'
 
@@ -17,6 +18,11 @@ class App {
     this._toolbar = new Toolbar()
     this._toast = new Toast()
     this._selectionTool = new SelectionTool()
+    this._canvasHistory = new CanvasHistory(
+      $('.history_list'),
+      $('.history_controls_previous'),
+      $('.history_controls_next')
+    )
 
     this.__init__()
   }

@@ -5,7 +5,7 @@ class CanvasFilters {
   constructor(context) {
     this._context = context
     this._filters = {}
-    this._blur = new Filter($('.effects_list'), 'blur', 'px', 0, 20, 0, (a, b, c) => this.updateFiltersMap(a, b, c))
+    this._blur = new Filter($('.effects_list'), 'blur', 'px', 0, 100, 0, (a, b, c) => this.updateFiltersMap(a, b, c))
     this._brightness = new Filter($('.effects_list'), 'brightness', '%', 0, 200, 100, (a, b, c) => this.updateFiltersMap(a, b, c))
     this._contrast = new Filter($('.effects_list'), 'contrast', '%', 0, 200, 100, (a, b, c) => this.updateFiltersMap(a, b, c))
     this._grayscale = new Filter($('.effects_list'), 'grayscale', '%', 0, 100, 0, (a, b, c) => this.updateFiltersMap(a, b, c))
