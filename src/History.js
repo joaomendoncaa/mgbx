@@ -14,14 +14,16 @@ class History {
   set pointer(pointer) { this._pointer = pointer }
 
   previous() {
-    if (this.pointer === 0) return
+    if (this.pointer === 0) return this.pointer
+
     this.pointer = this.pointer - 1
 
     return this.pointer
   }
 
   next() {
-    if (this.pointer === (this.history.length - 1)) return
+    if (this.pointer === (this.history.length - 1)) return this.pointer
+
     this.pointer = this.pointer + 1
 
     return this.pointer

@@ -1,11 +1,20 @@
+@import "./Variables.scss";
+
 .history_button {
   cursor: pointer;
 
   width: 100%;
-  background: red;
 
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: flex-start;
+
+  padding: 0.5rem 1rem;
+
+  border: 0;
+
+  &:hover {
+    background: red;
+  }
 }

@@ -21,22 +21,24 @@ class CanvasHistory {
 
   renderHistoryButtonList() {
     this.history.history.map(snapshotData => {
-      new HistoryButton(this.parentDomElement, (id) => { setCurrentSnapshot(id) }, snapshotData)
+      new HistoryButton(this.parentDomElement, (id) => { this.setCurrentSnapshot(id) }, snapshotData)
     })
   }
 
   onClickPrevious() {
     const pointer = this.history.previous()
-    setCurrentSnapshot(pointer)
+    this.setCurrentSnapshot(pointer)
   }
 
   onClickNext() {
     const pointer = this.history.next()
-    setCurrentSnapshot(pointer)
+    this.setCurrentSnapshot(pointer)
   }
 
   setCurrentSnapshot(snapshotId) {
-    $(`.history_button[data-snapshot-id="${snapshotId}"]`).style.background = 'green'
+    this.history.pointer = snapshotId
+    $(`.history_button`, true).forEach(node => node.style.background = '#2B2A33')
+    $(`.history_button[data-snapshot-id="${snapshotId}"]`).style.background = '#0485DC'
   }
 
   __init__() {
@@ -60,6 +62,42 @@ class CanvasHistory {
       selectionData: {},
       filtersData: {}
     })
+    this.history.add({
+      action: 'Teste 4',
+      canvasData: {},
+      selectionData: {},
+      filtersData: {}
+    })
+    this.history.add({
+      action: 'Teste 5',
+      canvasData: {},
+      selectionData: {},
+      filtersData: {}
+    })
+    this.history.add({
+      action: 'Teste 6',
+      canvasData: {},
+      selectionData: {},
+      filtersData: {}
+    })
+    this.history.add({
+      action: 'Teste 7',
+      canvasData: {},
+      selectionData: {},
+      filtersData: {}
+    })
+    this.history.add({
+      action: 'Teste 8',
+      canvasData: {},
+      selectionData: {},
+      filtersData: {}
+    })
+    this.history.add({
+      action: 'Teste 9',
+      canvasData: {},
+      selectionData: {},
+      filtersData: {}
+    })
 
     console.log(
       '⚠️ History list: ',
@@ -68,6 +106,7 @@ class CanvasHistory {
 
     this.renderHistoryButtonList()
 
+    this.history.pointer = 1
     this.setCurrentSnapshot(1)
 
     this.previousButtonElement.addEventListener('click', () => { this.onClickPrevious() })
