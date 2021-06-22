@@ -4,5 +4,5 @@ Image manipulation web app made with vanilla JavaScript from scratch.
 
 # TODO
 
-[] reset button animation
+[x] reset button animation
 [] history feature

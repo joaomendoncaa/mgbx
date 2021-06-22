@@ -52,10 +52,35 @@
 
   background: transparent;
 
+  transform-origin: center;
+  transition: 0.075s ease-in-out;
+
   > svg {
+    overflow: visible;
     width: 15px;
     height: 15px;
-    fill: $icon-primary;
+    fill: $icon-secondary;
+  }
+
+  overflow: visible;
+
+  &:hover {
+    transform: scale(1.25);
+
+    > svg {
+      fill: $icon-secondary;
+    }
+  }
+}
+
+.filter_reset_btn_animation {
+  animation: rotate360 0.25s forwards ease-in;
+  transform-origin: center;
+
+  @keyframes rotate360 {
+    to {
+      transform: rotate(-360deg);
+    }
   }
 }
 
@@ -122,7 +147,7 @@
     background: #ffffff;
     cursor: pointer;
 
-    transition: transform .075s linear;
+    transition: transform 0.075s linear;
 
     transform-origin: center;
 

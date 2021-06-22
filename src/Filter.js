@@ -70,8 +70,18 @@ class Filter {
   }
 
   _handleResetFilter(e) {
-    input.value = this.def
+    if (this.current === this.def) return
+
+    this.inputElement.value = this.def
     this.reset()
+
+    this.resetButtonElement.animate([
+      { transform: 'rotate(0deg)' },
+      { transform: 'rotate(-360deg)' }
+    ], {
+      duration: 150,
+      easing: 'ease-in-out'
+    });
   }
 
   _handleInputData(event) {
