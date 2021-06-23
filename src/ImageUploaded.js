@@ -1,9 +1,16 @@
 class ImageUploaded {
   constructor(image) {
+    if (!!ImageUploaded.instance) {
+      return ImageUploaded.instance
+    }
+    ImageUploaded.instance = this
+
     this._image = image
     this._imageName = ''
 
     this.__init__()
+
+    return this
   }
 
   get image() { return this._image }

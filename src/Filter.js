@@ -1,7 +1,8 @@
 import DOMTools from './DomTools'
-import $ from './DomElements'
 import icons from './SvgIcons'
 import '../styles/Filter.scss'
+import CanvasHistory from './CanvasHistory'
+import Canvas from './Canvas'
 
 class Filter {
   /**
@@ -28,6 +29,7 @@ class Filter {
     this._def = def
     this._current = def
     this._filterUpdateCallback = filterUpdateCallback
+    this._beforeChangeValue = 0
 
     this.__init__()
   }
@@ -43,11 +45,13 @@ class Filter {
   get parentDomElement() { return this._parentDomElement }
   get inputElement() { return this._inputElement }
   get current() { return this._current }
+  get beforeChangeValue() { return this._beforeChangeValue }
 
   set current(value) { this._current = value }
   set inputElement(htmlElement) { this._inputElement = htmlElement }
   set currentValueElement(htmlElement) { this._currentValueElement = htmlElement }
   set resetButtonElement(htmlElement) { this._resetButtonElement = htmlElement }
+  set beforeChangeValue(beforeChangeValue) { this._beforeChangeValue = beforeChangeValue }
 
   reset() {
     this.current = this.def
@@ -92,6 +96,30 @@ class Filter {
     this.filterUpdateCallback(this.name, this.current, this.metric)
   }
 
+  onMouseUpFilterInput() {
+    const history = new CanvasHistory()
+    const canvas = new Canvas()
+
+    const action = `Changed ${this.name} from ${this.beforeChangeValue} to ${this.current}`
+
+    //TODO: Change this
+    history.addSnapshot({
+      action,
+      canvasData: {
+        image: canvas.image.toDataURL(),
+        width: canvas.width,
+        height: canvas.height
+      },
+      selectionData: null,
+      filtersString: canvas.filters.getFiltersString(),
+      isUpload: false
+    })
+  }
+
+  onMouseDownFilterInput() {
+    this.beforeChangeValue = this.current
+  }
+
   __init__() {
     const filterInputClass = DOMTools.generateRandomClassPrefix(10) + '_filter_input'
     const filterResetButtonClass = DOMTools.generateRandomClassPrefix(10) + '_filter_reset_btn'
@@ -125,6 +153,9 @@ class Filter {
 
     this._updateFilterValueSpan(this.def)
     this._updateInputBarWidth()
+
+    this.inputElement.addEventListener('mousedown', () => this.onMouseDownFilterInput())
+    this.inputElement.addEventListener('mouseup', () => this.onMouseUpFilterInput())
   }
 }
 

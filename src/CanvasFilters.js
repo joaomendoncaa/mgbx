@@ -1,3 +1,4 @@
+import CanvasHistory from './CanvasHistory'
 import $ from './DomElements'
 import Filter from './Filter'
 

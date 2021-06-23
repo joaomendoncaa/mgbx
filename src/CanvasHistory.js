@@ -68,8 +68,6 @@ class CanvasHistory {
 
     const snapshotData = this.history.list[snapshotId]
 
-    console.log('data to be displayed', snapshotData)
-
     if (snapshotData.isUpload === true) return this.canvas.putImage(snapshotData.canvasData.image, snapshotData.canvasData.width, snapshotData.canvasData.height)
     this.canvas.changeImage(snapshotData.canvasData.image, snapshotData.canvasData.width, snapshotData.canvasData.height)
   }
