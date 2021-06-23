@@ -2,6 +2,8 @@ import $ from './DomElements'
 import DOMTools from './DomTools'
 import Utils from './Utils'
 
+import '../styles/SelectionTool.scss'
+
 class SelectionTool {
   constructor() {
     this._startX = 0
@@ -189,6 +191,8 @@ class SelectionTool {
     this.selectionOriginCoordinates.x = offsetX
     this.selectionOriginCoordinates.y = offsetY
 
+    $('.selection_tool_controls').style.display = 'none'
+
     this.isSelecting = true
   }
 
@@ -218,8 +222,7 @@ class SelectionTool {
 
   mouseUp(event) {
     this.isSelecting = false
-    $('.selection_crop_btn').style.display = 'flex'
-    $('.selection_cancel_btn').style.display = 'flex'
+    $('.selection_tool_controls').style.display = 'flex'
   }
 
   __init__() {
