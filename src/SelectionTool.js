@@ -1,11 +1,18 @@
 import $ from './DomElements'
 import DOMTools from './DomTools'
 import Utils from './Utils'
+import CanvasHistory from './CanvasHistory'
 
 import '../styles/SelectionTool.scss'
 
 class SelectionTool {
-  constructor() {
+  constructor(canvas) {
+    if (!!SelectionTool.instance) {
+      return SelectionTool.instance
+    }
+
+    SelectionTool.instance = this
+
     this._startX = 0
     this._startY = 0
     this._endX = 0
@@ -14,8 +21,11 @@ class SelectionTool {
     this._offsetY = 0
     this._selectionOriginCoordinates = { x: 0, y: 0 }
     this._isSelecting = false
+    this._canvas = canvas
 
     this.__init__()
+
+    return this
   }
 
   get startX() { return this._startX }
@@ -26,6 +36,7 @@ class SelectionTool {
   get offsetY() { return this._offsetY }
   get selectionOriginCoordinates() { return this._selectionOriginCoordinates }
   get isSelecting() { return this._isSelecting }
+  get canvas() { return this._canvas }
 
   set startX(startX) { this._startX = startX }
   set startY(startY) { this._startY = startY }
@@ -225,11 +236,40 @@ class SelectionTool {
     $('.selection_tool_controls').style.display = 'flex'
   }
 
+  onClickSelectionCancelBtn() {
+    DOMTools.elementVisibility([
+      $('.selection_tool'),
+      $('.selection_tool_mask'),
+      $('.selection_tool_controls')
+    ], 'none')
+  }
+
+  onClickSelectionCropBtn() {
+    const canvasHistory = new CanvasHistory()
+
+    const croppedData = this.canvas.cropImage()
+
+    canvasHistory.addSnapshot({
+      action: 'Cropped image',
+      canvasData: {
+        image: croppedData.image,
+        width: croppedData.width,
+        height: croppedData.height
+      },
+      selectionData: null,
+      filtersString: this.canvas.filters.getFiltersString(),
+      isUpload: false
+    })
+  }
+
   __init__() {
     $('.image_preview').addEventListener('mouseover', (e) => { this.mouseOver(e) })
     $('.image_preview').addEventListener('mousedown', (e) => { this.mouseDown(e) })
     $('.image_preview').addEventListener('mousemove', (e) => { this.mouseMove(e) })
     $('.image_preview').addEventListener('mouseup', (e) => { this.mouseUp(e) })
+
+    $('.selection_cancel_btn').addEventListener('click', () => this.onClickSelectionCancelBtn())
+    $('.selection_crop_btn').addEventListener('click', () => this.onClickSelectionCropBtn())
   }
 }
 

@@ -7,6 +7,11 @@ import '../styles/History.scss'
 
 class CanvasHistory {
   constructor(parentDomElement, previousButtonElement, nextButtonElement, canvas, image) {
+    if (!!CanvasHistory.instance) {
+      return CanvasHistory.instance
+    }
+    CanvasHistory.instance = this
+
     this._parentDomElement = parentDomElement
     this._previousButtonElement = previousButtonElement
     this._nextButtonElement = nextButtonElement
@@ -15,6 +20,8 @@ class CanvasHistory {
     this._history = new History()
 
     this.__init__()
+
+    return this
   }
 
   get parentDomElement() { return this._parentDomElement }
@@ -83,9 +90,6 @@ class CanvasHistory {
 
   __init__() {
     this.renderHistoryButtonList()
-
-    this.history.pointer = 1
-    this.setCurrentSnapshot(1)
 
     this.previousButtonElement.addEventListener('click', () => { this.onClickPrevious() })
     this.nextButtonElement.addEventListener('click', () => { this.onClickNext() })

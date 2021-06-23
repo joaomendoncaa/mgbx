@@ -14,11 +14,11 @@ class App {
   constructor() {
     this._image = null
     this._canvas = null
+    this._selectionTool = null
     this._canvasHistory = null
     this._header = new Header()
     this._toolbar = new Toolbar()
     this._toast = new Toast()
-    this._selectionTool = new SelectionTool()
 
     this.__init__()
   }
@@ -32,11 +32,11 @@ class App {
 
   set canvas(canvas) { this._canvas = canvas }
   set image(image) { this._image = image }
+  set selectionTool(selectionTool) { this._selectionTool = selectionTool }
   set canvasHistory(canvasHistory) { this._canvasHistory = canvasHistory }
 
   onLoadImageFromReader() {
     this.canvas = new Canvas(this.image)
-
     this.canvasHistory = new CanvasHistory(
       $('.history_list'),
       $('.history_controls_previous'),
@@ -44,7 +44,7 @@ class App {
       this.canvas,
       this.image
     )
-
+    this.selectionTool = new SelectionTool(this.canvas)
     this.canvasHistory.addSnapshot({
       action: 'Uploaded Image',
       canvasData: {
@@ -56,13 +56,9 @@ class App {
       filtersString: this.canvas.filters.getFiltersString(),
       isUpload: true
     })
-
     this.canvas.setSize(this.image.width, this.image.height)
-
     this.canvas.ctx.clearRect(0, 0, this.image.width, this.image.height)
-
     this.canvas.ctx.drawImage(this.image, 0, 0)
-
     $('.image_preview').style.display = 'initial'
     $('.image_preview').src = this.canvas.toDataURL()
   }
@@ -99,84 +95,8 @@ class App {
     $('.toolbar_upload_input').click()
   }
 
-  onClickSelectionCancelBtn() {
-    DOMTools.elementVisibility([
-      $('.selection_tool'),
-      $('.selection_tool_mask'),
-      $('.selection_crop_btn'),
-      $('.selection_cancel_btn'),
-    ], 'none')
-  }
-
   onClickEffectsHeaderResetBtn() {
     this.canvas.resetFilters()
-  }
-
-  onClickSelectionCropBtn() {
-    const imageWidth = this.image.width
-    const imageHeight = this.image.height
-
-    const { width: previewImageWidth, height: previewImageHeight } = $('.image_preview')
-
-    //get the aspect ratio of the image
-    const [widthRatio, heightRatio] = [
-      Number(imageWidth / previewImageWidth),
-      Number(imageHeight / previewImageHeight)
-    ]
-
-    const [selectionWidth, selectionHeight] = [
-      parseInt($('.selection_tool').style.width),
-      parseInt($('.selection_tool').style.height)
-    ]
-
-    const [croppedWidth, croppedHeight] = [
-      Number(selectionWidth * widthRatio),
-      Number(selectionHeight * heightRatio)
-    ]
-
-    const [actualX, actualY] = [
-      Number(this.selectionTool.selectionOriginCoordinates.x * widthRatio),
-      Number(this.selectionTool.selectionOriginCoordinates.y * heightRatio)
-    ]
-
-    //get the cropped image from the canvas context
-    const croppedImage = this.canvas.ctx.getImageData(actualX, actualY, croppedWidth, croppedHeight)
-
-    this.canvas.ctx.clearRect(0, 0, this.canvas.ctx.width, this.canvas.ctx.height)
-
-    //ajust propotions to the new image
-    this.image.width = croppedWidth
-    this.image.height = croppedHeight
-    this.canvas.setSize(croppedWidth, croppedHeight)
-
-    //add the cropped image to the context
-    this.canvas.ctx.putImageData(croppedImage, 0, 0)
-
-    this.canvasHistory.addSnapshot({
-      action: 'Cropped image',
-      canvasData: {
-        image: croppedImage,
-        width: croppedWidth,
-        height: croppedHeight
-      },
-      selectionData: null,
-      filtersString: this.canvas.filters.getFiltersString(),
-      isUpload: false
-    })
-
-    //hide the selection tool
-    $('.selection_tool').style.display = 'none'
-
-    //update the imagePreview
-    $('.image_preview').src = this.canvas.toDataURL()
-
-    //show Elements
-    $('.toolbar_clear_btn').style.display = 'flex'
-    $('.toolbar_save_btn').style.display = 'flex'
-
-    //Hide elements
-    $('.selection_crop_btn').style.display = 'none'
-    $('.selection_tool_mask').style.display = 'none'
   }
 
   /**
@@ -220,9 +140,7 @@ class App {
   __init__() {
     $('.toolbar_upload_btn').addEventListener('click', () => this.onClickToolbarUploadBtn())
     $('.toolbar_upload_input').addEventListener('change', () => this.onChangeToolbarUploadInput())
-    $('.selection_cancel_btn').addEventListener('click', () => this.onClickSelectionCancelBtn())
     $('.effects_header_reset_btn').addEventListener('click', () => this.onClickEffectsHeaderResetBtn())
-    $('.selection_crop_btn').addEventListener('click', () => this.onClickSelectionCropBtn())
     $('.toolbar_save_btn').addEventListener('click', () => this.onClickToolbarSaveBtn())
     $('.toolbar_clear_btn').addEventListener('click', () => this.onClickToolbarClearBtn())
   }
