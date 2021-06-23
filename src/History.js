@@ -1,16 +1,17 @@
 import HistorySnapshot from './HistorySnapshot'
+import Utils from './Utils'
 
 class History {
   constructor() {
-    this._history = []
+    this._list = []
     this._pointer = 0
   }
 
   get parentDomElement() { return this._parentDomElement }
-  get history() { return this._history }
+  get list() { return this._list }
   get pointer() { return this._pointer }
 
-  set history(history) { this._history = history }
+  set list(list) { this._list = list }
   set pointer(pointer) { this._pointer = pointer }
 
   previous() {
@@ -22,7 +23,7 @@ class History {
   }
 
   next() {
-    if (this.pointer === (this.history.length - 1)) return this.pointer
+    if (this.pointer === (this.list.length - 1)) return this.pointer
 
     this.pointer = this.pointer + 1
 
@@ -31,7 +32,7 @@ class History {
 
   add({ action, canvasData, selectionData, filtersString, isUpload }) {
     const snapshot = new HistorySnapshot(
-      this.history.length,
+      (Utils.arrayLastIndex(this.list) + 1),
       action,
       canvasData,
       selectionData,
@@ -40,7 +41,7 @@ class History {
       isUpload
     )
 
-    this.history = [...this.history, snapshot]
+    this.list = [...this.list, snapshot]
 
     return snapshot
   }

@@ -1,6 +1,7 @@
 import History from './History'
 import HistoryButton from './HistoryButton'
 import $ from './DomElements'
+import Utils from './Utils'
 
 import '../styles/History.scss'
 
@@ -24,19 +25,23 @@ class CanvasHistory {
   get history() { return this._history }
 
   renderHistoryButtonList() {
-    if (this.history.history.length === 0) return
+    if (this.history.list.length === 0) return
 
-    this.history.history.map(snapshotData => {
+    this.history.list.map(snapshotData => {
       new HistoryButton(this.parentDomElement, (id) => { this.setCurrentSnapshot(id) }, snapshotData)
     })
   }
 
   onClickPrevious() {
+    if (this.history.pointer === 0) return
+
     const pointer = this.history.previous()
     this.setCurrentSnapshot(pointer)
   }
 
   onClickNext() {
+    if (this.history.pointer === Utils.arrayLastIndex(this.history.list)) return
+
     const pointer = this.history.next()
     this.setCurrentSnapshot(pointer)
   }
@@ -49,12 +54,12 @@ class CanvasHistory {
   }
 
   setCurrentSnapshot(snapshotId) {
-    if (this.history.history.length === 0) return
+    if (this.history.list.length === 0) return
 
     this.history.pointer = snapshotId
     this.setActiveButton(snapshotId)
 
-    const snapshotData = this.history.history[snapshotId]
+    const snapshotData = this.history.list[snapshotId]
 
     console.log('data to be displayed', snapshotData)
 
