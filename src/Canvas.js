@@ -1,4 +1,5 @@
 import CanvasFilters from './CanvasFilters'
+import $ from './DomElements'
 
 class Canvas {
   constructor(image) {
@@ -6,8 +7,6 @@ class Canvas {
     this.ctx = this.canvas.getContext('2d')
     this._image = image
     this._filters = new CanvasFilters(this.ctx)
-
-    this.__init__()
   }
 
   get image() { return this._image }
@@ -36,8 +35,24 @@ class Canvas {
     this.filters.applyFiltersOnCanvasContext()
   }
 
-  __init__() {
+  putImage(image, width, height) {
+    this.image.width = width
+    this.image.height = height
+    this.setSize(width, height)
 
+    this.ctx.drawImage(image, 0, 0)
+
+    $('.image_preview').src = this.canvas.toDataURL()
+  }
+
+  changeImage(image, width, height) {
+    this.image.width = width
+    this.image.height = height
+    this.setSize(width, height)
+
+    this.ctx.putImageData(image, 0, 0)
+
+    $('.image_preview').src = this.canvas.toDataURL()
   }
 }
 

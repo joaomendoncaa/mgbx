@@ -5,10 +5,12 @@ import $ from './DomElements'
 import '../styles/History.scss'
 
 class CanvasHistory {
-  constructor(parentDomElement, previousButtonElement, nextButtonElement) {
+  constructor(parentDomElement, previousButtonElement, nextButtonElement, canvas, image) {
     this._parentDomElement = parentDomElement
     this._previousButtonElement = previousButtonElement
     this._nextButtonElement = nextButtonElement
+    this._canvas = canvas
+    this._image = image
     this._history = new History()
 
     this.__init__()
@@ -17,9 +19,13 @@ class CanvasHistory {
   get parentDomElement() { return this._parentDomElement }
   get previousButtonElement() { return this._previousButtonElement }
   get nextButtonElement() { return this._nextButtonElement }
+  get canvas() { return this._canvas }
+  get image() { return this._image }
   get history() { return this._history }
 
   renderHistoryButtonList() {
+    if (this.history.history.length === 0) return
+
     this.history.history.map(snapshotData => {
       new HistoryButton(this.parentDomElement, (id) => { this.setCurrentSnapshot(id) }, snapshotData)
     })
@@ -35,75 +41,42 @@ class CanvasHistory {
     this.setCurrentSnapshot(pointer)
   }
 
-  setCurrentSnapshot(snapshotId) {
-    this.history.pointer = snapshotId
+  setActiveButton(snapshotId) {
+    if ($('.history_button') === null) return
+
     $(`.history_button`, true).forEach(node => node.style.background = '#2B2A33')
     $(`.history_button[data-snapshot-id="${snapshotId}"]`).style.background = '#0485DC'
   }
 
+  setCurrentSnapshot(snapshotId) {
+    if (this.history.history.length === 0) return
+
+    this.history.pointer = snapshotId
+    this.setActiveButton(snapshotId)
+
+    const snapshotData = this.history.history[snapshotId]
+
+    console.log('data to be displayed', snapshotData)
+
+    if (snapshotData.isUpload === true) return this.canvas.putImage(snapshotData.canvasData.image, snapshotData.canvasData.width, snapshotData.canvasData.height)
+    this.canvas.changeImage(snapshotData.canvasData.image, snapshotData.canvasData.width, snapshotData.canvasData.height)
+  }
+
+  addSnapshot({ action, canvasData, selectionData, filtersString, isUpload }) {
+    const snapshotData = this.history.add({
+      action,
+      canvasData,
+      selectionData,
+      filtersString,
+      isUpload
+    })
+
+    new HistoryButton(this.parentDomElement, () => { this.setCurrentSnapshot(snapshotData.id) }, snapshotData)
+
+    this.setCurrentSnapshot(snapshotData.id)
+  }
+
   __init__() {
-    this.history.add({
-      action: 'Teste 1',
-      canvasData: {},
-      selectionData: {},
-      filtersData: {}
-    })
-
-    this.history.add({
-      action: 'Teste 2',
-      canvasData: {},
-      selectionData: {},
-      filtersData: {}
-    })
-
-    this.history.add({
-      action: 'Teste 3',
-      canvasData: {},
-      selectionData: {},
-      filtersData: {}
-    })
-    this.history.add({
-      action: 'Teste 4',
-      canvasData: {},
-      selectionData: {},
-      filtersData: {}
-    })
-    this.history.add({
-      action: 'Teste 5',
-      canvasData: {},
-      selectionData: {},
-      filtersData: {}
-    })
-    this.history.add({
-      action: 'Teste 6',
-      canvasData: {},
-      selectionData: {},
-      filtersData: {}
-    })
-    this.history.add({
-      action: 'Teste 7',
-      canvasData: {},
-      selectionData: {},
-      filtersData: {}
-    })
-    this.history.add({
-      action: 'Teste 8',
-      canvasData: {},
-      selectionData: {},
-      filtersData: {}
-    })
-    this.history.add({
-      action: 'Teste 9',
-      canvasData: {},
-      selectionData: {},
-      filtersData: {}
-    })
-
-    console.log(
-      '⚠️ History list: ',
-      this.history.history
-    )
-
     this.renderHistoryButtonList()
 
     this.history.pointer = 1

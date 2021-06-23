@@ -14,19 +14,16 @@ class App {
   constructor() {
     this._image = null
     this._canvas = null
+    this._canvasHistory = null
     this._header = new Header()
     this._toolbar = new Toolbar()
     this._toast = new Toast()
     this._selectionTool = new SelectionTool()
-    this._canvasHistory = new CanvasHistory(
-      $('.history_list'),
-      $('.history_controls_previous'),
-      $('.history_controls_next')
-    )
 
     this.__init__()
   }
 
+  get canvasHistory() { return this._canvasHistory }
   get selectionTool() { return this._selectionTool }
   get toolbar() { return this._toolbar }
   get header() { return this._header }
@@ -35,9 +32,30 @@ class App {
 
   set canvas(canvas) { this._canvas = canvas }
   set image(image) { this._image = image }
+  set canvasHistory(canvasHistory) { this._canvasHistory = canvasHistory }
 
   onLoadImageFromReader() {
     this.canvas = new Canvas(this.image)
+
+    this.canvasHistory = new CanvasHistory(
+      $('.history_list'),
+      $('.history_controls_previous'),
+      $('.history_controls_next'),
+      this.canvas,
+      this.image
+    )
+
+    this.canvasHistory.addSnapshot({
+      action: 'Uploaded Image',
+      canvasData: {
+        image: this.image,
+        width: this.image.width,
+        height: this.image.height
+      },
+      selectionData: null,
+      filtersString: this.canvas.filters.getFiltersString(),
+      isUpload: true
+    })
 
     this.canvas.setSize(this.image.width, this.image.height)
 
@@ -133,6 +151,18 @@ class App {
 
     //add the cropped image to the context
     this.canvas.ctx.putImageData(croppedImage, 0, 0)
+
+    this.canvasHistory.addSnapshot({
+      action: 'Cropped image',
+      canvasData: {
+        image: croppedImage,
+        width: croppedWidth,
+        height: croppedHeight
+      },
+      selectionData: null,
+      filtersString: this.canvas.filters.getFiltersString(),
+      isUpload: false
+    })
 
     //hide the selection tool
     $('.selection_tool').style.display = 'none'

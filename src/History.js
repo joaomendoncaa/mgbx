@@ -29,15 +29,20 @@ class History {
     return this.pointer
   }
 
-  add({ action, canvasData, selectionData, filtersData }) {
-    this.history = [...this.history, new HistorySnapshot(
+  add({ action, canvasData, selectionData, filtersString, isUpload }) {
+    const snapshot = new HistorySnapshot(
       this.history.length,
       action,
       canvasData,
       selectionData,
-      filtersData,
-      Date.now()
-    )]
+      filtersString,
+      Date.now(),
+      isUpload
+    )
+
+    this.history = [...this.history, snapshot]
+
+    return snapshot
   }
 }
 
