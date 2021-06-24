@@ -49,24 +49,33 @@ class Canvas {
     this.filters.applyFiltersOnCanvasContext()
   }
 
+  applyFiltersToImagePreview() {
+    this.filters.applyFiltersOnImagePreview()
+  }
+
   putImage(image, width, height) {
+    this.ctx.clearRect(0, 0, this.ctx.width, this.ctx.height)
+
     this.image.width = width
     this.image.height = height
     this.setSize(width, height)
 
     this.ctx.drawImage(image, 0, 0)
 
-    $('.image_preview').src = this.canvas.toDataURL()
+    $('.image_preview').src = this.toDataURL()
+
   }
 
   changeImage(image, width, height) {
+    this.ctx.clearRect(0, 0, this.ctx.width, this.ctx.height)
+
     this.image.width = width
     this.image.height = height
     this.setSize(width, height)
 
     this.ctx.putImageData(image, 0, 0)
 
-    $('.image_preview').src = this.canvas.toDataURL()
+    $('.image_preview').src = this.toDataURL()
   }
 
   cropImage() {

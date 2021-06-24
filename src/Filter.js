@@ -3,6 +3,7 @@ import icons from './SvgIcons'
 import '../styles/Filter.scss'
 import CanvasHistory from './CanvasHistory'
 import Canvas from './Canvas'
+import Utils from './Utils'
 
 class Filter {
   /**
@@ -54,11 +55,13 @@ class Filter {
   set beforeChangeValue(beforeChangeValue) { this._beforeChangeValue = beforeChangeValue }
 
   reset() {
-    this.current = this.def
-    this.inputElement.value = this.def
+    this.beforeChangeValue = this.current
+    this.onMouseUpFilterInput()
     this._updateFilterValueSpan(this.def)
+    this.current = this.def
     this._updateInputBarWidth()
     this.filterUpdateCallback(this.name, this.current, this.metric)
+    this.inputElement.value = this.def
   }
 
   _updateInputBarWidth() {
@@ -100,18 +103,17 @@ class Filter {
     const history = new CanvasHistory()
     const canvas = new Canvas()
 
-    const action = `Changed ${this.name} from ${this.beforeChangeValue} to ${this.current}`
+    const action = `${Utils.capitalizeFirstLetter(this.name)} from ${this.beforeChangeValue}${this.metric} to ${this.current}${this.metric}`
 
-    //TODO: Change this
     history.addSnapshot({
       action,
       canvasData: {
-        image: canvas.image.toDataURL(),
-        width: canvas.width,
-        height: canvas.height
+        image: canvas.ctx.getImageData(0, 0, canvas.image.width, canvas.image.height),
+        width: canvas.image.width,
+        height: canvas.image.height
       },
       selectionData: null,
-      filtersString: canvas.filters.getFiltersString(),
+      filtersString: canvas.filters.filters,
       isUpload: false
     })
   }
@@ -129,7 +131,7 @@ class Filter {
       <div class="filter_wrapper">
         <header class="filter_header">
           <div class="filter_header_info">
-            <h3 class="filter_header_info_title">${DOMTools.capitalizeFirstLetter(this.name)}</h3>
+            <h3 class="filter_header_info_title">${Utils.capitalizeFirstLetter(this.name)}</h3>
             <span class="filter_header_info_current ${filterCurrentClass}"></span>
           </div>
           <button class="filter_reset_btn ${filterResetButtonClass}">${icons.reset}</button>

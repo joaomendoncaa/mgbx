@@ -68,8 +68,14 @@ class CanvasHistory {
 
     const snapshotData = this.history.list[snapshotId]
 
-    if (snapshotData.isUpload === true) return this.canvas.putImage(snapshotData.canvasData.image, snapshotData.canvasData.width, snapshotData.canvasData.height)
+    if (snapshotData.isUpload === true) {
+      this.canvas.putImage(snapshotData.canvasData.image, snapshotData.canvasData.width, snapshotData.canvasData.height)
+      return
+    }
     this.canvas.changeImage(snapshotData.canvasData.image, snapshotData.canvasData.width, snapshotData.canvasData.height)
+
+    this.canvas.filters = snapshotData.filtersString
+    this.canvas.applyFiltersToImagePreview()
   }
 
   addSnapshot({ action, canvasData, selectionData, filtersString, isUpload }) {
