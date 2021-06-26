@@ -5,7 +5,7 @@ import Canvas from './Canvas'
 import ImageUploaded from './ImageUploaded'
 import Header from './Header'
 import Toolbar from './Toolbar'
-import SelectionTool from './SelectionTool'
+import SelectionToolSingleton from './SelectionTool'
 import CanvasHistory from './CanvasHistory'
 
 import '../styles/main.scss'
@@ -37,14 +37,8 @@ class App {
 
   onLoadImageFromReader() {
     this.canvas = new Canvas(this.image)
-    this.canvasHistory = new CanvasHistory(
-      $('.history_list'),
-      $('.history_controls_previous'),
-      $('.history_controls_next'),
-      this.canvas,
-      this.image
-    )
-    this.selectionTool = new SelectionTool(this.canvas)
+    this.canvasHistory = new CanvasHistory(this.canvas, this.image)
+    this.selectionTool = SelectionToolSingleton.getInstance(this.canvas)
     this.canvasHistory.addSnapshot({
       action: 'Uploaded Image',
       canvasData: {

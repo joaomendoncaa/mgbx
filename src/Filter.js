@@ -32,6 +32,9 @@ class Filter {
     this._filterUpdateCallback = filterUpdateCallback
     this._beforeChangeValue = 0
 
+    this._history = new CanvasHistory()
+    this._canvas = new Canvas()
+
     this.__init__()
   }
 
@@ -47,6 +50,8 @@ class Filter {
   get inputElement() { return this._inputElement }
   get current() { return this._current }
   get beforeChangeValue() { return this._beforeChangeValue }
+  get history() { return this._history }
+  get canvas() { return this._canvas }
 
   set current(value) { this._current = value }
   set inputElement(htmlElement) { this._inputElement = htmlElement }
@@ -56,7 +61,7 @@ class Filter {
 
   reset() {
     this.beforeChangeValue = this.current
-    this.onMouseUpFilterInput()
+    this._onMouseUpFilterInput()
     this._updateFilterValueSpan(this.def)
     this.current = this.def
     this._updateInputBarWidth()
@@ -99,26 +104,23 @@ class Filter {
     this.filterUpdateCallback(this.name, this.current, this.metric)
   }
 
-  onMouseUpFilterInput() {
-    const history = new CanvasHistory()
-    const canvas = new Canvas()
-
+  _onMouseUpFilterInput() {
     const action = `${Utils.capitalizeFirstLetter(this.name)} from ${this.beforeChangeValue}${this.metric} to ${this.current}${this.metric}`
 
     history.addSnapshot({
       action,
       canvasData: {
-        image: canvas.ctx.getImageData(0, 0, canvas.image.width, canvas.image.height),
-        width: canvas.image.width,
-        height: canvas.image.height
+        image: this.canvas.ctx.getImageData(0, 0, this.canvas.image.width, this.canvas.image.height),
+        width: this.canvas.image.width,
+        height: this.canvas.image.height
       },
       selectionData: null,
-      filtersString: canvas.filters.filters,
+      filtersString: this.canvas.filters.filters,
       isUpload: false
     })
   }
 
-  onMouseDownFilterInput() {
+  _onMouseDownFilterInput() {
     this.beforeChangeValue = this.current
   }
 
@@ -156,8 +158,8 @@ class Filter {
     this._updateFilterValueSpan(this.def)
     this._updateInputBarWidth()
 
-    this.inputElement.addEventListener('mousedown', () => this.onMouseDownFilterInput())
-    this.inputElement.addEventListener('mouseup', () => this.onMouseUpFilterInput())
+    this.inputElement.addEventListener('mousedown', () => this._onMouseDownFilterInput())
+    this.inputElement.addEventListener('mouseup', () => this._onMouseUpFilterInput())
   }
 }
 

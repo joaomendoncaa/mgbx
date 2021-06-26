@@ -1,7 +1,7 @@
-import CanvasFilters from './CanvasFilters'
 import $ from './DomElements'
-import SelectionTool from './SelectionTool'
+import SelectionToolSingleton from './SelectionTool'
 import Toast from './Toast'
+import CanvasFilters from './CanvasFilters'
 
 class Canvas {
   constructor(image) {
@@ -50,6 +50,7 @@ class Canvas {
   }
 
   applyFiltersToImagePreview() {
+    console.log(this.filters)
     this.filters.applyFiltersOnImagePreview()
   }
 
@@ -79,7 +80,7 @@ class Canvas {
   }
 
   cropImage() {
-    this.selectionTool = new SelectionTool()
+    this.selectionTool = new SelectionToolSingleton.getInstance()
 
     const imageWidth = this.image.width
     const imageHeight = this.image.height

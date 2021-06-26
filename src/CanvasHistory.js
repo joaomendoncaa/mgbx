@@ -5,16 +5,48 @@ import Utils from './Utils'
 
 import '../styles/History.scss'
 
+const CanvasHistorySingleton = (() => {
+  class CanvasHistory {
+    constructor() {
+      this._parentDomElement = $('.history_list')
+      this._previousButtonElement = $('.history_controls_previous')
+      this._nextButtonElement = $('.history_controls_next')
+      this._canvas = canvas
+      this._image = image
+
+      this.__init__()
+
+      return this
+    }
+  }
+
+  let canvasHistoryInstance
+
+  function createCanvasHistory() {
+    canvasHistoryInstance = new CanvasHistory()
+    return canvasHistoryInstance
+  }
+
+  return {
+    getInstance: () => {
+      if (!canvasHistoryInstance) canvasHistoryInstance = createCanvasHistory()
+      return canvasHistoryInstance
+    }
+  }
+})()
+
+export default CanvasHistorySingleton
+
 class CanvasHistory {
-  constructor(parentDomElement, previousButtonElement, nextButtonElement, canvas, image) {
+  constructor(canvas, image) {
     if (!!CanvasHistory.instance) {
       return CanvasHistory.instance
     }
     CanvasHistory.instance = this
 
-    this._parentDomElement = parentDomElement
-    this._previousButtonElement = previousButtonElement
-    this._nextButtonElement = nextButtonElement
+    this._parentDomElement = $('.history_list')
+    this._previousButtonElement = $('.history_controls_previous')
+    this._nextButtonElement = $('.history_controls_next')
     this._canvas = canvas
     this._image = image
     this._history = new History()
@@ -99,5 +131,3 @@ class CanvasHistory {
     this.nextButtonElement.addEventListener('click', () => { this.onClickNext() })
   }
 }
-
-export default CanvasHistory
