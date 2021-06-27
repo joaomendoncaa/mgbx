@@ -1,0 +1,24 @@
+.main_header {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  padding: 1rem 0;
+
+  width: 100%;
+
+  background: transparent;
+
+  .main_header_editing {
+    display: none;
+    color: var(--header-text-secondary);
+    margin: 0 0.4rem 0 0;
+    font-size: 0.85rem;
+  }
+
+  .main_header_span {
+    color: var(--header-text-primary);
+    font-weight: 500;
+    font-size: 0.85rem;
+  }
+}

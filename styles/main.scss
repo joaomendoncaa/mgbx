@@ -14,38 +14,15 @@
 body {
   background: $blue;
 
-  // width: 100vw;
+  width: 100vw;
   height: 100vh;
 
   position: relative;
 
   display: flex;
   flex-direction: column;
-}
 
-.main_header {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-
-  padding: 1rem 0;
-
-  width: 100%;
-
-  background: $blue-dark;
-
-  .main_header_editing {
-    display: none;
-    color: $grey;
-    margin: 0 0.4rem 0 0;
-    font-size: 0.85rem;
-  }
-
-  .main_header_span {
-    color: white;
-    font-weight: 400;
-    font-size: 0.85rem;
-  }
+  background: var(--main-background);
 }
 
 main {
@@ -57,14 +34,6 @@ main {
   height: auto;
 }
 
-.canvas_wrapper {
-  flex-grow: 1;
-
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
 .effects_wrapper {
   width: 15%;
   max-width: 250px;
@@ -74,7 +43,7 @@ main {
 
   flex-direction: column;
 
-  background: $grey-dark;
+  background: transparent;
 
   .effects_header {
     width: 100%;
@@ -106,101 +75,14 @@ main {
   .effects_list {
     display: flex;
     flex-direction: column;
+
+    overflow-y: scroll;
   }
 }
 
-.toolbar {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
 
-  padding: 0.5rem;
 
-  border-radius: 10px;
 
-  background: $blue-dark;
-
-  position: absolute;
-
-  z-index: 1;
-  right: 1rem;
-  left: 1rem;
-  bottom: 1rem;
-
-  .toolbar_rightarea {
-    display: flex;
-    flex-direction: row;
-  }
-
-  .rect_toolbar_btn {
-    cursor: pointer;
-    padding: 0.75rem 1.5rem;
-
-    border: 0;
-    border-radius: 5px;
-
-    transition: background 0.05s ease-in-out;
-
-    .rect_toolbar_btn_text {
-      font-size: 0.85rem;
-    }
-
-    //spacing for the buttons in the toolbar
-    &:not(:last-child) {
-      margin: 0 0.5rem 0 0;
-    }
-  }
-
-  .toolbar_upload_btn {
-    background: $blue-accent;
-
-    &:hover {
-      background: darken($color: $blue-accent, $amount: 10%);
-    }
-
-    //hide the original input for files
-    .toolbar_upload_input {
-      display: none;
-    }
-  }
-
-  .toolbar_instructions_btn {
-    background: transparent;
-    border: 1px solid darken($color: $grey, $amount: 10%);
-
-    &:hover {
-      background: darken($color: $grey, $amount: 10%);
-    }
-  }
-
-  .toolbar_clear_btn {
-    background: $grey;
-
-    display: none;
-
-    &:hover {
-      background: darken($color: $grey, $amount: 10%);
-    }
-  }
-
-  .toolbar_save_btn {
-    background: $blue-accent;
-
-    display: none;
-
-    &:hover {
-      background: darken($color: $blue-accent, $amount: 10%);
-    }
-  }
-}
-
-.image_preview {
-  max-width: 1000px;
-
-  overflow: hidden;
-
-  position: relative;
-}
 
 //Responsive is dealt with a message on the screen
 .responsive_error {

@@ -6,8 +6,12 @@
 
   padding: 1rem 1rem;
 
+  background: transparent;
+
+  transition: .05s ease-in-out;
+
   &:hover {
-    background: darken($grey-dark, 2%);
+    background: var(--filter-wrapper-background-hover);
   }
 }
 

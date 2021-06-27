@@ -1,0 +1,19 @@
+.canvas_wrapper {
+  flex-grow: 1;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  border-radius: 15px;
+
+  background: linear-gradient(180deg, rgba(201, 201, 201, 0.2) 50%, rgba(242, 242, 242, 0) 100%);
+}
+
+.image_preview {
+  max-width: 1000px;
+
+  overflow: hidden;
+
+  position: relative;
+}

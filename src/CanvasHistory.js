@@ -11,7 +11,6 @@ const CanvasHistorySingleton = (() => {
   class CanvasHistory {
     constructor() {
       this._history = HistorySingleton.getInstance()
-      this._filters = CanvasFiltersSingleton.getInstance()
       this._canvas = CanvasSingleton.getInstance()
 
       this._historyListElement = $('.history_list')
@@ -25,7 +24,6 @@ const CanvasHistorySingleton = (() => {
     }
 
     get history() { return this._history }
-    get filters() { return this._filters }
     get canvas() { return this._canvas }
     get historyListElement() { return this._historyListElement }
     get previousButtonElement() { return this._previousButtonElement }
@@ -63,20 +61,27 @@ const CanvasHistorySingleton = (() => {
     setCurrentSnapshot(snapshotId) {
       if (this.history.list.length === 0) return
 
+      const filters = CanvasFiltersSingleton.getInstance()
+
       this.history.pointer = snapshotId
       this.setActiveButton(snapshotId)
 
       const snapshotData = this.history.list[snapshotId]
 
+      const isUnknownFilters = !snapshotData.filtersString || snapshotData.filtersString.length === 0
+
       if (snapshotData.isUpload === true) {
         this.canvas.putImage(snapshotData.canvasData.image, snapshotData.canvasData.width, snapshotData.canvasData.height)
-        this.canvasFil
-        return
+      } else {
+        this.canvas.changeImage(snapshotData.canvasData.image, snapshotData.canvasData.width, snapshotData.canvasData.height)
       }
-      this.canvas.changeImage(snapshotData.canvasData.image, snapshotData.canvasData.width, snapshotData.canvasData.height)
 
-      this.canvas.filters = snapshotData.filtersString
-      this.canvas.applyFiltersToImagePreview()
+      if (!isUnknownFilters) {
+        filters.setFiltersMapFromSnapshotString(snapshotData.filtersString)
+        filters.applyFiltersOnImagePreview()
+      } else {
+
+      }
     }
 
     addSnapshot({ action, canvasData, selectionData, filtersString, isUpload }) {

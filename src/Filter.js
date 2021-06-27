@@ -87,14 +87,6 @@ class Filter {
 
     this.inputElement.value = this.def
     this.reset()
-
-    this.resetButtonElement.animate([
-      { transform: 'rotate(0deg)' },
-      { transform: 'rotate(-360deg)' }
-    ], {
-      duration: 150,
-      easing: 'ease-in-out'
-    });
   }
 
   _handleInputData(event) {

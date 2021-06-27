@@ -188,6 +188,10 @@ const SelectionToolSingleton = (() => {
       this.selectionOriginCoordinates.y = this.offsetY - parseInt($('.selection_tool').style.height)
     }
 
+    // windowMouseMoveListener(event) {
+    //   this.mouseMove(event)
+    // }
+
     mouseOver() {
       $('.image_preview').style.cursor = 'crosshair'
     }
@@ -204,6 +208,11 @@ const SelectionToolSingleton = (() => {
       $('.selection_tool_controls').style.display = 'none'
 
       this.isSelecting = true
+
+      // document.addEventListener('mousemove', this.windowMouseMoveListener.bind(this))
+
+      // $('body').style.pointerEvents = 'none'
+      // $('body').style.userSelect = 'none'
     }
 
     mouseMove(event) {
@@ -261,6 +270,18 @@ const SelectionToolSingleton = (() => {
         filtersString: filters.getFiltersString(),
         isUpload: false
       })
+    }
+
+    show() {
+
+    }
+
+    hide() {
+      DOMTools.elementVisibility([
+        $('.selection_tool'),
+        $('.selection_tool_mask'),
+        $('.selection_tool_controls')
+      ], 'none')
     }
   }//SelectionTool()
 

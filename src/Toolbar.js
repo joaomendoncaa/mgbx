@@ -1,45 +1,64 @@
 import $ from './DomElements'
 
-class Toolbar {
-  constructor() {
-    if (!!Toolbar.instance) {
-      return Toolbar.instance
+import '../styles/Toolbar.scss'
+
+const ToolbarSingleton = (() => {
+  class Toolbar {
+    constructor() {
+      if (!!Toolbar.instance) {
+        return Toolbar.instance
+      }
+      Toolbar.instance = this
+
+      this._leftArea = $('.toolbar_leftarea')
+      this._rightArea = $('.toolbar_rightarea')
+
+      this.__init__()
+
+      return this
     }
-    Toolbar.instance = this
 
-    this._leftArea = $('.toolbar_leftarea')
-    this._rightArea = $('.toolbar_rightarea')
+    get leftArea() { return this._leftArea }
+    get rightArea() { return this._rightArea }
 
-    this.__init__()
+    __init__() {
+      this.leftArea.insertAdjacentHTML('afterbegin', /*HTML*/`
+        <button class="toolbar_instructions_btn rect_toolbar_btn">
+          <span class="rect_toolbar_btn_text">Instructions</span>
+        </button>
+      `)
 
-    return this
+      this.rightArea.insertAdjacentHTML('afterbegin', /*HTML*/`
+          <button class="toolbar_clear_btn rect_toolbar_btn">
+            <span class="rect_toolbar_btn_text">Clear Canvas</span>
+          </button>
+  
+          <button class="toolbar_save_btn rect_toolbar_btn">
+            <span class="rect_toolbar_btn_text">Save Image</span>
+          </button>
+  
+          <button class="toolbar_upload_btn rect_toolbar_btn">
+            <input type="file" class="toolbar_upload_input" />
+            <span class="rect_toolbar_btn_text">Upload Image</span>
+          </button>
+      `)
+    }
   }
 
-  get leftArea() { return this._leftArea }
-  get rightArea() { return this._rightArea }
+  let toolbarInstance
 
-  __init__() {
-    this.leftArea.insertAdjacentHTML('afterbegin', /*HTML*/`
-      <button class="toolbar_instructions_btn rect_toolbar_btn">
-        <span class="rect_toolbar_btn_text">Instructions</span>
-      </button>
-    `)
-
-    this.rightArea.insertAdjacentHTML('afterbegin', /*HTML*/`
-        <button class="toolbar_clear_btn rect_toolbar_btn">
-          <span class="rect_toolbar_btn_text">Clear Canvas</span>
-        </button>
-
-        <button class="toolbar_save_btn rect_toolbar_btn">
-          <span class="rect_toolbar_btn_text">Save Image</span>
-        </button>
-
-        <button class="toolbar_upload_btn rect_toolbar_btn">
-          <input type="file" class="toolbar_upload_input" />
-          <span class="rect_toolbar_btn_text">Upload Image</span>
-        </button>
-    `)
+  function createToolbar() {
+    toolbarInstance = new Toolbar()
+    return toolbarInstance
   }
-}
 
-export default Toolbar
+  return {
+    getInstance: () => {
+      if (!toolbarInstance) toolbarInstance = createToolbar()
+      return toolbarInstance
+    }
+  }
+})()
+
+
+export default ToolbarSingleton

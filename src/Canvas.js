@@ -3,6 +3,8 @@ import SelectionToolSingleton from './SelectionTool'
 import CanvasFiltersSingleton from './CanvasFilters'
 import ImageSingleton from './Image'
 
+import '../styles/Canvas.scss'
+
 const CanvasSingleton = (() => {
   class Canvas {
     constructor() {
@@ -118,9 +120,6 @@ const CanvasSingleton = (() => {
       //add the cropped image to the context
       this.ctx.putImageData(croppedImage, 0, 0)
 
-      //hide the selection tool
-      $('.selection_tool').style.display = 'none'
-
       //update the imagePreview
       $('.image_preview').src = this.canvas.toDataURL()
 
@@ -128,9 +127,7 @@ const CanvasSingleton = (() => {
       $('.toolbar_clear_btn').style.display = 'flex'
       $('.toolbar_save_btn').style.display = 'flex'
 
-      //Hide elements
-      $('.selection_tool_controls').style.display = 'none'
-      $('.selection_tool_mask').style.display = 'none'
+      this.selectionTool.hide()
 
       return {
         image: croppedImage,

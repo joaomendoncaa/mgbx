@@ -1,8 +1,8 @@
 import Toast from './Toast'
 import DOMTools from './DomTools'
 import $ from './DomElements'
-import Header from './Header'
-import Toolbar from './Toolbar'
+import HeaderSingleton from './Header'
+import ToolbarSingleton from './Toolbar'
 import ImageSingleton from './Image'
 import CanvasSingleton from './Canvas'
 import SelectionToolSingleton from './SelectionTool'
@@ -18,8 +18,8 @@ class App {
     this._selectionTool = null
     this._canvasHistory = null
     this._canvasFilters = null
-    this._header = new Header()
-    this._toolbar = new Toolbar()
+    this._header = HeaderSingleton.getInstance()
+    this._toolbar = ToolbarSingleton.getInstance()
     this._toast = new Toast()
 
     this.__init__()

@@ -36,7 +36,7 @@ const CanvasFiltersSingleton = (() => {
 
     updateFiltersMap(filterName, filterValue, filterUnit) {
       this.setFilter(filterName, `${filterValue}${filterUnit}`)
-      this.applyFiltersOnImagePreview(this.getFiltersString())
+      this.applyFiltersOnImagePreview()
     }
 
     applyFiltersOnCanvasContext() {
@@ -55,6 +55,30 @@ const CanvasFiltersSingleton = (() => {
       return filtersFinalString
     }
 
+
+    setFiltersMapFromSnapshotString(snapshotStringData) {
+      // split a string like the following:
+      // 'brightness(50%) sepia(70%)'
+      // into an array like the following:
+      // [brightness(50%), sepia(70%)]
+      const filtersList = snapshotStringData.split(' ')
+      // clear the current filters object
+      this.filters = {}
+      // iterate through the previously made array
+      filtersList.forEach(filter => {
+        if (!filter || filter.length === 0) return
+        // and for each element in the array
+        // transform it from 'brightness(50%)' to 2 variables:
+        // {name} with 'brightness' and {value} with '50%'
+        const [name, value] = [
+          filter.split('(')[0],
+          filter.split('(')[1].replace(')', '')
+        ]
+        // use {name} and {value} to rebuild the filters object
+        this.setFilter(name, value)
+      })
+    }
+
     reset() {
       this.blur.reset()
       this.brightness.reset()
@@ -66,7 +90,7 @@ const CanvasFiltersSingleton = (() => {
       this.saturate.reset()
       this.sepia.reset()
     }
-  }//CanvasFilters
+  }//class CanvasFilters
 
   let canvasFiltersInstance
 
