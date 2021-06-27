@@ -19,10 +19,9 @@
     justify-content: space-between;
     align-items: center;
 
-    padding: 2rem 0;
+    padding: 2rem 1rem;
 
     .history_header_title {
-      padding: 0 1rem;
       font-weight: 600;
       font-size: 0.9rem;
       color: $grey;
@@ -36,7 +35,11 @@
 
       > button {
         padding: .1rem 1rem;
-        color: red;
+        margin-left: .5rem;
+        border: 1px solid var(--history-header-button-border);
+        color: var(--history-header-button-text);
+        background: var(--history-header-button-background);
+        border-radius: 5px;
       }
     }
   }

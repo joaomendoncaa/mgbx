@@ -31,6 +31,8 @@
       font-size: 0.95rem;
       font-weight: 400;
 
+      color: var(--filter-header-text-primary);
+
       margin: 0 0.5rem 0 0;
     }
 
@@ -38,10 +40,12 @@
       font-size: 0.8rem;
       font-weight: 400;
 
-      border: 1px solid darken(white, 70%);
+      border: 1px solid var(--filter-header-info-current-border);
       border-radius: 2.5px;
 
-      background: $grey;
+      background: var(--filter-header-info-current-background);
+
+      color: var(--filter-header-info-current-text);
 
       padding: 0.1rem 0.25rem;
     }
@@ -63,17 +67,13 @@
     overflow: visible;
     width: 15px;
     height: 15px;
-    fill: $icon-secondary;
+    fill: var(--filter-button-reset-color);
   }
 
   overflow: visible;
 
   &:hover {
-    transform: scale(1.25);
-
-    > svg {
-      fill: $icon-secondary;
-    }
+    transform: scale(1.1);
   }
 }
 
@@ -91,8 +91,7 @@
 .filter_input {
   height: 7.5px;
   -webkit-appearance: none;
-  background: "linear-gradient(to right, " #18a0fb " 0%, " #18a0fb " 50%, lighten(" #2b2a33 ", 5%) 50%, lighten("
-    #2b2a33 ", 5%) 100%)";
+  background: linear-gradient(to right, var(--filter-input-track-filled) 0%, var(--filter-input-track-filled) 50%, var(--filter-input-track) 50%, var(--filter-input-track) 100%);
   width: 100%;
 
   border-radius: 99vw;

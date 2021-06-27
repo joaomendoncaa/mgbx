@@ -108,7 +108,7 @@ class App {
    */
   onClickToolbarSaveBtn() {
     const a = document.createElement('a')
-    a.download = this.image.getName() + '-cropped.jpeg'
+    a.download = this.image.name + '-cropped.jpeg'
     this.canvas.applyFiltersToCtx()
     this.canvas.ctx.drawImage(this.image, 0, 0)
     a.href = this.canvas.toDataURL()

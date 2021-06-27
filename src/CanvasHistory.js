@@ -54,7 +54,7 @@ const CanvasHistorySingleton = (() => {
     setActiveButton(snapshotId) {
       if ($('.history_button') === null) return
 
-      $(`.history_button`, true).forEach(node => node.style.background = '#2B2A33')
+      $(`.history_button`, true).forEach(node => node.style.background = 'none')
       $(`.history_button[data-snapshot-id="${snapshotId}"]`).style.background = '#0485DC'
     }
 

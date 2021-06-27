@@ -79,7 +79,7 @@ class Filter {
   }
 
   _updateFilterValueSpan(newValue) {
-    this.currentValueElement.textContent = newValue + ' ' + this.metric
+    this.currentValueElement.textContent = newValue + this.metric
   }
 
   _handleResetFilter(e) {
