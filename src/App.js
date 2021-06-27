@@ -9,6 +9,7 @@ import SelectionToolSingleton from './SelectionTool'
 import CanvasHistorySingleton from './CanvasHistory'
 
 import '../styles/main.scss'
+import CanvasFiltersSingleton from './CanvasFilters'
 
 class App {
   constructor() {
@@ -16,6 +17,7 @@ class App {
     this._canvas = null
     this._selectionTool = null
     this._canvasHistory = null
+    this._canvasFilters = null
     this._header = new Header()
     this._toolbar = new Toolbar()
     this._toast = new Toast()
@@ -23,6 +25,7 @@ class App {
     this.__init__()
   }
 
+  get canvasFilters() { return this._canvasFilters }
   get canvasHistory() { return this._canvasHistory }
   get selectionTool() { return this._selectionTool }
   get toolbar() { return this._toolbar }
@@ -34,11 +37,13 @@ class App {
   set image(image) { this._image = image }
   set selectionTool(selectionTool) { this._selectionTool = selectionTool }
   set canvasHistory(canvasHistory) { this._canvasHistory = canvasHistory }
+  set canvasFilters(canvasFilters) { this._canvasFilters = canvasFilters }
 
   onLoadImageFromReader() {
     this.canvas = CanvasSingleton.getInstance()
     this.canvasHistory = CanvasHistorySingleton.getInstance()
     this.selectionTool = SelectionToolSingleton.getInstance()
+    this.canvasFilters = CanvasFiltersSingleton.getInstance()
 
     this.canvasHistory.addSnapshot({
       action: 'Uploaded Image',
@@ -48,7 +53,7 @@ class App {
         height: this.image.height
       },
       selectionData: null,
-      filtersString: this.canvas.filters.getFiltersString(),
+      filtersString: this.canvasFilters.getFiltersString(),
       isUpload: true
     })
     this.canvas.setSize(this.image.width, this.image.height)

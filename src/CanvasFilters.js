@@ -1,10 +1,11 @@
 import $ from './DomElements'
 import Filter from './Filter'
+import CanvasSingleton from './Canvas'
 
 const CanvasFiltersSingleton = (() => {
   class CanvasFilters {
-    constructor(context) {
-      this._context = context
+    constructor() {
+      this._canvas = CanvasSingleton.getInstance()
       this._filters = {}
       this._blur = new Filter('blur', 'px', 0, 100, 0, (a, b, c) => this.updateFiltersMap(a, b, c))
       this._brightness = new Filter('brightness', '%', 0, 200, 100, (a, b, c) => this.updateFiltersMap(a, b, c))
@@ -17,7 +18,7 @@ const CanvasFiltersSingleton = (() => {
       this._sepia = new Filter('sepia', '%', 0, 200, 0, (a, b, c) => this.updateFiltersMap(a, b, c))
     }
 
-    get context() { return this._context }
+    get canvas() { return this._canvas }
     get filters() { return this._filters }
     get blur() { return this._blur }
     get brightness() { return this._brightness }
@@ -39,7 +40,7 @@ const CanvasFiltersSingleton = (() => {
     }
 
     applyFiltersOnCanvasContext() {
-      this.context.filter = this.getFiltersString()
+      this.canvas.ctx.filter = this.getFiltersString()
     }
 
     applyFiltersOnImagePreview() {

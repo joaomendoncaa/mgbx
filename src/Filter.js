@@ -4,6 +4,7 @@ import $ from './DomElements'
 import '../styles/Filter.scss'
 import CanvasHistorySingleton from './CanvasHistory'
 import CanvasSingleton from './Canvas'
+import CanvasFiltersSingleton from './CanvasFilters'
 import Utils from './Utils'
 
 class Filter {
@@ -18,6 +19,9 @@ class Filter {
    * @param {number} current 
    */
   constructor(name, metric, min, max, def, filterUpdateCallback) {
+    this._history = CanvasHistorySingleton.getInstance()
+    this._canvas = CanvasSingleton.getInstance()
+
     this._parentDomElement = $('.effects_list')
     this._inputElement = null
     this._currentValueElement = null
@@ -46,6 +50,9 @@ class Filter {
   get inputElement() { return this._inputElement }
   get current() { return this._current }
   get beforeChangeValue() { return this._beforeChangeValue }
+  get canvas() { return this._canvas }
+  get history() { return this._history }
+  get canvasFilters() { return this._canvasFilters }
 
   set current(value) { this._current = value }
   set inputElement(htmlElement) { this._inputElement = htmlElement }
@@ -99,9 +106,11 @@ class Filter {
   }
 
   _onMouseUpFilterInput() {
+    const canvasFilters = CanvasFiltersSingleton.getInstance()
+
     const action = `${Utils.capitalizeFirstLetter(this.name)} from ${this.beforeChangeValue}${this.metric} to ${this.current}${this.metric}`
 
-    history.addSnapshot({
+    this.history.addSnapshot({
       action,
       canvasData: {
         image: this.canvas.ctx.getImageData(0, 0, this.canvas.image.width, this.canvas.image.height),
@@ -109,7 +118,7 @@ class Filter {
         height: this.canvas.image.height
       },
       selectionData: null,
-      filtersString: this.canvas.filters.filters,
+      filtersString: canvasFilters.getFiltersString(),
       isUpload: false
     })
   }

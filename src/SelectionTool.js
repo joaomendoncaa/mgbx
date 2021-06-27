@@ -3,6 +3,7 @@ import DOMTools from './DomTools'
 import Utils from './Utils'
 import CanvasHistorySingleton from './CanvasHistory'
 import CanvasSingleton from './Canvas'
+import CanvasFilters from './CanvasFilters'
 
 import '../styles/SelectionTool.scss'
 
@@ -245,6 +246,7 @@ const SelectionToolSingleton = (() => {
     onClickSelectionCropBtn() {
       const canvas = CanvasSingleton.getInstance()
       const canvasHistory = CanvasHistorySingleton.getInstance()
+      const filters = CanvasFilters.getInstance()
 
       const croppedData = canvas.cropImage()
 
@@ -256,7 +258,7 @@ const SelectionToolSingleton = (() => {
           height: croppedData.height
         },
         selectionData: null,
-        filtersString: canvas.filters.getFiltersString(),
+        filtersString: filters.getFiltersString(),
         isUpload: false
       })
     }

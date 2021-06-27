@@ -1,6 +1,7 @@
 import HistorySingleton from './History'
 import CanvasSingleton from './Canvas'
 import HistoryButton from './HistoryButton'
+import CanvasFiltersSingleton from './CanvasFilters'
 import $ from './DomElements'
 import Utils from './Utils'
 
@@ -10,6 +11,7 @@ const CanvasHistorySingleton = (() => {
   class CanvasHistory {
     constructor() {
       this._history = HistorySingleton.getInstance()
+      this._filters = CanvasFiltersSingleton.getInstance()
       this._canvas = CanvasSingleton.getInstance()
 
       this._historyListElement = $('.history_list')
@@ -23,6 +25,7 @@ const CanvasHistorySingleton = (() => {
     }
 
     get history() { return this._history }
+    get filters() { return this._filters }
     get canvas() { return this._canvas }
     get historyListElement() { return this._historyListElement }
     get previousButtonElement() { return this._previousButtonElement }
@@ -67,6 +70,7 @@ const CanvasHistorySingleton = (() => {
 
       if (snapshotData.isUpload === true) {
         this.canvas.putImage(snapshotData.canvasData.image, snapshotData.canvasData.width, snapshotData.canvasData.height)
+        this.canvasFil
         return
       }
       this.canvas.changeImage(snapshotData.canvasData.image, snapshotData.canvasData.width, snapshotData.canvasData.height)

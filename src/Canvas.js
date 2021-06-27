@@ -1,30 +1,25 @@
 import $ from './DomElements'
 import SelectionToolSingleton from './SelectionTool'
-import Toast from './Toast'
 import CanvasFiltersSingleton from './CanvasFilters'
 import ImageSingleton from './Image'
 
 const CanvasSingleton = (() => {
   class Canvas {
     constructor() {
-      this.canvas = document.createElement('canvas')
-      this.ctx = this.canvas.getContext('2d')
+      this._canvas = document.createElement('canvas')
+      this._ctx = this.canvas.getContext('2d')
       this._image = ImageSingleton.getInstance()
-      this._filters = CanvasFiltersSingleton.getInstance()
-      this._toast = new Toast()
       this._selectionTool = null
     }
 
     get image() { return this._image }
     get canvas() { return this._canvas }
     get ctx() { return this._ctx }
-    get filters() { return this._filters }
     get selectionTool() { return this._selectionTool }
     get toast() { return this._toast }
 
     set canvas(canvas) { this._canvas = canvas }
     set ctx(ctx) { this._ctx = ctx }
-    set filters(filters) { this._filters = filters }
     set selectionTool(selectionTool) { this._selectionTool = selectionTool }
 
     toDataURL() {
@@ -37,18 +32,23 @@ const CanvasSingleton = (() => {
     }
 
     resetFilters() {
-      if (this.filters.getFiltersString().length === 0) return
-      this.filters.reset()
-      this.toast.putMessage('⚠️ Filters reseted!', 2000, 'normal')
+      const filters = CanvasFiltersSingleton.getInstance()
+
+      if (filters.getFiltersString().length === 0) return
+      filters.reset()
+      // this.toast.putMessage('⚠️ Filters reseted!', 2000, 'normal')
     }
 
     applyFiltersToCtx() {
-      this.filters.applyFiltersOnCanvasContext()
+      const filters = CanvasFiltersSingleton.getInstance()
+
+      filters.applyFiltersOnCanvasContext()
     }
 
     applyFiltersToImagePreview() {
-      console.log(this.filters)
-      this.filters.applyFiltersOnImagePreview()
+      const filters = CanvasFiltersSingleton.getInstance()
+
+      filters.applyFiltersOnImagePreview()
     }
 
     putImage(image, width, height) {
@@ -77,7 +77,7 @@ const CanvasSingleton = (() => {
     }
 
     cropImage() {
-      this.selectionTool = new SelectionToolSingleton.getInstance()
+      this.selectionTool = SelectionToolSingleton.getInstance()
 
       const imageWidth = this.image.width
       const imageHeight = this.image.height
