@@ -1,16 +1,15 @@
 import DOMTools from './DomTools'
 import icons from './SvgIcons'
+import $ from './DomElements'
 import '../styles/Filter.scss'
-import CanvasHistory from './CanvasHistory'
-import Canvas from './Canvas'
+import CanvasHistorySingleton from './CanvasHistory'
+import CanvasSingleton from './Canvas'
 import Utils from './Utils'
 
 class Filter {
   /**
-   * A filter instance takes the parent HTML Element it will be inserted
-   * and some filter values like the type of metric, name, min, max
-   * default and currentValue
-   * @param {HTMLElement} parentDomElement 
+   * A filter instance takes the some filter values like the type of metric, 
+   * name, min, max, default and currentValue
    * @param {string} name 
    * @param {string} metric 
    * @param {number} min 
@@ -18,8 +17,8 @@ class Filter {
    * @param {number} def 
    * @param {number} current 
    */
-  constructor(parentDomElement, name, metric, min, max, def, filterUpdateCallback) {
-    this._parentDomElement = parentDomElement
+  constructor(name, metric, min, max, def, filterUpdateCallback) {
+    this._parentDomElement = $('.effects_list')
     this._inputElement = null
     this._currentValueElement = null
     this._resetButtonElement = null
@@ -31,9 +30,6 @@ class Filter {
     this._current = def
     this._filterUpdateCallback = filterUpdateCallback
     this._beforeChangeValue = 0
-
-    this._history = new CanvasHistory()
-    this._canvas = new Canvas()
 
     this.__init__()
   }
@@ -50,8 +46,6 @@ class Filter {
   get inputElement() { return this._inputElement }
   get current() { return this._current }
   get beforeChangeValue() { return this._beforeChangeValue }
-  get history() { return this._history }
-  get canvas() { return this._canvas }
 
   set current(value) { this._current = value }
   set inputElement(htmlElement) { this._inputElement = htmlElement }

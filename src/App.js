@@ -1,12 +1,12 @@
 import Toast from './Toast'
 import DOMTools from './DomTools'
 import $ from './DomElements'
-import Canvas from './Canvas'
-import ImageUploaded from './ImageUploaded'
 import Header from './Header'
 import Toolbar from './Toolbar'
+import ImageSingleton from './Image'
+import CanvasSingleton from './Canvas'
 import SelectionToolSingleton from './SelectionTool'
-import CanvasHistory from './CanvasHistory'
+import CanvasHistorySingleton from './CanvasHistory'
 
 import '../styles/main.scss'
 
@@ -36,9 +36,10 @@ class App {
   set canvasHistory(canvasHistory) { this._canvasHistory = canvasHistory }
 
   onLoadImageFromReader() {
-    this.canvas = new Canvas(this.image)
-    this.canvasHistory = new CanvasHistory(this.canvas, this.image)
-    this.selectionTool = SelectionToolSingleton.getInstance(this.canvas)
+    this.canvas = CanvasSingleton.getInstance()
+    this.canvasHistory = CanvasHistorySingleton.getInstance()
+    this.selectionTool = SelectionToolSingleton.getInstance()
+
     this.canvasHistory.addSnapshot({
       action: 'Uploaded Image',
       canvasData: {
@@ -59,13 +60,16 @@ class App {
 
   onChangeToolbarUploadInput() {
     const imageUploaded = $('.toolbar_upload_input').files[0]
+    const imageInstance = ImageSingleton.getInstance()
 
-    this.image = new ImageUploaded(imageUploaded)
+    imageInstance.upload(imageUploaded)
 
-    this.header.changeSpanText(this.image.getName(), true)
+    this.image = imageInstance.data
+
+    this.header.changeSpanText(this.image.name, true)
 
     let reader = new FileReader()
-    reader.readAsDataURL(this.image.getBlob())
+    reader.readAsDataURL(this.image)
 
     reader.addEventListener('load', (event) => {
       this.image = new Image()

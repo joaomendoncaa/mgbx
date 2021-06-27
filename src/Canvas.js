@@ -1,146 +1,158 @@
 import $ from './DomElements'
 import SelectionToolSingleton from './SelectionTool'
 import Toast from './Toast'
-import CanvasFilters from './CanvasFilters'
+import CanvasFiltersSingleton from './CanvasFilters'
+import ImageSingleton from './Image'
 
-class Canvas {
-  constructor(image) {
-    if (!!Canvas.instance) return Canvas.instance
-    Canvas.instance = this
+const CanvasSingleton = (() => {
+  class Canvas {
+    constructor() {
+      this.canvas = document.createElement('canvas')
+      this.ctx = this.canvas.getContext('2d')
+      this._image = ImageSingleton.getInstance()
+      this._filters = CanvasFiltersSingleton.getInstance()
+      this._toast = new Toast()
+      this._selectionTool = null
+    }
 
-    this.canvas = document.createElement('canvas')
-    this.ctx = this.canvas.getContext('2d')
-    this._image = image
-    this._filters = new CanvasFilters(this.ctx)
-    this._toast = new Toast()
-    this._selectionTool = null
+    get image() { return this._image }
+    get canvas() { return this._canvas }
+    get ctx() { return this._ctx }
+    get filters() { return this._filters }
+    get selectionTool() { return this._selectionTool }
+    get toast() { return this._toast }
 
-    return this
-  }
+    set canvas(canvas) { this._canvas = canvas }
+    set ctx(ctx) { this._ctx = ctx }
+    set filters(filters) { this._filters = filters }
+    set selectionTool(selectionTool) { this._selectionTool = selectionTool }
 
-  get image() { return this._image }
-  get canvas() { return this._canvas }
-  get ctx() { return this._ctx }
-  get filters() { return this._filters }
-  get selectionTool() { return this._selectionTool }
-  get toast() { return this._toast }
+    toDataURL() {
+      return this.canvas.toDataURL()
+    }
 
-  set canvas(canvas) { this._canvas = canvas }
-  set ctx(ctx) { this._ctx = ctx }
-  set filters(filters) { this._filters = filters }
-  set selectionTool(selectionTool) { this._selectionTool = selectionTool }
+    setSize(width, height) {
+      this.canvas.width = width
+      this.canvas.height = height
+    }
 
-  toDataURL() {
-    return this.canvas.toDataURL()
-  }
+    resetFilters() {
+      if (this.filters.getFiltersString().length === 0) return
+      this.filters.reset()
+      this.toast.putMessage('⚠️ Filters reseted!', 2000, 'normal')
+    }
 
-  setSize(width, height) {
-    this.canvas.width = width
-    this.canvas.height = height
-  }
+    applyFiltersToCtx() {
+      this.filters.applyFiltersOnCanvasContext()
+    }
 
-  resetFilters() {
-    if (this.filters.getFiltersString().length === 0) return
-    this.filters.reset()
-    this.toast.putMessage('⚠️ Filters reseted!', 2000, 'normal')
-  }
+    applyFiltersToImagePreview() {
+      console.log(this.filters)
+      this.filters.applyFiltersOnImagePreview()
+    }
 
-  applyFiltersToCtx() {
-    this.filters.applyFiltersOnCanvasContext()
-  }
+    putImage(image, width, height) {
+      this.ctx.clearRect(0, 0, this.ctx.width, this.ctx.height)
 
-  applyFiltersToImagePreview() {
-    console.log(this.filters)
-    this.filters.applyFiltersOnImagePreview()
-  }
+      this.image.width = width
+      this.image.height = height
+      this.setSize(width, height)
 
-  putImage(image, width, height) {
-    this.ctx.clearRect(0, 0, this.ctx.width, this.ctx.height)
+      this.ctx.drawImage(image, 0, 0)
 
-    this.image.width = width
-    this.image.height = height
-    this.setSize(width, height)
+      $('.image_preview').src = this.toDataURL()
 
-    this.ctx.drawImage(image, 0, 0)
+    }
 
-    $('.image_preview').src = this.toDataURL()
+    changeImage(image, width, height) {
+      this.ctx.clearRect(0, 0, this.ctx.width, this.ctx.height)
 
-  }
+      this.image.width = width
+      this.image.height = height
+      this.setSize(width, height)
 
-  changeImage(image, width, height) {
-    this.ctx.clearRect(0, 0, this.ctx.width, this.ctx.height)
+      this.ctx.putImageData(image, 0, 0)
 
-    this.image.width = width
-    this.image.height = height
-    this.setSize(width, height)
+      $('.image_preview').src = this.toDataURL()
+    }
 
-    this.ctx.putImageData(image, 0, 0)
+    cropImage() {
+      this.selectionTool = new SelectionToolSingleton.getInstance()
 
-    $('.image_preview').src = this.toDataURL()
-  }
+      const imageWidth = this.image.width
+      const imageHeight = this.image.height
 
-  cropImage() {
-    this.selectionTool = new SelectionToolSingleton.getInstance()
+      const { width: previewImageWidth, height: previewImageHeight } = $('.image_preview')
 
-    const imageWidth = this.image.width
-    const imageHeight = this.image.height
+      //get the aspect ratio of the image
+      const [widthRatio, heightRatio] = [
+        Number(imageWidth / previewImageWidth),
+        Number(imageHeight / previewImageHeight)
+      ]
 
-    const { width: previewImageWidth, height: previewImageHeight } = $('.image_preview')
+      const [selectionWidth, selectionHeight] = [
+        parseInt($('.selection_tool').style.width),
+        parseInt($('.selection_tool').style.height)
+      ]
 
-    //get the aspect ratio of the image
-    const [widthRatio, heightRatio] = [
-      Number(imageWidth / previewImageWidth),
-      Number(imageHeight / previewImageHeight)
-    ]
+      const [croppedWidth, croppedHeight] = [
+        Number(selectionWidth * widthRatio),
+        Number(selectionHeight * heightRatio)
+      ]
 
-    const [selectionWidth, selectionHeight] = [
-      parseInt($('.selection_tool').style.width),
-      parseInt($('.selection_tool').style.height)
-    ]
+      const [actualX, actualY] = [
+        Number(this.selectionTool.selectionOriginCoordinates.x * widthRatio),
+        Number(this.selectionTool.selectionOriginCoordinates.y * heightRatio)
+      ]
 
-    const [croppedWidth, croppedHeight] = [
-      Number(selectionWidth * widthRatio),
-      Number(selectionHeight * heightRatio)
-    ]
+      //get the cropped image from the canvas context
+      const croppedImage = this.ctx.getImageData(actualX, actualY, croppedWidth, croppedHeight)
 
-    const [actualX, actualY] = [
-      Number(this.selectionTool.selectionOriginCoordinates.x * widthRatio),
-      Number(this.selectionTool.selectionOriginCoordinates.y * heightRatio)
-    ]
+      this.ctx.clearRect(0, 0, this.ctx.width, this.ctx.height)
 
-    //get the cropped image from the canvas context
-    const croppedImage = this.ctx.getImageData(actualX, actualY, croppedWidth, croppedHeight)
+      //ajust propotions to the new image
+      this.image.width = croppedWidth
+      this.image.height = croppedHeight
+      this.setSize(croppedWidth, croppedHeight)
 
-    this.ctx.clearRect(0, 0, this.ctx.width, this.ctx.height)
+      //add the cropped image to the context
+      this.ctx.putImageData(croppedImage, 0, 0)
 
-    //ajust propotions to the new image
-    this.image.width = croppedWidth
-    this.image.height = croppedHeight
-    this.setSize(croppedWidth, croppedHeight)
+      //hide the selection tool
+      $('.selection_tool').style.display = 'none'
 
-    //add the cropped image to the context
-    this.ctx.putImageData(croppedImage, 0, 0)
+      //update the imagePreview
+      $('.image_preview').src = this.canvas.toDataURL()
 
-    //hide the selection tool
-    $('.selection_tool').style.display = 'none'
+      //show Elements
+      $('.toolbar_clear_btn').style.display = 'flex'
+      $('.toolbar_save_btn').style.display = 'flex'
 
-    //update the imagePreview
-    $('.image_preview').src = this.canvas.toDataURL()
+      //Hide elements
+      $('.selection_tool_controls').style.display = 'none'
+      $('.selection_tool_mask').style.display = 'none'
 
-    //show Elements
-    $('.toolbar_clear_btn').style.display = 'flex'
-    $('.toolbar_save_btn').style.display = 'flex'
-
-    //Hide elements
-    $('.selection_tool_controls').style.display = 'none'
-    $('.selection_tool_mask').style.display = 'none'
-
-    return {
-      image: croppedImage,
-      width: croppedWidth,
-      height: croppedHeight
+      return {
+        image: croppedImage,
+        width: croppedWidth,
+        height: croppedHeight
+      }
     }
   }
-}
 
-export default Canvas
+  let canvasInstance
+
+  function createCanvas() {
+    canvasInstance = new Canvas()
+    return canvasInstance
+  }
+
+  return {
+    getInstance: () => {
+      if (!canvasInstance) canvasInstance = createCanvas()
+      return canvasInstance
+    }
+  }
+})()
+
+export default CanvasSingleton
