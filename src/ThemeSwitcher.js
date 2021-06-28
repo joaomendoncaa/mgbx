@@ -38,7 +38,7 @@ const ThemeSwitcherSingleton = (() => {
       return themeKey
     }
 
-    generateStyleStringFromObject(themeKey) {
+    generateStyleStringFromThemeObject(themeKey) {
       const theme = this.themes[themeKey]
       let styleString = ''
       Object.keys(theme).forEach(cssVariable => styleString += `${cssVariable}: ${theme[cssVariable]};\n`)
@@ -49,7 +49,7 @@ const ThemeSwitcherSingleton = (() => {
       if (!this.themes.hasOwnProperty(themeKey)) throw new Error('Theme given is not available')
 
       this.saveThemeKeyLocally(themeKey)
-      const styleString = this.generateStyleStringFromObject(themeKey)
+      const styleString = this.generateStyleStringFromThemeObject(themeKey)
       this.setStyleOnDOM(styleString)
     }
 

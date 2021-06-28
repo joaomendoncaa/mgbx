@@ -23,6 +23,10 @@ export default {
     '--history-header-button-border': '#C3EEE0',
     '--history-header-button-text': '#0DC88B',
 
+    '--effects-header-button-background': '#D3F1E7',
+    '--effects-header-button-border': '#C3EEE0',
+    '--effects-header-button-text': '#0DC88B',
+
     '--filter-wrapper-background-hover': '#EFEFEF',
     '--filter-header-text-primary': '#454545',
     '--filter-button-reset-color': '#454545',

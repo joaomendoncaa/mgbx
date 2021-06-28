@@ -5,6 +5,7 @@ import '../styles/Filter.scss'
 import CanvasHistorySingleton from './CanvasHistory'
 import CanvasSingleton from './Canvas'
 import CanvasFiltersSingleton from './CanvasFilters'
+import ThemeSwitcherSingleton from './ThemeSwitcher'
 import Utils from './Utils'
 
 class Filter {
@@ -71,10 +72,11 @@ class Filter {
   }
 
   _updateInputBarWidth() {
+    const theme = ThemeSwitcherSingleton.getInstance()
     //gets the percentage of progression on the input
     let value = (this.current - this.min) / (this.max - this.min) * 100
     //updates the background with the percentage value calculated above
-    const backgroundStyle = 'linear-gradient(to right, #18A0FB 0%, #18A0FB ' + value + '%, #454351 ' + value + '%, #454351 100%)'
+    const backgroundStyle = `linear-gradient(to right, ${theme.current['--filter-input-track-filled']} 0%, ${theme.current['--filter-input-track-filled']} ${value}%, ${theme.current['--filter-input-track']} ${value}%, ${theme.current['--filter-input-track']} 100%)`
     this.inputElement.style.background = `${backgroundStyle}`
   }
 

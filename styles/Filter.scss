@@ -113,11 +113,11 @@
 
   &::-webkit-slider-thumb {
     box-shadow: 0px 0px 0px #000031;
-    border: 3px solid $grey-dark;
+    border: 0;
     height: 20px;
     width: 19px;
     border-radius: 19px;
-    background: $text;
+    background: var(--filter-input-thumb);
     cursor: pointer;
     -webkit-appearance: none;
     margin-top: -8px;
@@ -143,11 +143,11 @@
 
   &::-moz-range-thumb {
     box-shadow: none;
-    border: 3px solid $grey-dark;
+    border: 0;
     height: 15px;
     width: 15px;
     border-radius: 19px;
-    background: #ffffff;
+    background: var(--filter-input-thumb);
     cursor: pointer;
 
     transition: transform 0.075s linear;
@@ -185,11 +185,11 @@
   &::-ms-thumb {
     margin-top: 1px;
     box-shadow: 0px 0px 0px #000031;
-    border: 0px solid #00001e;
+    border: 0;
     height: 20px;
     width: 19px;
     border-radius: 19px;
-    background: #ffffff;
+    background: var(--filter-input-thumb);
     cursor: pointer;
   }
 

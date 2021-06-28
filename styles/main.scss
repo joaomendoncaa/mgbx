@@ -60,13 +60,13 @@ main {
     }
 
     .effects_header_reset_btn {
-      border: 1px solid red;
+      border: 1px solid var(--effects-header-button-border);
       border-radius: 3.5px;
 
       cursor: pointer;
 
-      background: rgba(255, 0, 0, 0.1);
-      color: red;
+      background: var(--effects-header-button-background);
+      color: var(--effects-header-button-text);
       font-size: 0.8rem;
       padding: 0.25rem 0.75rem;
     }
@@ -75,8 +75,6 @@ main {
   .effects_list {
     display: flex;
     flex-direction: column;
-
-    overflow-y: scroll;
   }
 }
 
