@@ -58,12 +58,64 @@ const CanvasHistorySingleton = (() => {
       $(`.history_button[data-snapshot-id="${snapshotId}"]`).style.background = '#0485DC'
     }
 
+    disablePreviousButton() {
+      this.previousButtonElement.style.filter = 'grayscale(100%) opacity(50%)'
+      this.previousButtonElement.disabled = true
+    }
+
+    disableNextButton() {
+      this.nextButtonElement.style.filter = 'grayscale(100%) opacity(50%)'
+      this.nextButtonElement.disabled = true
+    }
+
+    enablePreviousButton() {
+      this.previousButtonElement.style.filter = ''
+      this.previousButtonElement.disabled = false
+    }
+
+    enableNextButton() {
+      this.nextButtonElement.style.filter = ''
+      this.nextButtonElement.disabled = false
+    }
+
+    updateHeaderButtonsStyle(pointer) {
+      const isLastItem = pointer === Utils.arrayLastIndex(this.history.list)
+      const isFirstItem = pointer === 0
+
+      if (!isLastItem && !isFirstItem) {
+        this.enablePreviousButton()
+        this.enableNextButton()
+        return
+      }
+
+      if (isLastItem && isFirstItem) {
+        this.disablePreviousButton()
+        this.disableNextButton()
+        return
+      }
+
+      if (isLastItem && !isFirstItem) {
+        this.enablePreviousButton()
+        this.disableNextButton()
+        return
+      }
+
+      if (!isLastItem && isFirstItem) {
+        this.disablePreviousButton()
+        this.enableNextButton()
+        return
+      }
+    }
+
     setCurrentSnapshot(snapshotId) {
       if (this.history.list.length === 0) return
 
       const filters = CanvasFiltersSingleton.getInstance()
 
       this.history.pointer = snapshotId
+
+      this.updateHeaderButtonsStyle(this.history.pointer)
+
       this.setActiveButton(snapshotId)
 
       const snapshotData = this.history.list[snapshotId]

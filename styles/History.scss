@@ -38,7 +38,6 @@
         padding: .3rem 1rem;
         margin-left: .5rem;
         border: 1px solid var(--history-header-button-border);
-        color: var(--history-header-button-text);
         background: var(--history-header-button-background);
         border-radius: 5px;
 
@@ -52,6 +51,17 @@
 
           > path {
             stroke: var(--history-header-button-text);
+          }
+        }
+
+        &:hover {
+          border: 1px solid var(--history-header-button-text);
+          background: var(--history-header-button-text);
+
+          > svg {
+            > path {
+              stroke: white;
+            }
           }
         }
       }
