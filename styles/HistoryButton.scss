@@ -1,5 +1,3 @@
-@import "./Variables.scss";
-
 .history_button {
   cursor: pointer;
 
@@ -22,5 +20,16 @@
 
   .history_button_action {
     text-align: left;
+    color: var(--history-button-action-text);
+    font-size: 0.95rem;
+    font-weight: 400;
+
+    margin: 0 0 .25rem 0;
+  }
+
+  .history_button_timestamp {
+    color: var(--history-button-timestamp-text);
+    font-weight: 400;
+    font-size: 0.9rem;
   }
 }

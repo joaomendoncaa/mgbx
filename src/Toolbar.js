@@ -1,4 +1,5 @@
 import $ from './DomElements'
+import icons from './SvgIcons'
 
 import '../styles/Toolbar.scss'
 
@@ -34,6 +35,7 @@ const ToolbarSingleton = (() => {
           </button>
   
           <button class="toolbar_save_btn rect_toolbar_btn">
+            ${icons.upload}
             <span class="rect_toolbar_btn_text">Save Image</span>
           </button>
   

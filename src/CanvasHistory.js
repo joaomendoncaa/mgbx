@@ -2,6 +2,7 @@ import HistorySingleton from './History'
 import CanvasSingleton from './Canvas'
 import HistoryButton from './HistoryButton'
 import CanvasFiltersSingleton from './CanvasFilters'
+import ThemeSwitcherSingleton from './ThemeSwitcher'
 import $ from './DomElements'
 import Utils from './Utils'
 
@@ -53,9 +54,10 @@ const CanvasHistorySingleton = (() => {
 
     setActiveButton(snapshotId) {
       if ($('.history_button') === null) return
+      const theme = ThemeSwitcherSingleton.getInstance()
 
       $(`.history_button`, true).forEach(node => node.style.background = 'none')
-      $(`.history_button[data-snapshot-id="${snapshotId}"]`).style.background = '#0485DC'
+      $(`.history_button[data-snapshot-id="${snapshotId}"]`).style.background = theme.current['--history-button-active-background']
     }
 
     disablePreviousButton() {

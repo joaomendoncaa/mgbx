@@ -1,5 +1,3 @@
-@import "./Variables.scss";
-
 .toolbar {
   display: flex;
   justify-content: space-between;
@@ -23,7 +21,12 @@
 
   .rect_toolbar_btn {
     cursor: pointer;
-    padding: 0.75rem 1.5rem;
+    padding: 1rem 2rem;
+
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
 
     border: 0;
     border-radius: 5px;
@@ -41,10 +44,10 @@
   }
 
   .toolbar_upload_btn {
-    background: $blue-accent;
+    background: var(--toolbar-button-background-important);
+    color: var(--toolbar-button-text-important);
 
     &:hover {
-      background: darken($color: $blue-accent, $amount: 10%);
     }
 
     //hide the original input for files
@@ -55,30 +58,34 @@
 
   .toolbar_instructions_btn {
     background: transparent;
-    border: 1px solid darken($color: $grey, $amount: 10%);
+    border: 1px solid darken($color: grey, $amount: 10%);
 
     &:hover {
-      background: darken($color: $grey, $amount: 10%);
+      background: darken($color: grey, $amount: 10%);
     }
   }
 
   .toolbar_clear_btn {
-    background: $grey;
+    background: var(--toolbar-button-background-secondary);
 
     display: none;
 
     &:hover {
-      background: darken($color: $grey, $amount: 10%);
+      background: darken($color: grey, $amount: 10%);
     }
   }
 
   .toolbar_save_btn {
-    background: $blue-accent;
+    background: var(--toolbar-button-background-important);
+    color: var(--toolbar-button-text-important);
 
     display: none;
 
+    > svg {
+      margin: 0 .5rem 0 0;
+    }
+
     &:hover {
-      background: darken($color: $blue-accent, $amount: 10%);
     }
   }
 }
