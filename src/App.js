@@ -7,9 +7,10 @@ import ImageSingleton from './Image'
 import CanvasSingleton from './Canvas'
 import SelectionToolSingleton from './SelectionTool'
 import CanvasHistorySingleton from './CanvasHistory'
+import ThemeSwitcherSingleton from './ThemeSwitcher'
+import CanvasFiltersSingleton from './CanvasFilters'
 
 import '../styles/main.scss'
-import CanvasFiltersSingleton from './CanvasFilters'
 
 class App {
   constructor() {
@@ -18,6 +19,7 @@ class App {
     this._selectionTool = null
     this._canvasHistory = null
     this._canvasFilters = null
+    this._themeSwitcher = ThemeSwitcherSingleton.getInstance()
     this._header = HeaderSingleton.getInstance()
     this._toolbar = ToolbarSingleton.getInstance()
     this._toast = new Toast()

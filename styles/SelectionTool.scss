@@ -101,6 +101,7 @@
     transition: 0.05s ease-in-out;
 
     background: var(--selection-button-background-primary);
+    transform-origin: center;
 
     .selection_crop_btn_text {
       color: var(--selection-button-text-primary);
@@ -128,6 +129,7 @@
     padding: 0.5rem 0.75rem;
 
     transition: 0.05s ease-in-out;
+    transform-origin: center;
 
     .selection_cancel_btn_text {
       > svg {
