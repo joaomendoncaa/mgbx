@@ -19,9 +19,14 @@
     flex-direction: row;
   }
 
+  .toolbar_leftarea {
+    display: flex;
+    flex-direction: row;
+  }
+
   .rect_toolbar_btn {
     cursor: pointer;
-    padding: 1rem 2rem;
+    padding: 1rem 1.5rem;
 
     display: flex;
     flex-direction: row;
@@ -31,15 +36,28 @@
     border: 0;
     border-radius: 5px;
 
-    transition: background 0.05s ease-in-out;
+    background: var(--toolbar-button-background-primary);
+    color: var(--toolbar-button-text-primary);
+
+    transition: 0.05s ease-in;
 
     .rect_toolbar_btn_text {
       font-size: 0.85rem;
     }
 
+    &:hover {
+      background: var(--toolbar-button-background-primary-hover);
+      color: var(--toolbar-button-text-primary-hover);
+      > svg {
+        > path {
+          fill: var(--toolbar-button-text-primary-hover);
+        }
+      }
+    }
+
     //spacing for the buttons in the toolbar
-    &:not(:last-child) {
-      margin: 0 0.5rem 0 0;
+    &:not(:first-child) {
+      margin: 0 0 0 0.5rem;
     }
   }
 
@@ -47,7 +65,18 @@
     background: var(--toolbar-button-background-important);
     color: var(--toolbar-button-text-important);
 
+    > svg {
+      margin: 0 .5rem 0 0;
+    }
+
     &:hover {
+      background: var(--toolbar-button-background-important-hover);
+      color: var(--toolbar-button-text-important-hover);
+      > svg {
+        > path {
+          fill: var(--toolbar-button-text-important-hover);
+        }
+      }
     }
 
     //hide the original input for files
@@ -57,28 +86,16 @@
   }
 
   .toolbar_instructions_btn {
-    background: transparent;
-    border: 1px solid darken($color: grey, $amount: 10%);
 
-    &:hover {
-      background: darken($color: grey, $amount: 10%);
-    }
   }
 
   .toolbar_clear_btn {
-    background: var(--toolbar-button-background-secondary);
-
     display: none;
-
-    &:hover {
-      background: darken($color: grey, $amount: 10%);
-    }
   }
 
   .toolbar_save_btn {
     background: var(--toolbar-button-background-important);
     color: var(--toolbar-button-text-important);
-
     display: none;
 
     > svg {
@@ -86,6 +103,13 @@
     }
 
     &:hover {
+      background: var(--toolbar-button-background-important-hover);
+      color: var(--toolbar-button-text-important-hover);
+      > svg {
+        > path {
+          fill: var(--toolbar-button-text-important-hover);
+        }
+      }
     }
   }
 }

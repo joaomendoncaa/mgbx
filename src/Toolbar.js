@@ -24,8 +24,12 @@ const ToolbarSingleton = (() => {
 
     __init__() {
       this.leftArea.insertAdjacentHTML('afterbegin', /*HTML*/`
+        <button class="toolbar_settings_btn rect_toolbar_btn">
+          ${icons.settings}
+        </button>
+
         <button class="toolbar_instructions_btn rect_toolbar_btn">
-          <span class="rect_toolbar_btn_text">Instructions</span>
+          ${icons.instructions}
         </button>
       `)
 
@@ -35,12 +39,13 @@ const ToolbarSingleton = (() => {
           </button>
   
           <button class="toolbar_save_btn rect_toolbar_btn">
-            ${icons.upload}
+            ${icons.save}
             <span class="rect_toolbar_btn_text">Save Image</span>
           </button>
   
           <button class="toolbar_upload_btn rect_toolbar_btn">
             <input type="file" class="toolbar_upload_input" />
+            ${icons.upload}
             <span class="rect_toolbar_btn_text">Upload Image</span>
           </button>
       `)

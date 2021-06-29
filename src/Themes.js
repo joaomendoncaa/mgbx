@@ -8,11 +8,18 @@ export default {
     '--header-text-primary': '#454545',
     '--header-text-secondary': '#868686',
 
+    //toolbar normal buttons
     '--toolbar-button-background-primary': '#E3E3E3',
     '--toolbar-button-text-primary': '#454545',
-    '--toolbar-button-background-secondary': 'transparent',
+    //toolbar normal buttons hover colors
+    '--toolbar-button-background-primary-hover': '#BEBEBE',
+    '--toolbar-button-text-primary-hover': '#ffffff',
+    //toolbar important buttons
     '--toolbar-button-background-important': '#0EC788',
     '--toolbar-button-text-important': '#ffffff',
+    //toolbar important buttons hover colors
+    '--toolbar-button-background-important-hover': '#33B58A',
+    '--toolbar-button-text-important-hover': '#ffffff',
 
     '--selection-button-background-primary': '#ffffff',
     '--selection-button-text-primary': '#454545',
