@@ -1,6 +1,7 @@
 import Toast from './Toast'
 import DOMTools from './DomTools'
 import $ from './DomElements'
+import Utils from './Utils'
 import HeaderSingleton from './Header'
 import ToolbarSingleton from './Toolbar'
 import ImageSingleton from './Image'
@@ -141,6 +142,32 @@ class App {
     $('.toolbar_upload_btn').style.display = 'flex'
   }
 
+  onWheelMove(event) {
+    const isZoomIn = event.deltaY < 0
+    const isZoomOut = event.deltaY > 0
+    const isCtrlBeingPressed = event.ctrlKey === true
+    const isShiftBeingPressed = event.shiftKey === true
+    const imageCurrentWidth = $('.image_preview').clientWidth
+    const zoomSteps = isShiftBeingPressed ? 75 : 20
+
+    if (isCtrlBeingPressed) event.preventDefault()
+    if (imageCurrentWidth < 10) return
+
+    //if the user is scrolling in
+    if (isCtrlBeingPressed && isZoomIn)
+      $('.image_preview').style.width = Utils.parsePixels(imageCurrentWidth + zoomSteps)
+
+    //if the user is scrolling out
+    if (isCtrlBeingPressed && isZoomOut)
+      $('.image_preview').style.width = Utils.parsePixels(imageCurrentWidth - zoomSteps)
+  }
+
+  onKeyDown(event) {
+    if (event.ctrlKey === true && (event.which == '61' || event.which == '107' || event.which == '173' || event.which == '109' || event.which == '187' || event.which == '189')) {
+      event.preventDefault();
+    }
+  }
+
   //on app init
   __init__() {
     $('.toolbar_upload_btn').addEventListener('click', () => this.onClickToolbarUploadBtn())
@@ -148,6 +175,11 @@ class App {
     $('.effects_header_reset_btn').addEventListener('click', () => this.onClickEffectsHeaderResetBtn())
     $('.toolbar_save_btn').addEventListener('click', () => this.onClickToolbarSaveBtn())
     $('.toolbar_clear_btn').addEventListener('click', () => this.onClickToolbarClearBtn())
+
+    window.addEventListener('wheel', (event) => this.onWheelMove(event), { passive: false })
+    window.addEventListener('mousewheel', (event) => this.onWheelMove(event), { passive: false })
+    window.addEventListener('DOMMouseScroll', (event) => this.onWheelMove(event), { passive: false })
+    document.addEventListener('keydown', (event) => this.onKeyDown(event))
   }
 }
 

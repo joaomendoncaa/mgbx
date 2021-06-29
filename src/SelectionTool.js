@@ -205,7 +205,7 @@ const SelectionToolSingleton = (() => {
       this.selectionOriginCoordinates.x = offsetX
       this.selectionOriginCoordinates.y = offsetY
 
-      $('.selection_tool_controls').style.display = 'none'
+      this.hide()
 
       this.isSelecting = true
 
@@ -245,11 +245,7 @@ const SelectionToolSingleton = (() => {
     }
 
     onClickSelectionCancelBtn() {
-      DOMTools.elementVisibility([
-        $('.selection_tool'),
-        $('.selection_tool_mask'),
-        $('.selection_tool_controls')
-      ], 'none')
+      this.hide()
     }
 
     onClickSelectionCropBtn() {
@@ -273,7 +269,11 @@ const SelectionToolSingleton = (() => {
     }
 
     show() {
-
+      DOMTools.elementVisibility([
+        $('.selection_tool'),
+        $('.selection_tool_mask'),
+        $('.selection_tool_controls')
+      ], 'initial')
     }
 
     hide() {

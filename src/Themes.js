@@ -53,6 +53,9 @@ export default {
     '--filter-header-info-current-text': '#0DC88B',
     '--filter-input-track': '#E0E0E0',
     '--filter-input-thumb': '#0DC88B',
-    '--filter-input-track-filled': '#0DC88B'
+    '--filter-input-track-filled': '#0DC88B',
+
+    //scrollbars
+    '--scrollbar-thumb-background': '#ff0000'
   }
 }

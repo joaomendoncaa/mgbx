@@ -8,14 +8,34 @@
   border-radius: 15px;
 
   background: linear-gradient(180deg, rgba(201, 201, 201, 0.2) 50%, rgba(242, 242, 242, 0) 100%);
+
+  width: -moz-fit-content;
+  width: fit-content;
+  block-size: fit-content;
+  overflow: auto;
+
+  scrollbar-width: thin;      
+  scrollbar-color: var(--scrollbar-thumb-background) transparent;
+
+  &::-webkit-scrollbar {
+    width: 11px;
+  }
+
+  &::-webkit-scrollbar-track {
+    background: transparent;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background-color: var(--scrollbar-thumb-background);
+    border-radius: 6px;
+    border: 0;
+  }
 }
 
 .image_preview {
-  max-width: 1000px;
-
   position: relative;
 
-  margin-top: 5px; //TODO: fix bug where image preview wrapper move everything low
+  margin-top: 5px; //TODO: fix bug where image preview wrapper moves everything lower
 }
 
 .image_preview_wrapper {
