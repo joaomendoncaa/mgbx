@@ -5,6 +5,7 @@ export default {
   'light': {
     '--main-background': '#F9F9F9',
 
+    //top header
     '--header-text-primary': '#454545',
     '--header-text-secondary': '#868686',
 
@@ -21,15 +22,19 @@ export default {
     '--toolbar-button-background-important-hover': '#33B58A',
     '--toolbar-button-text-important-hover': '#ffffff',
 
+    //selection tool normal buttons
     '--selection-button-background-primary': '#ffffff',
     '--selection-button-text-primary': '#454545',
+    //selection tool important buttons
     '--selection-button-background-important': '#0EC788',
     '--selection-button-text-important': '#ffffff',
 
+    //history header
     '--history-header-text': '#454545',
     '--history-header-button-background': '#D3F1E7',
     '--history-header-button-border': '#C3EEE0',
     '--history-header-button-text': '#0DC88B',
+    //history buttons
     '--history-button-action-text': '#0DC88B',
     '--history-button-timestamp-text': '#6D6D6D',
     '--history-button-icon-color': '#BABABA',

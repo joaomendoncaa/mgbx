@@ -13,7 +13,12 @@
 .image_preview {
   max-width: 1000px;
 
-  overflow: hidden;
-
   position: relative;
+
+  margin-top: 5px; //TODO: fix bug where image preview wrapper move everything low
+}
+
+.image_preview_wrapper {
+  position: relative;
+  overflow: hidden;
 }
