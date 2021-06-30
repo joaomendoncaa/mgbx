@@ -12,12 +12,6 @@
 
   border: 0;
 
-  background: transparent;
-
-  &:hover {
-    background: red;
-  }
-
   .history_button_action {
     text-align: left;
     color: var(--history-button-action-text);
@@ -31,5 +25,28 @@
     color: var(--history-button-timestamp-text);
     font-weight: 400;
     font-size: 0.9rem;
+  }
+}
+
+.history_button_inactive {
+  background: transparent;
+}
+
+.history_button_active {
+  background: var(--history-button-active-background);
+
+  .history_button_action {
+    text-align: left;
+    color: var(--history-button-active-text);
+    font-size: 0.95rem;
+    font-weight: 400;
+
+    margin: 0 0 .25rem 0;
+  }
+
+  .history_button_timestamp {
+    color: var(--history-button-active-text);
+    font-weight: 400;
+    font-size: 0.95rem;
   }
 }

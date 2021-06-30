@@ -38,7 +38,9 @@ export default {
     '--history-button-action-text': '#0DC88B',
     '--history-button-timestamp-text': '#6D6D6D',
     '--history-button-icon-color': '#BABABA',
+    //active history button
     '--history-button-active-background': '#0DC88B',
+    '--history-button-active-text': '#FFFFFF',
 
     '--effects-header-text': '#454545',
     '--effects-header-button-background': '#D3F1E7',
@@ -56,6 +58,6 @@ export default {
     '--filter-input-track-filled': '#0DC88B',
 
     //scrollbars
-    '--scrollbar-thumb-background': '#ff0000'
+    '--scrollbar-thumb-background': '#9D9D9D'
   }
 }

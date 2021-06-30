@@ -11,26 +11,24 @@
 body {
   width: 100vw;
   height: 100vh;
-
   position: relative;
-
   display: flex;
   flex-direction: column;
-
   background: var(--main-background);
 }
 
 main {
   display: flex;
   flex-direction: row;
-
   flex-grow: 1;
-
   height: auto;
+
+  max-height: 90vh;
 }
 
 .effects_wrapper {
   width: 15%;
+  min-width: 15%;
   max-width: 250px;
   height: 100%;
 

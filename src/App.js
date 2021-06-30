@@ -143,6 +143,8 @@ class App {
   }
 
   onWheelMove(event) {
+
+
     const isZoomIn = event.deltaY < 0
     const isZoomOut = event.deltaY > 0
     const isCtrlBeingPressed = event.ctrlKey === true
@@ -160,6 +162,9 @@ class App {
     //if the user is scrolling out
     if (isCtrlBeingPressed && isZoomOut)
       $('.image_preview').style.width = Utils.parsePixels(imageCurrentWidth - zoomSteps)
+
+    if (isCtrlBeingPressed && isZoomOut || isCtrlBeingPressed && isZoomIn)
+      this.selectionTool.hide()
   }
 
   onKeyDown(event) {

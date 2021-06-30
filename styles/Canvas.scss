@@ -13,7 +13,7 @@
   // width: fit-content;
   // block-size: fit-content;
 
-  overflow: scroll;
+  overflow: auto;
 
   //scrollbar
   scrollbar-width: thin;      
@@ -29,7 +29,7 @@
 
   &::-webkit-scrollbar-thumb {
     background-color: var(--scrollbar-thumb-background);
-    border-radius: 6px;
+    border-radius: 99vw;
     border: 0;
   }
 }
@@ -40,7 +40,17 @@
   margin-top: 5px; //TODO: fix bug where image preview wrapper moves everything lower
 }
 
-.image_preview_wrapper {
-  position: relative;
+.image_preview_holder {
+  width: 100%;
+  height: 100%;
+
+  display: flex;  
+  align-items: center;
+  justify-content: center;
+
+  overflow: auto;
+}
+
+.image_preview_limits {
   overflow: hidden;
 }

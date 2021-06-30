@@ -23,7 +23,7 @@ class HistoryButton {
     this.parentDomElement.insertAdjacentHTML('beforeend', /*HTML*/`
       <button class="history_button ${historyButtonClass}" data-snapshot-id="${this.historySnapshot.id}">
         <h1 class="history_button_action">${this.historySnapshot.action}</h1>
-        <h3 class="history_button_timestamp">${Utils.timestampToDateTime(this.historySnapshot.timestamp).split(' ')[0]}</h3>
+        <h3 class="history_button_timestamp">${Utils.timestampToDateTime(this.historySnapshot.timestamp)}</h3>
       </button>
     `)
 

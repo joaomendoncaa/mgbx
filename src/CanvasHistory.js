@@ -54,10 +54,14 @@ const CanvasHistorySingleton = (() => {
 
     setActiveButton(snapshotId) {
       if ($('.history_button') === null) return
-      const theme = ThemeSwitcherSingleton.getInstance()
 
-      $(`.history_button`, true).forEach(node => node.style.background = 'none')
-      $(`.history_button[data-snapshot-id="${snapshotId}"]`).style.background = theme.current['--history-button-active-background']
+      $(`.history_button`, true).forEach(node => {
+        node.classList.remove('history_button_active')
+        node.classList.add('history_button_inactive')
+      })
+
+      $(`.history_button[data-snapshot-id="${snapshotId}"]`).classList.remove('history_button_inactive')
+      $(`.history_button[data-snapshot-id="${snapshotId}"]`).classList.add('history_button_active')
     }
 
     disablePreviousButton() {
