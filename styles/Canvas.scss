@@ -9,11 +9,13 @@
 
   background: linear-gradient(180deg, rgba(201, 201, 201, 0.2) 50%, rgba(242, 242, 242, 0) 100%);
 
-  width: -moz-fit-content;
-  width: fit-content;
-  block-size: fit-content;
-  overflow: auto;
+  // width: -moz-fit-content;
+  // width: fit-content;
+  // block-size: fit-content;
 
+  overflow: scroll;
+
+  //scrollbar
   scrollbar-width: thin;      
   scrollbar-color: var(--scrollbar-thumb-background) transparent;
 
