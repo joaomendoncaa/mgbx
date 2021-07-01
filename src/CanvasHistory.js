@@ -52,7 +52,7 @@ const CanvasHistorySingleton = (() => {
       this.setCurrentSnapshot(pointer)
     }
 
-    setActiveButton(snapshotId) {
+    updateHistoryButtonListStyle(currentSnapshotID) {
       if ($('.history_button') === null) return
 
       $(`.history_button`, true).forEach(node => {
@@ -60,28 +60,28 @@ const CanvasHistorySingleton = (() => {
         node.classList.add('history_button_inactive')
       })
 
-      $(`.history_button[data-snapshot-id="${snapshotId}"]`).classList.remove('history_button_inactive')
-      $(`.history_button[data-snapshot-id="${snapshotId}"]`).classList.add('history_button_active')
+      $(`.history_button[data-snapshot-id="${currentSnapshotID}"]`).classList.remove('history_button_inactive')
+      $(`.history_button[data-snapshot-id="${currentSnapshotID}"]`).classList.add('history_button_active')
     }
 
     disablePreviousButton() {
-      this.previousButtonElement.style.filter = 'grayscale(100%) opacity(50%)'
-      this.previousButtonElement.disabled = true
+      this.previousButtonElement.classList.remove('history_header_button_active')
+      this.previousButtonElement.classList.add('history_header_button_disabled')
     }
 
     disableNextButton() {
-      this.nextButtonElement.style.filter = 'grayscale(100%) opacity(50%)'
-      this.nextButtonElement.disabled = true
+      this.nextButtonElement.classList.remove('history_header_button_active')
+      this.nextButtonElement.classList.add('history_header_button_disabled')
     }
 
     enablePreviousButton() {
-      this.previousButtonElement.style.filter = ''
-      this.previousButtonElement.disabled = false
+      this.previousButtonElement.classList.remove('history_header_button_disabled')
+      this.previousButtonElement.classList.add('history_header_button_active')
     }
 
     enableNextButton() {
-      this.nextButtonElement.style.filter = ''
-      this.nextButtonElement.disabled = false
+      this.nextButtonElement.classList.remove('history_header_button_disabled')
+      this.nextButtonElement.classList.add('history_header_button_active')
     }
 
     updateHeaderButtonsStyle(pointer) {
@@ -122,7 +122,7 @@ const CanvasHistorySingleton = (() => {
 
       this.updateHeaderButtonsStyle(this.history.pointer)
 
-      this.setActiveButton(snapshotId)
+      this.updateHistoryButtonListStyle(snapshotId)
 
       const snapshotData = this.history.list[snapshotId]
 

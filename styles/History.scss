@@ -32,9 +32,9 @@
       justify-content: space-between;
       align-items: center;
 
-      > button {
+      .history_header_button_active {
         cursor: pointer;
-        padding: .3rem 1rem;
+        padding: .4rem .75rem;
         margin-left: .5rem;
         border: 1px solid var(--history-header-button-border);
         background: var(--history-header-button-background);
@@ -61,6 +61,27 @@
             > path {
               stroke: white;
             }
+          }
+        }
+      }
+
+      .history_header_button_disabled {
+        padding: .4rem .75rem;
+        margin-left: .5rem;
+        border: 1px solid var(--history-header-button-border-disabled);
+        background: var(--history-header-button-background-disabled);
+        border-radius: 5px;
+
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+        > svg {
+          width: 13px;
+          height: auto;
+
+          > path {
+            stroke: var(--history-header-button-text-disabled);
           }
         }
       }

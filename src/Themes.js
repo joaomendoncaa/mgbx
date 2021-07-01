@@ -31,9 +31,14 @@ export default {
 
     //history header
     '--history-header-text': '#454545',
+    //history header buttons active
     '--history-header-button-background': '#D3F1E7',
     '--history-header-button-border': '#C3EEE0',
     '--history-header-button-text': '#0DC88B',
+    //history header buttons disabled
+    '--history-header-button-background-disabled': '#F1F1F1',
+    '--history-header-button-border-disabled': '#F3F3F3',
+    '--history-header-button-text-disabled': '#EBEBEB',
     //history buttons
     '--history-button-action-text': '#0DC88B',
     '--history-button-timestamp-text': '#6D6D6D',
