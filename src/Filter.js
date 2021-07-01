@@ -62,14 +62,11 @@ class Filter {
   set beforeChangeValue(beforeChangeValue) { this._beforeChangeValue = beforeChangeValue }
 
   updateFilterValue(newFilterValue) {
-    // console.log(`Novo valor para ${this.name}`, parseFloat(newFilterValue))
     this.current = parseFloat(newFilterValue)
-    this.beforeChangeValue = this.current
-    this.inputElement.value = this.current
+    this.beforeChangeValue = parseFloat(newFilterValue)
+    this.inputElement.value = parseFloat(newFilterValue)
+    this._updateFilterValueSpan(parseFloat(newFilterValue))
     this._updateInputBarWidth()
-    this._updateFilterValueSpan(this.def)
-
-    console.log('fez update')
   }
 
   reset() {

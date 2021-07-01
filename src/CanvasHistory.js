@@ -136,11 +136,13 @@ const CanvasHistorySingleton = (() => {
       if (!isUnknownFilters) {
         console.log('Set current snapshot filter data: ', snapshotData.filtersString)
         filters.setFiltersMapFromSnapshotString(snapshotData.filtersString)
-        filters.updateAllFilterButtons()
         filters.applyFiltersOnImagePreview()
       } else {
         filters.reset()
+        //TODO: Add to history that filters were reseted
       }
+
+      filters.updateAllFilterButtons()
     }
 
     addSnapshot({ action, canvasData, selectionData, filtersString, isUpload }) {

@@ -37,25 +37,15 @@ const CanvasFiltersSingleton = (() => {
     //Checks if there is a filter with a value on this.filters and updates it
     //TODO:Make this update dynamic
     updateAllFilterButtons() {
-      const hasBlur = this.filters.hasOwnProperty('blur')
-      const hasBrightness = this.filters.hasOwnProperty('brightness')
-      const hasContrast = this.filters.hasOwnProperty('contrast')
-      const hasGrayscale = this.filters.hasOwnProperty('grayscale')
-      const hasHueRotate = this.filters.hasOwnProperty('hue-rotate')
-      const hasInvert = this.filters.hasOwnProperty('invert')
-      const hasOpacity = this.filters.hasOwnProperty('opacity')
-      const hasSaturate = this.filters.hasOwnProperty('saturate')
-      const hasSepia = this.filters.hasOwnProperty('sepia')
-
-      hasBlur && this.blur.updateFilterValue(this.filters['blur'])
-      hasBrightness && this.blur.updateFilterValue(this.filters['brightness'])
-      hasContrast && this.blur.updateFilterValue(this.filters['contrast'])
-      hasGrayscale && this.blur.updateFilterValue(this.filters['grayscale'])
-      hasHueRotate && this.blur.updateFilterValue(this.filters['hue-rotate'])
-      hasInvert && this.blur.updateFilterValue(this.filters['invert'])
-      hasOpacity && this.blur.updateFilterValue(this.filters['opacity'])
-      hasSaturate && this.blur.updateFilterValue(this.filters['saturate'])
-      hasSepia && this.blur.updateFilterValue(this.filters['sepia'])
+      this.blur.updateFilterValue(this.filters['blur'])
+      this.brightness.updateFilterValue(this.filters['brightness'])
+      this.contrast.updateFilterValue(this.filters['contrast'])
+      this.grayscale.updateFilterValue(this.filters['grayscale'])
+      this.hueRotate.updateFilterValue(this.filters['hue-rotate'])
+      this.invert.updateFilterValue(this.filters['invert'])
+      this.opacity.updateFilterValue(this.filters['opacity'])
+      this.saturate.updateFilterValue(this.filters['saturate'])
+      this.sepia.updateFilterValue(this.filters['sepia'])
     }
 
     updateFiltersMap(filterName, filterValue, filterUnit) {
