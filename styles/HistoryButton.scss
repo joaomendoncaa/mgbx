@@ -16,7 +16,9 @@
     text-align: left;
     color: var(--history-button-action-text);
     font-size: 0.95rem;
-    font-weight: 400;
+    font-weight: 600;
+
+    width: 70%;
 
     margin: 0 0 .25rem 0;
   }
@@ -30,6 +32,10 @@
 
 .history_button_inactive {
   background: transparent;
+
+  &:hover {
+    background: var(--history-button-background-hover);
+  }
 }
 
 .history_button_active {
@@ -39,7 +45,9 @@
     text-align: left;
     color: var(--history-button-active-text);
     font-size: 0.95rem;
-    font-weight: 400;
+    font-weight: 600;
+
+    width: 70%;
 
     margin: 0 0 .25rem 0;
   }

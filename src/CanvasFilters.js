@@ -34,6 +34,30 @@ const CanvasFiltersSingleton = (() => {
 
     setFilter(key, value) { this._filters[key] = value }
 
+    //Checks if there is a filter with a value on this.filters and updates it
+    //TODO:Make this update dynamic
+    updateAllFilterButtons() {
+      const hasBlur = this.filters.hasOwnProperty('blur')
+      const hasBrightness = this.filters.hasOwnProperty('brightness')
+      const hasContrast = this.filters.hasOwnProperty('contrast')
+      const hasGrayscale = this.filters.hasOwnProperty('grayscale')
+      const hasHueRotate = this.filters.hasOwnProperty('hue-rotate')
+      const hasInvert = this.filters.hasOwnProperty('invert')
+      const hasOpacity = this.filters.hasOwnProperty('opacity')
+      const hasSaturate = this.filters.hasOwnProperty('saturate')
+      const hasSepia = this.filters.hasOwnProperty('sepia')
+
+      hasBlur && this.blur.updateFilterValue(this.filters['blur'])
+      hasBrightness && this.blur.updateFilterValue(this.filters['brightness'])
+      hasContrast && this.blur.updateFilterValue(this.filters['contrast'])
+      hasGrayscale && this.blur.updateFilterValue(this.filters['grayscale'])
+      hasHueRotate && this.blur.updateFilterValue(this.filters['hue-rotate'])
+      hasInvert && this.blur.updateFilterValue(this.filters['invert'])
+      hasOpacity && this.blur.updateFilterValue(this.filters['opacity'])
+      hasSaturate && this.blur.updateFilterValue(this.filters['saturate'])
+      hasSepia && this.blur.updateFilterValue(this.filters['sepia'])
+    }
+
     updateFiltersMap(filterName, filterValue, filterUnit) {
       this.setFilter(filterName, `${filterValue}${filterUnit}`)
       this.applyFiltersOnImagePreview()
@@ -55,8 +79,8 @@ const CanvasFiltersSingleton = (() => {
       return filtersFinalString
     }
 
-
     setFiltersMapFromSnapshotString(snapshotStringData) {
+      console.log('set filters map from: ', snapshotStringData)
       // split a string like the following:
       // 'brightness(50%) sepia(70%)'
       // into an array like the following:

@@ -40,6 +40,7 @@ export default {
     '--history-header-button-border-disabled': '#F3F3F3',
     '--history-header-button-text-disabled': '#EBEBEB',
     //history buttons
+    '--history-button-background-hover': '#EFEFEF',
     '--history-button-action-text': '#0DC88B',
     '--history-button-timestamp-text': '#6D6D6D',
     '--history-button-icon-color': '#BABABA',

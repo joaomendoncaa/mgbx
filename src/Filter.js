@@ -61,6 +61,17 @@ class Filter {
   set resetButtonElement(htmlElement) { this._resetButtonElement = htmlElement }
   set beforeChangeValue(beforeChangeValue) { this._beforeChangeValue = beforeChangeValue }
 
+  updateFilterValue(newFilterValue) {
+    // console.log(`Novo valor para ${this.name}`, parseFloat(newFilterValue))
+    this.current = parseFloat(newFilterValue)
+    this.beforeChangeValue = this.current
+    this.inputElement.value = this.current
+    this._updateInputBarWidth()
+    this._updateFilterValueSpan(this.def)
+
+    console.log('fez update')
+  }
+
   reset() {
     this.beforeChangeValue = this.current
     this._onMouseUpFilterInput()
@@ -87,8 +98,23 @@ class Filter {
   _handleResetFilter(e) {
     if (this.current === this.def) return
 
-    this.inputElement.value = this.def
+    const canvasFilters = CanvasFiltersSingleton.getInstance()
+
+    const action = `${Utils.capitalizeFirstLetter(this.name)} reseted`
+
     this.reset()
+
+    this.history.addSnapshot({
+      action,
+      canvasData: {
+        image: this.canvas.ctx.getImageData(0, 0, this.canvas.image.width, this.canvas.image.height),
+        width: this.canvas.image.width,
+        height: this.canvas.image.height
+      },
+      selectionData: null,
+      filtersString: canvasFilters.getFiltersString(),
+      isUpload: false
+    })
   }
 
   _handleInputData(event) {
@@ -100,6 +126,8 @@ class Filter {
   }
 
   _onMouseUpFilterInput() {
+    if (this.current === this.beforeChangeValue) return
+
     const canvasFilters = CanvasFiltersSingleton.getInstance()
 
     const action = `${Utils.capitalizeFirstLetter(this.name)} from ${this.beforeChangeValue}${this.metric} to ${this.current}${this.metric}`
