@@ -70,7 +70,6 @@ const CanvasFiltersSingleton = (() => {
     }
 
     setFiltersMapFromSnapshotString(snapshotStringData) {
-      console.log('set filters map from: ', snapshotStringData)
       // split a string like the following:
       // 'brightness(50%) sepia(70%)'
       // into an array like the following:

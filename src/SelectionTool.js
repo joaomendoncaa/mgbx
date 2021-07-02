@@ -46,6 +46,16 @@ const SelectionToolSingleton = (() => {
     set selectionOriginCoordinates({ x, y }) { this._selectionOriginCoordinates = { x, y } }
     set isSelecting(isSelecting) { this._isSelecting = isSelecting }
 
+    resetAllSelectionCoordinates() {
+      this.startX = 0
+      this.startY = 0
+      this.endX = 0
+      this.endY = 0
+      this.offsetX = 0
+      this.offsetY = 0
+      this.selectionOriginCoordinates = { x: 0, y: 0 }
+    }
+
     getPolygonVectorPoints(width, height, top, left) {
       const widthInt = parseInt(width)
       const heightInt = parseInt(height)
@@ -188,16 +198,16 @@ const SelectionToolSingleton = (() => {
       this.selectionOriginCoordinates.y = this.offsetY - parseInt($('.selection_tool').style.height)
     }
 
-    // windowMouseMoveListener(event) {
-    //   this.mouseMove(event)
-    // }
-
     mouseOver() {
       $('.image_preview').style.cursor = 'crosshair'
     }
 
     mouseDown(event) {
+      this.resetAllSelectionCoordinates()
+
       const { clientX, clientY, offsetX, offsetY } = event
+
+      this.hide()
 
       this.startX = clientX
       this.startY = clientY
@@ -205,14 +215,7 @@ const SelectionToolSingleton = (() => {
       this.selectionOriginCoordinates.x = offsetX
       this.selectionOriginCoordinates.y = offsetY
 
-      this.hide()
-
       this.isSelecting = true
-
-      // document.addEventListener('mousemove', this.windowMouseMoveListener.bind(this))
-
-      // $('body').style.pointerEvents = 'none'
-      // $('body').style.userSelect = 'none'
     }
 
     mouseMove(event) {

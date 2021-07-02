@@ -2,7 +2,6 @@ import HistorySingleton from './History'
 import CanvasSingleton from './Canvas'
 import HistoryButton from './HistoryButton'
 import CanvasFiltersSingleton from './CanvasFilters'
-import ThemeSwitcherSingleton from './ThemeSwitcher'
 import $ from './DomElements'
 import Utils from './Utils'
 
@@ -134,7 +133,6 @@ const CanvasHistorySingleton = (() => {
       }
 
       if (!isUnknownFilters) {
-        console.log('Set current snapshot filter data: ', snapshotData.filtersString)
         filters.setFiltersMapFromSnapshotString(snapshotData.filtersString)
         filters.applyFiltersOnImagePreview()
       } else {

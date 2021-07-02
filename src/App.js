@@ -143,8 +143,6 @@ class App {
   }
 
   onWheelMove(event) {
-
-
     const isZoomIn = event.deltaY < 0
     const isZoomOut = event.deltaY > 0
     const isCtrlBeingPressed = event.ctrlKey === true
