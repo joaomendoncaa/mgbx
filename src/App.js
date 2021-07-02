@@ -2,6 +2,7 @@ import Toast from './Toast'
 import DOMTools from './DomTools'
 import $ from './DomElements'
 import Utils from './Utils'
+import Settings from './Settings'
 import HeaderSingleton from './Header'
 import ToolbarSingleton from './Toolbar'
 import ImageSingleton from './Image'
@@ -23,6 +24,7 @@ class App {
     this._themeSwitcher = ThemeSwitcherSingleton.getInstance()
     this._header = HeaderSingleton.getInstance()
     this._toolbar = ToolbarSingleton.getInstance()
+    this._settings = new Settings()
     this._toast = new Toast()
 
     this.__init__()

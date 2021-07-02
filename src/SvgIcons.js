@@ -34,5 +34,50 @@ export default {
       <path d="M15 2.14286H12.8036C12.5357 0.910714 11.4643 0 10.1786 0C8.89286 0 7.82143 0.910714 7.55357 2.14286H0V3.21429H7.55357C7.82143 4.44643 8.89286 5.35714 10.1786 5.35714C11.4643 5.35714 12.5357 4.44643 12.8036 3.21429H15V2.14286ZM10.1786 4.28571C9.26786 4.28571 8.57143 3.58929 8.57143 2.67857C8.57143 1.76786 9.26786 1.07143 10.1786 1.07143C11.0893 1.07143 11.7857 1.76786 11.7857 2.67857C11.7857 3.58929 11.0893 4.28571 10.1786 4.28571Z" fill="#454545"/>
       <path d="M0 10.7143H2.19643C2.46429 11.9464 3.53571 12.8571 4.82143 12.8571C6.10714 12.8571 7.17857 11.9464 7.44643 10.7143H15V9.64286H7.44643C7.17857 8.41071 6.10714 7.5 4.82143 7.5C3.53571 7.5 2.46429 8.41071 2.19643 9.64286H0V10.7143ZM4.82143 8.57143C5.73214 8.57143 6.42857 9.26786 6.42857 10.1786C6.42857 11.0893 5.73214 11.7857 4.82143 11.7857C3.91071 11.7857 3.21429 11.0893 3.21429 10.1786C3.21429 9.26786 3.91071 8.57143 4.82143 8.57143Z" fill="#454545"/>
     </svg>
+  `,
+  lightTheme: /*HTML*/`
+    <svg width="218" height="136" viewBox="0 0 218 136" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <rect width="217.721" height="135.562" rx="3" fill="#EDEDED"/>
+      <rect x="183" y="125" width="32" height="8" rx="1" fill="#80CDB4"/>
+      <rect x="149" y="125" width="32" height="8" rx="1" fill="#DFDFDF"/>
+      <rect x="3" y="124.608" width="8.21591" height="8.21591" rx="1" fill="#DFDFDF"/>
+      <rect x="12.5854" y="124.608" width="8.21591" height="8.21591" rx="1" fill="#DFDFDF"/>
+      <rect x="41" y="5" width="136" height="118" rx="3" fill="url(#paint0_linear-446667)" fill-opacity="0.2"/>
+      <rect x="183" y="19" width="32" height="96" rx="2" fill="#DFDFDF"/>
+      <rect x="3" y="19" width="32" height="96" rx="2" fill="#DFDFDF"/>
+      <rect x="183" y="5" width="32" height="8" rx="2" fill="#DFDFDF"/>
+      <rect x="3" y="5" width="32" height="8" rx="2" fill="#DFDFDF"/>
+      <path d="M0 3C0 1.34315 1.34315 0 3 0H87L43.5 27L0 54V3Z" fill="white" fill-opacity="0.3"/>
+      <path d="M218 132C218 133.657 216.657 135 215 135H81L149.5 92.5L218 50V132Z" fill="white" fill-opacity="0.3"/>
+      <defs>
+        <linearGradient id="paint0_linear-446667" x1="109" y1="5" x2="109" y2="123" gradientUnits="userSpaceOnUse">
+          <stop offset="0.5" stop-color="#B9B9B9"/>
+          <stop offset="1" stop-color="#F2F2F2" stop-opacity="0"/>
+        </linearGradient>
+      </defs>
+    </svg>
+  `,
+  darkTheme: /*HTML*/`
+    <svg width="218" height="136" viewBox="0 0 218 136" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <rect width="218" height="136" rx="3" fill="#212128"/>
+      <rect x="183" y="125" width="32" height="8" rx="1" fill="#18A0FB"/>
+      <rect x="149" y="125" width="32" height="8" rx="1" fill="#1A1A20"/>
+      <rect x="3" y="124.608" width="8.21591" height="8.21591" rx="1" fill="#1A1A20"/>
+      <rect x="12.5854" y="124.608" width="8.21591" height="8.21591" rx="1" fill="#1A1A20"/>
+      <rect x="41" y="5" width="136" height="118" rx="3" fill="url(#paint0_linear-310517)" fill-opacity="0.2"/>
+      <rect x="183" y="19" width="32" height="96" rx="2" fill="#1A1A20"/>
+      <rect x="3" y="19" width="32" height="96" rx="2" fill="#1A1A20"/>
+      <rect x="183" y="5" width="32" height="8" rx="2" fill="#1A1A20"/>
+      <rect x="3" y="5" width="32" height="8" rx="2" fill="#1A1A20"/>
+      <path d="M0 3C0 1.34315 1.34315 0 3 0H87L43.5 27L0 54V3Z" fill="black" fill-opacity="0.16"/>
+      <path d="M218 133C218 134.657 216.657 136 215 136H131L174.5 109L218 82V133Z" fill="black" fill-opacity="0.16"/>
+      <path d="M217.829 16L36 135.5H3.00002C1.34315 135.5 1.52588e-05 134.157 1.52588e-05 132.5V111L168.25 0.492493C168.739 0.171204 169.312 0 169.897 0H214.829C216.486 0 217.829 1.34314 217.829 3V16Z" fill="black" fill-opacity="0.16"/>
+      <defs>
+        <linearGradient id="paint0_linear-310517" x1="109" y1="5" x2="109" y2="123" gradientUnits="userSpaceOnUse">
+          <stop offset="0.411458"/>
+          <stop offset="1" stop-color="#1C1B22" stop-opacity="0"/>
+        </linearGradient>
+      </defs>
+    </svg>
   `
 }

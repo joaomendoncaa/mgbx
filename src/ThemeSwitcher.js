@@ -46,6 +46,7 @@ const ThemeSwitcherSingleton = (() => {
     }
 
     changeTheme(themeKey) {
+      console.log(themeKey, this.themes)
       if (!this.themes.hasOwnProperty(themeKey)) throw new Error('Theme given is not available')
 
       this.saveThemeKeyLocally(themeKey)
