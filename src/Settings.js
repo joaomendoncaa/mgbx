@@ -73,7 +73,7 @@ class Settings {
               <header class="settings_header">
                 <span class="settings_header_title"></span>
                 <button class="settings_header_button_exit">
-                  ${icons.cross}
+                  ${icons.exit}
                 </button>
               </header>
 
@@ -108,7 +108,7 @@ class Settings {
                     </div>
                   </div>
                 
-                  <div class="settings_shortcuts_panel">
+                  <div class="settings_shortcuts_panel settings_main_panel_container">
                     <header class="settings_main_panel_header">
                       <h1 class="settings_main_panel_header_title">Shortcuts</h1>
                       <p class="settings_main_panel_header_description">
