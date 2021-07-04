@@ -123,6 +123,9 @@ class Settings {
         </section>
     `)
 
+    //is first shown in Appearance tab
+    this.changeTab('appearance')
+
     $('.toolbar_settings_btn').addEventListener('click', () => { this.show() })
     $('.settings_main_nav_anchor_appearance').addEventListener('click', () => { this.changeTab('appearance') })
     $('.settings_main_nav_anchor_shortcuts').addEventListener('click', () => { this.changeTab('shortcuts') })
