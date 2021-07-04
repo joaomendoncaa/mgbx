@@ -80,12 +80,16 @@
 
     cursor: pointer;
     
-    border: 1px solid var(--settings-panel-borders);
+    outline: 1px solid var(--settings-panel-borders);
+    outline-offset: -0.5px;
 
-    &:nth-child(2) {
-      margin-top: -1px;
-    }
+    border-left: 5px solid transparent;
   } 
+
+  .active_anchor {
+    border-left: 5px solid var(--main-accent);
+    background: var(--settings-panel-nav-anchor-active-background);
+  }
 }
 
 .settings_main_panel {

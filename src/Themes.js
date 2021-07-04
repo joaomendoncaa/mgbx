@@ -135,6 +135,8 @@ export default {
 
     //settings panel
     '--settings-panel-borders': '#EDEDED',
+    '--settings-panel-nav-accent': 'var(--main-accent)',
+    '--settings-panel-nav-anchor-active-background': '#ff0000',
 
 
     //scrollbars
