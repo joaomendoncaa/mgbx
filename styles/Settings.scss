@@ -84,11 +84,19 @@
     outline-offset: -0.5px;
 
     border-left: 5px solid transparent;
+
+    &:hover {
+      background: var(--settings-panel-nav-anchor-hover-background);
+    }
   } 
 
   .active_anchor {
     border-left: 5px solid var(--main-accent);
     background: var(--settings-panel-nav-anchor-active-background);
+
+    &:hover {
+      background: var(--settings-panel-nav-anchor-active-background);
+    }
   }
 }
 

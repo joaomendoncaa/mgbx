@@ -67,6 +67,9 @@ export default {
     //settings panel
     '--settings-panel-borders': '#EDEDED',
     '--settings-secondary-background': '#EFEFEF',
+    '--settings-panel-nav-accent': 'var(--main-accent)',
+    '--settings-panel-nav-anchor-active-background': '#E8E8E8',
+    '--settings-panel-nav-anchor-hover-background': '#F2F2F2',
 
 
     //scrollbars
@@ -132,11 +135,6 @@ export default {
     '--filter-input-track': '#E0E0E0',
     '--filter-input-thumb': 'var(--main-accent)',
     '--filter-input-track-filled': 'var(--main-accent)',
-
-    //settings panel
-    '--settings-panel-borders': '#EDEDED',
-    '--settings-panel-nav-accent': 'var(--main-accent)',
-    '--settings-panel-nav-anchor-active-background': '#ff0000',
 
 
     //scrollbars
