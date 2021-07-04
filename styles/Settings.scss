@@ -37,7 +37,26 @@
   align-items: center;
 
   width: 100%;
+
+  .settings_header_button_exit {
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    padding: .75rem;
+
+    border: 0;
+    border-radius: 4px;
+
+    background: transparent;
+
+    &:hover {
+      background: var(--settings-secondary-background);
+    }
+  }
 }
+
 
 .settings_main {
   display: flex;
@@ -112,12 +131,13 @@
   align-items: center;
 
   .settings_theme_button {
+    position: relative;
     cursor: pointer;
 
     display: flex;
+    flex-direction: column;
     justify-content: space-between;
     align-items: center;
-    flex-direction: column;
 
     background: transparent;
 
@@ -128,21 +148,20 @@
       font-weight: 600;
     }
 
-    svg {
-      position: relative;
-    }
-
     &:hover {
-      svg {
-        &:after {
-          content: '';
-          position: absolute;
-          z-index: 10;
-          width: 110%;
-          height: 110%;
-          top: 0;
-          left: 0;
-        }
+      :before {
+        content: '';
+        position: absolute; 
+        width: 110%;
+        height: 110%;
+        background: rgba(255, 0, 0, .2);
+        z-index: 0;
+        top: 0;
+        right: 0;
+        left: 0;
+        bottom: 0;
+        transform: translateX(-5%) translateY(-5%);
+        border-radius: 10px;
       }
     }
   }

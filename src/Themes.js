@@ -65,6 +65,7 @@ export default {
 
     //settings panel
     '--settings-panel-borders': '#EDEDED',
+    '--settings-secondary-background': '#EFEFEF',
 
 
     //scrollbars
