@@ -10,19 +10,25 @@ const SettingsSingleton = (() => {
     constructor() {
       this._settingsButtonElement = $('.toolbar_settings_btn')
       this._themeSwitcher = ThemeSwitcherSingleton.getInstance()
+      this._isOpened = false
 
       this.__init__()
     }
 
     get settingsButtonElement() { return this._settingsButtonElement }
     get themeSwitcher() { return this._themeSwitcher }
+    get isOpened() { return this._isOpened }
+
+    set isOpened(isOpened) { this._isOpened = isOpened }
 
     show() {
+      this.isOpened = true
       this.changeTab('appearance')
       $('.settings_wrapper').style.display = 'flex'
     }
 
     hide() {
+      this.isOpened = false
       $('.settings_wrapper').style.display = 'none'
     }
 
@@ -128,7 +134,7 @@ const SettingsSingleton = (() => {
                 
                   <div class="settings_shortcuts_panel settings_main_panel_container">
                     <header class="settings_main_panel_header">
-                      <h1 class="settings_main_panel_header_title">Shortcuts</h1>
+                      <h1 class="settings_main_panel_header_title">Shortcuts List</h1>
                       <p class="settings_main_panel_header_description">
                         You can boost your productivity using <strong>shortcuts</strong>! 
                       </p>
@@ -143,6 +149,8 @@ const SettingsSingleton = (() => {
 
       //is first shown in Appearance tab
       this.changeTab('appearance')
+
+      this.hide()
 
       $('.toolbar_settings_btn').addEventListener('click', () => { this.show() })
       $('.settings_main_nav_anchor_appearance').addEventListener('click', () => { this.changeTab('appearance') })

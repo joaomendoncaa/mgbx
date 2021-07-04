@@ -18,6 +18,7 @@ const SelectionToolSingleton = (() => {
       this._offsetY = 0
       this._selectionOriginCoordinates = { x: 0, y: 0 }
       this._isSelecting = false
+      this._isOpened = false
 
       $('.image_preview').addEventListener('mouseover', (e) => { this.mouseOver(e) })
       $('.image_preview').addEventListener('mousedown', (e) => { this.mouseDown(e) })
@@ -36,6 +37,7 @@ const SelectionToolSingleton = (() => {
     get offsetY() { return this._offsetY }
     get selectionOriginCoordinates() { return this._selectionOriginCoordinates }
     get isSelecting() { return this._isSelecting }
+    get isOpened() { return this._isOpened }
 
     set startX(startX) { this._startX = startX }
     set startY(startY) { this._startY = startY }
@@ -45,6 +47,7 @@ const SelectionToolSingleton = (() => {
     set offsetY(offsetY) { this._offsetY = offsetY }
     set selectionOriginCoordinates({ x, y }) { this._selectionOriginCoordinates = { x, y } }
     set isSelecting(isSelecting) { this._isSelecting = isSelecting }
+    set isOpened(isOpened) { this._isOpened = isOpened }
 
     resetAllSelectionCoordinates() {
       this.startX = 0
@@ -203,11 +206,10 @@ const SelectionToolSingleton = (() => {
     }
 
     mouseDown(event) {
+      this.hide()
       this.resetAllSelectionCoordinates()
 
       const { clientX, clientY, offsetX, offsetY } = event
-
-      this.hide()
 
       this.startX = clientX
       this.startY = clientY
@@ -216,6 +218,7 @@ const SelectionToolSingleton = (() => {
       this.selectionOriginCoordinates.y = offsetY
 
       this.isSelecting = true
+      this.isOpened = true
     }
 
     mouseMove(event) {
@@ -272,6 +275,7 @@ const SelectionToolSingleton = (() => {
     }
 
     show() {
+      this.isOpened = true
       DOMTools.elementVisibility([
         $('.selection_tool'),
         $('.selection_tool_mask'),
@@ -280,6 +284,7 @@ const SelectionToolSingleton = (() => {
     }
 
     hide() {
+      this.isOpened = false
       DOMTools.elementVisibility([
         $('.selection_tool'),
         $('.selection_tool_mask'),

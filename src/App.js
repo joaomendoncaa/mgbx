@@ -2,7 +2,7 @@ import Toast from './Toast'
 import DOMTools from './DomTools'
 import $ from './DomElements'
 import Utils from './Utils'
-import Settings from './Settings'
+import SettingsSingleton from './Settings'
 import HeaderSingleton from './Header'
 import ToolbarSingleton from './Toolbar'
 import ImageSingleton from './Image'
@@ -24,7 +24,8 @@ class App {
     this._themeSwitcher = ThemeSwitcherSingleton.getInstance()
     this._header = HeaderSingleton.getInstance()
     this._toolbar = ToolbarSingleton.getInstance()
-    this._settings = new Settings()
+    this._settings = SettingsSingleton.getInstance()
+    this._selectionTool = SelectionToolSingleton.getInstance()
     this._toast = new Toast()
 
     this.__init__()
@@ -37,6 +38,7 @@ class App {
   get header() { return this._header }
   get canvas() { return this._canvas }
   get image() { return this._image }
+  get settings() { return this._settings }
 
   set canvas(canvas) { this._canvas = canvas }
   set image(image) { this._image = image }
@@ -47,7 +49,6 @@ class App {
   onLoadImageFromReader() {
     this.canvas = CanvasSingleton.getInstance()
     this.canvasHistory = CanvasHistorySingleton.getInstance()
-    this.selectionTool = SelectionToolSingleton.getInstance()
     this.canvasFilters = CanvasFiltersSingleton.getInstance()
 
     this.canvasHistory.addSnapshot({
@@ -168,7 +169,9 @@ class App {
   }
 
   escape() {
-    if ()
+    if (this.settings.isOpened) return this.settings.hide()
+    // TODO: if (this.instructions.isOpened) return this.instructions.hide()
+    if (this.selectionTool.isOpened) return this.selectionTool.hide()
   }
 
   onKeyDown(event) {
