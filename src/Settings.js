@@ -1,5 +1,5 @@
 import icons from './SvgIcons'
-import ThemeSwitcherSingleton from "./ThemeSwitcher"
+import ThemeSwitcherSingleton from './ThemeSwitcher'
 import $ from './DomElements'
 import Utils from './Utils'
 
@@ -11,6 +11,20 @@ const SettingsSingleton = (() => {
       this._settingsButtonElement = $('.toolbar_settings_btn')
       this._themeSwitcher = ThemeSwitcherSingleton.getInstance()
       this._isOpened = false
+      this._shortcuts = [
+        {
+          title: 'Escape a modal or selection',
+          buttons: [
+            { data: 'ESC', isMouse: false }
+          ]
+        },
+        {
+          title: 'Escape a modal or selection',
+          buttons: [
+            { data: 'ESC', isMouse: false }
+          ]
+        },
+      ]
 
       this.__init__()
     }
@@ -87,6 +101,30 @@ const SettingsSingleton = (() => {
       this.setActiveAnchor(tabString)
     }
 
+    /**
+     * @param {string} shortcutTitle is a title for the shortcut
+     * @param {array} shortcutButtonsList is an array containing objects *
+     * *this objects are to be written in the following structure
+     * {
+     *  isMouse: true || false,
+     *  data: 'CTRL' || 'DEL'
+     * }
+     */
+    setShortcutLine(shortcutTitle, shortcutButtonsList) {
+      const buttonsMarkup = shortcutButtonsList.map(button => {
+
+      })
+
+      return /*HTML*/`
+        <div class="shortcut_list_item_container">
+          <h1>${shortcutTitle}</h1>
+          <div class="shortcut_list_item_buttons_wrapper">
+            ${buttonsMarkup}
+          </div>
+        </div>     
+      `
+    }
+
     __init__() {
       //insert settings markup on DOM
       $('body').insertAdjacentHTML('beforeend', /*HTML*/`
@@ -139,6 +177,10 @@ const SettingsSingleton = (() => {
                         You can boost your productivity using <strong>shortcuts</strong>! 
                       </p>
                     </header>
+
+                    <div class="settings_shortcuts_list">
+
+                    </div>
                   </div>
 
                 </section>
