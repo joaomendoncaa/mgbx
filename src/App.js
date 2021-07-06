@@ -183,6 +183,22 @@ class App {
     if (event.which === 27) return this.escape()
   }
 
+  setMainContainerHeight() {
+    //TODO: make this happen with CSS.. 😡
+    const headerHeightInPixels = $('.main_header').clientHeight
+    const toolbarHeightInPixels = $('.toolbar').clientHeight
+    const viewHeightInPixels = $('body').clientHeight
+
+    const heightToSubtractInPixels = headerHeightInPixels + toolbarHeightInPixels
+
+    //find the height of toolbar and header in "vh" units
+    const viewHeightToSubtractInVH =
+      ((heightToSubtractInPixels * 100) / viewHeightInPixels)
+
+
+    $('main').style.maxHeight = (100 - viewHeightToSubtractInVH) + 'vh'
+  }
+
   //on app init
   __init__() {
     $('.toolbar_upload_btn').addEventListener('click', () => this.onClickToolbarUploadBtn())
@@ -194,6 +210,7 @@ class App {
     window.addEventListener('wheel', (event) => this.onWheelMove(event), { passive: false })
     window.addEventListener('mousewheel', (event) => this.onWheelMove(event), { passive: false })
     window.addEventListener('DOMMouseScroll', (event) => this.onWheelMove(event), { passive: false })
+    window.addEventListener('resize', () => this.setMainContainerHeight())
     document.addEventListener('keydown', (event) => this.onKeyDown(event))
   }
 }

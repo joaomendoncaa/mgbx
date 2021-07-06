@@ -112,7 +112,16 @@ const SettingsSingleton = (() => {
      */
     setShortcutLine(shortcutTitle, shortcutButtonsList) {
       const buttonsMarkup = shortcutButtonsList.map(button => {
-
+        return /*HTML*/`
+          <span 
+            class="${button.isMouse
+            ? 'shortcut-mouse-${button.data}'
+            : 'shortcut-key'
+          }"
+            data-key="${button.data}"
+          >
+          </span>
+        `
       })
 
       return /*HTML*/`
