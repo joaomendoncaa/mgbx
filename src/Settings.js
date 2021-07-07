@@ -102,33 +102,24 @@ const SettingsSingleton = (() => {
     }
 
     /**
-     * @param {string} shortcutTitle is a title for the shortcut
-     * @param {array} shortcutButtonsList is an array containing objects *
-     * *this objects are to be written in the following structure
+     * @param {object} shortcutButtons schema example: 
      * {
-     *  isMouse: true || false,
-     *  data: 'CTRL' || 'DEL'
-     * }
+     *  key: 'CTRL' (any string with up to 4 letters)
+     *  mouse: 'up' || 'down' || 'left' || 'down'
+     *  }
      */
-    setShortcutLine(shortcutTitle, shortcutButtonsList) {
-      const buttonsMarkup = shortcutButtonsList.map(button => {
-        return /*HTML*/`
-          <span 
-            class="${button.isMouse
-            ? 'shortcut-mouse-${button.data}'
-            : 'shortcut-key'
-          }"
-            data-key="${button.data}"
-          >
-          </span>
-        `
+    setShortcutLine(shortcutTitle, shortcutButtons) {
+      const shortcutButtonsList = Object.keys(shortcutButtons)
+
+      const shortcutButtonsListMarkup = shortcutButtonsList.map(shortcut => {
+        return `${shortcut}`
       })
 
       return /*HTML*/`
         <div class="shortcut_list_item_container">
           <h1>${shortcutTitle}</h1>
           <div class="shortcut_list_item_buttons_wrapper">
-            ${buttonsMarkup}
+            ${shortcutButtonsListMarkup}
           </div>
         </div>     
       `
@@ -188,7 +179,7 @@ const SettingsSingleton = (() => {
                     </header>
 
                     <div class="settings_shortcuts_list">
-
+                      ${setShortcutLine('Escape any a modal or selection', { key: 'ESC' })}
                     </div>
                   </div>
 

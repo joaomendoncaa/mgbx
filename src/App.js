@@ -188,13 +188,11 @@ class App {
     const headerHeightInPixels = $('.main_header').clientHeight
     const toolbarHeightInPixels = $('.toolbar').clientHeight
     const viewHeightInPixels = $('body').clientHeight
-
     const heightToSubtractInPixels = headerHeightInPixels + toolbarHeightInPixels
 
     //find the height of toolbar and header in "vh" units
     const viewHeightToSubtractInVH =
       ((heightToSubtractInPixels * 100) / viewHeightInPixels)
-
 
     $('main').style.maxHeight = (100 - viewHeightToSubtractInVH) + 'vh'
   }
@@ -211,6 +209,7 @@ class App {
     window.addEventListener('mousewheel', (event) => this.onWheelMove(event), { passive: false })
     window.addEventListener('DOMMouseScroll', (event) => this.onWheelMove(event), { passive: false })
     window.addEventListener('resize', () => this.setMainContainerHeight())
+
     document.addEventListener('keydown', (event) => this.onKeyDown(event))
   }
 }

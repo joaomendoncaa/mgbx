@@ -9,29 +9,7 @@
 
   background: linear-gradient(180deg, rgba(201, 201, 201, 0.2) 50%, rgba(242, 242, 242, 0) 100%);
 
-  // width: -moz-fit-content;
-  // width: fit-content;
-  // block-size: fit-content;
-
-  overflow: auto;
-
-  //scrollbar
-  scrollbar-width: thin;      
-  scrollbar-color: var(--scrollbar-thumb-background) transparent;
-
-  &::-webkit-scrollbar {
-    width: 11px;
-  }
-
-  &::-webkit-scrollbar-track {
-    background: transparent;
-  }
-
-  &::-webkit-scrollbar-thumb {
-    background-color: var(--scrollbar-thumb-background);
-    border-radius: 99vw;
-    border: 0;
-  }
+  overflow: hidden;
 }
 
 .image_preview {
