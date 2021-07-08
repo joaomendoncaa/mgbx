@@ -178,3 +178,39 @@
     }
   }
 }
+
+.settings_shortcuts_list {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+  * { 
+    width: max-content;
+  }
+
+  .shortcut_list_item_container {
+    width: 100%;
+    outline: 1px solid var(--settings-panel-borders);
+    outline-offset: -0.5px;
+
+    padding: 0.75rem;
+
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+
+    .shortcut_list_item_buttons_wrapper {
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      justify-content: space-between;
+
+      .shortcut_list_item_button_slot {
+        width: 30px;
+        height: 30px;
+      }
+    }
+  }
+}

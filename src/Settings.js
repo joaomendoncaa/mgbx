@@ -110,9 +110,39 @@ const SettingsSingleton = (() => {
      */
     setShortcutLine(shortcutTitle, shortcutButtons) {
       const shortcutButtonsList = Object.keys(shortcutButtons)
+      let shortcutButtonsListMarkup = ''
 
-      const shortcutButtonsListMarkup = shortcutButtonsList.map(shortcut => {
-        return `${shortcut}`
+      shortcutButtonsList.forEach((shortcut, index) => {
+        const isNotTheLastKey = index !== Utils.arrayLastIndex(shortcutButtonsList)
+
+        const isKeyboardShortcut = shortcut === 'key'
+
+        const plus = /*HTML*/`
+          <div class="shortcut_list_item_button_slot">
+            <span class="button_plus">+</span>
+          </div>
+        `
+
+        const keyShortcut = /*HTML*/`
+          <div class="button_key">
+            <span class="button_key_text">${shortcutButtons[shortcut]}</span>
+          </div>
+        `
+
+        const mouseShortcut = /*HTML*/`
+          <div class="button_mouse">
+            <span class=""></span>
+          </div>
+        `
+
+        const shortcutHTML = /*HTML*/`
+          <div class="shortcut_list_item_button_slot">
+            ${isKeyboardShortcut ? keyShortcut : mouseShortcut}
+          </div>
+          ${isNotTheLastKey ? plus : ''}
+        `
+
+        shortcutButtonsListMarkup += shortcutHTML
       })
 
       return /*HTML*/`
@@ -153,7 +183,7 @@ const SettingsSingleton = (() => {
                       <h1 class="settings_main_panel_header_title">Theme Settings</h1>
                       <p class="settings_main_panel_header_description">
                         Select your prefered theme for <strong>Imagebox</strong> so you can work in the eviroment 
-                        that best fits you! 
+                        that best fits you!
                       </p>
                     </header>
                     <div class="settings_themes_buttons_container">
@@ -179,7 +209,13 @@ const SettingsSingleton = (() => {
                     </header>
 
                     <div class="settings_shortcuts_list">
-                      ${setShortcutLine('Escape any a modal or selection', { key: 'ESC' })}
+                      ${this.setShortcutLine('Escape any a modal or selection', { key: 'ESC' })}
+                      ${this.setShortcutLine('Zoom in', { key: 'ESC', mouse: 'up' })}
+                      ${this.setShortcutLine('Zoom in', { key: 'ESC', mouse: 'up' })}
+                      ${this.setShortcutLine('Zoom in', { key: 'ESC', mouse: 'up' })}
+                      ${this.setShortcutLine('Zoom in', { key: 'ESC', mouse: 'up' })}
+                      ${this.setShortcutLine('Zoom in', { key: 'ESC', mouse: 'up' })}
+                      ${this.setShortcutLine('Zoom in', { key: 'ESC', mouse: 'up' })}
                     </div>
                   </div>
 
