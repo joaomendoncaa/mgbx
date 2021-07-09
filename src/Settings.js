@@ -142,7 +142,7 @@ const SettingsSingleton = (() => {
 
       $('.settings_shortcuts_list').insertAdjacentHTML('beforeend', /*HTML*/`
         <div class="shortcut_list_item_container">
-          <h1>${shortcutTitle}</h1>
+          <h1 class="shortcut_list_item_title">${shortcutTitle}</h1>
           <div class="shortcut_list_item_buttons_wrapper">
             ${shortcutButtonsListMarkup}
           </div>
@@ -228,7 +228,7 @@ const SettingsSingleton = (() => {
       // $('.settings_wrapper').addEventListener('click', (event) => { this.hide(event) })
 
       //shortcuts for the "shortcuts" tab
-      this.setShortcut('Escape any a modal or selection', [
+      this.setShortcut('Escape anything', [
         { type: 'keyboard', value: 'esc' }
       ])
       this.setShortcut('Zoom in', [
@@ -249,11 +249,11 @@ const SettingsSingleton = (() => {
         { type: 'keyboard', value: 'shift' },
         { type: 'mouse', value: 'down' }
       ])
-      this.setShortcut('Roll-back changes made', [
+      this.setShortcut('Roll-back changes', [
         { type: 'keyboard', value: 'ctrl' },
         { type: 'keyboard', value: 'z' }
       ])
-      this.setShortcut('Roll-forward changes made', [
+      this.setShortcut('Roll-forward changes', [
         { type: 'keyboard', value: 'ctrl' },
         { type: 'keyboard', value: 'shift' },
         { type: 'keyboard', value: 'z' }
@@ -261,6 +261,22 @@ const SettingsSingleton = (() => {
       this.setShortcut('Save image', [
         { type: 'keyboard', value: 'ctrl' },
         { type: 'keyboard', value: 's' }
+      ])
+      this.setShortcut('Crop selection', [
+        { type: 'keyboard', value: 'ctrl' },
+        { type: 'keyboard', value: 'X' }
+      ])
+      this.setShortcut('Crop selection', [
+        { type: 'keyboard', value: 'ctrl' },
+        { type: 'keyboard', value: 'X' }
+      ])
+      this.setShortcut('Crop selection', [
+        { type: 'keyboard', value: 'ctrl' },
+        { type: 'keyboard', value: 'X' }
+      ])
+      this.setShortcut('Crop selection', [
+        { type: 'keyboard', value: 'ctrl' },
+        { type: 'keyboard', value: 'X' }
       ])
       this.setShortcut('Crop selection', [
         { type: 'keyboard', value: 'ctrl' },
