@@ -70,7 +70,9 @@ export default {
     '--settings-panel-nav-accent': 'var(--main-accent)',
     '--settings-panel-nav-anchor-active-background': '#E8E8E8',
     '--settings-panel-nav-anchor-hover-background': '#F2F2F2',
-
+    //settings shortcuts
+    '--settings-shortcuts-borders': '#C8C8C8',
+    '--settings-shortcuts-text': '#282828',
 
     //scrollbars
     '--scrollbar-thumb-background': '#9D9D9D'

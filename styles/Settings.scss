@@ -208,9 +208,116 @@
       justify-content: space-between;
 
       .shortcut_list_item_button_slot {
-        width: 30px;
-        height: 30px;
+        width: 35px;
+        height: 35px;
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+        --borders-width: 1px;
+
+        //Plus "buttons" styling
+        .button_plus {
+          width: 100%;
+          height: 100%;
+
+          display: flex;
+          flex-direction: row;
+          justify-content: center;
+          align-items: center;
+          
+          font-size: 1.25rem;
+          font-weight: 400;
+          color: var(--settings-shortcuts-borders);
+        }
+
+        //Keyboard buttons styling
+        .button_key {
+          width: 100%;
+          height: 100%;
+
+          border: var(--borders-width) solid var(--settings-shortcuts-borders);
+          border-radius: 5px;
+
+          position: relative;
+
+          &:after {
+            content: '';
+            position: absolute;
+            width: 100%;
+            height: 87.5%;
+            top: 0;
+            left: 0;  
+            transform: translateX(calc(0px - var(--borders-width))) translateY(calc(0px - var(--borders-width)));
+            z-index: 1;
+            border: var(--borders-width) solid var(--settings-shortcuts-borders);
+            border-radius: 5px;
+          }
+
+          .button_key_text {
+            padding: 0 0 0 .1rem;
+            width: 100%;
+            font-size: 0.6rem;
+            font-weight: 900;
+            color: var(--settings-shortcuts-text);
+          }
+        }
+      }
+
+      .button_mouse {
+        position: relative;
+        width: 57.5%;
+        height: 80%;
+        border: var(--borders-width) solid var(--settings-shortcuts-borders);
+        border-radius: 7.5px;
+
+        &:after {
+          position: absolute;
+          content: '';
+
+          z-index: 1;
+          width: 15%;
+          height: 20%;
+          top: 10%; 
+          left: 50%;
+          transform: translateX(-50%);
+
+          border: 2px solid var(--settings-shortcuts-text);
+          border-radius: 99vw;
+        }
+      } 
+
+      // Mouse buttons
+      .button_mouse_up {
+        align-self: end;
+        
+        &:before {
+          position: absolute;
+          content: '^';
+          color: var(--settings-shortcuts-text);
+          z-index: 1;
+
+          top: -12.5px; 
+          left: 50%;
+          transform: translateX(-50%);
+        }
+      }
+
+      .button_mouse_down {
+        align-self: start;
+        
+        &:before {
+          position: absolute;
+          content: '^';
+          color: var(--settings-shortcuts-text);
+          z-index: 1;
+
+          bottom: -12.5px; 
+          left: 50%;
+          transform: translateX(-50%) rotate(180deg);
+        }
       }
     }
   }
 }
+
+

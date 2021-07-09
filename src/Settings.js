@@ -102,57 +102,52 @@ const SettingsSingleton = (() => {
     }
 
     /**
-     * @param {object} shortcutButtons schema example: 
-     * {
-     *  key: 'CTRL' (any string with up to 4 letters)
-     *  mouse: 'up' || 'down' || 'left' || 'down'
-     *  }
+     * @param {string} shortcutTitle
+     * @param {array} shortcutButtonsList schema example: 
+     * [ 
+     *  { type: 'keyboard', value: 'ctrl' },
+     *  { type: 'mouse', value: 'up' }
+     * ]
      */
-    setShortcutLine(shortcutTitle, shortcutButtons) {
-      const shortcutButtonsList = Object.keys(shortcutButtons)
+    setShortcut(shortcutTitle, shortcutButtonsList) {
       let shortcutButtonsListMarkup = ''
 
       shortcutButtonsList.forEach((shortcut, index) => {
-        const isNotTheLastKey = index !== Utils.arrayLastIndex(shortcutButtonsList)
-
-        const isKeyboardShortcut = shortcut === 'key'
-
-        const plus = /*HTML*/`
-          <div class="shortcut_list_item_button_slot">
-            <span class="button_plus">+</span>
-          </div>
-        `
+        const isNotTheLastShortcut = index !== Utils.arrayLastIndex(shortcutButtonsList)
+        const isTypeMouse = shortcut.type.toLowerCase() === 'mouse'
 
         const keyShortcut = /*HTML*/`
           <div class="button_key">
-            <span class="button_key_text">${shortcutButtons[shortcut]}</span>
+            <span class="button_key_text">${shortcut.value.toUpperCase()}</span>
           </div>
         `
 
         const mouseShortcut = /*HTML*/`
-          <div class="button_mouse">
-            <span class=""></span>
-          </div>
+            <div class="button_mouse button_mouse_${shortcut.value.toLowerCase()}"></div>
         `
 
         const shortcutHTML = /*HTML*/`
           <div class="shortcut_list_item_button_slot">
-            ${isKeyboardShortcut ? keyShortcut : mouseShortcut}
+            ${isTypeMouse ? mouseShortcut : keyShortcut}
           </div>
-          ${isNotTheLastKey ? plus : ''}
+          ${isNotTheLastShortcut ? /*HTML*/`
+            <div class="shortcut_list_item_button_slot">
+              <span class="button_plus">+</span>
+            </div>
+          ` : ''}
         `
 
         shortcutButtonsListMarkup += shortcutHTML
       })
 
-      return /*HTML*/`
+      $('.settings_shortcuts_list').insertAdjacentHTML('beforeend', /*HTML*/`
         <div class="shortcut_list_item_container">
           <h1>${shortcutTitle}</h1>
           <div class="shortcut_list_item_buttons_wrapper">
             ${shortcutButtonsListMarkup}
           </div>
         </div>     
-      `
+      `)
     }
 
     __init__() {
@@ -209,13 +204,6 @@ const SettingsSingleton = (() => {
                     </header>
 
                     <div class="settings_shortcuts_list">
-                      ${this.setShortcutLine('Escape any a modal or selection', { key: 'ESC' })}
-                      ${this.setShortcutLine('Zoom in', { key: 'ESC', mouse: 'up' })}
-                      ${this.setShortcutLine('Zoom in', { key: 'ESC', mouse: 'up' })}
-                      ${this.setShortcutLine('Zoom in', { key: 'ESC', mouse: 'up' })}
-                      ${this.setShortcutLine('Zoom in', { key: 'ESC', mouse: 'up' })}
-                      ${this.setShortcutLine('Zoom in', { key: 'ESC', mouse: 'up' })}
-                      ${this.setShortcutLine('Zoom in', { key: 'ESC', mouse: 'up' })}
                     </div>
                   </div>
 
@@ -223,20 +211,61 @@ const SettingsSingleton = (() => {
               </main>
           </div>  
         </section>
-    `)
+      `)
 
-      //is first shown in Appearance tab
+      //on initialization the default tab is appearance
       this.changeTab('appearance')
-
+      //on initialization settings modal is hidden
       this.hide()
-
+      //listeners
       $('.toolbar_settings_btn').addEventListener('click', () => { this.show() })
       $('.settings_main_nav_anchor_appearance').addEventListener('click', () => { this.changeTab('appearance') })
       $('.settings_main_nav_anchor_shortcuts').addEventListener('click', () => { this.changeTab('shortcuts') })
       $('.settings_header_button_exit').addEventListener('click', () => { this.hide() })
-      // $('.settings_wrapper').addEventListener('click', (event) => { this.hide(event) })
       $('.button_light_theme').addEventListener('click', () => { this.themeSwitcher.changeTheme('light') })
       $('.button_dark_theme').addEventListener('click', () => { this.themeSwitcher.changeTheme('dark') })
+      // TODO: make a listener to close on clicking the wrapper
+      // $('.settings_wrapper').addEventListener('click', (event) => { this.hide(event) })
+
+      //shortcuts for the "shortcuts" tab
+      this.setShortcut('Escape any a modal or selection', [
+        { type: 'keyboard', value: 'esc' }
+      ])
+      this.setShortcut('Zoom in', [
+        { type: 'keyboard', value: 'ctrl' },
+        { type: 'mouse', value: 'up' }
+      ])
+      this.setShortcut('Zoom out', [
+        { type: 'keyboard', value: 'ctrl' },
+        { type: 'mouse', value: 'down' }
+      ])
+      this.setShortcut('Speedy Zoom in', [
+        { type: 'keyboard', value: 'ctrl' },
+        { type: 'keyboard', value: 'shift' },
+        { type: 'mouse', value: 'up' }
+      ])
+      this.setShortcut('Speedy Zoom out', [
+        { type: 'keyboard', value: 'ctrl' },
+        { type: 'keyboard', value: 'shift' },
+        { type: 'mouse', value: 'down' }
+      ])
+      this.setShortcut('Roll-back changes made', [
+        { type: 'keyboard', value: 'ctrl' },
+        { type: 'keyboard', value: 'z' }
+      ])
+      this.setShortcut('Roll-forward changes made', [
+        { type: 'keyboard', value: 'ctrl' },
+        { type: 'keyboard', value: 'shift' },
+        { type: 'keyboard', value: 'z' }
+      ])
+      this.setShortcut('Save image', [
+        { type: 'keyboard', value: 'ctrl' },
+        { type: 'keyboard', value: 's' }
+      ])
+      this.setShortcut('Crop selection', [
+        { type: 'keyboard', value: 'ctrl' },
+        { type: 'keyboard', value: 'X' }
+      ])
     }
   }
 
