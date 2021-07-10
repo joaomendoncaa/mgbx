@@ -103,7 +103,7 @@ const SettingsSingleton = (() => {
 
     /**
      * @param {string} shortcutTitle
-     * @param {array} shortcutButtonsList schema example: 
+     * @param {array} shortcutButtonsList schema example:
      * [ 
      *  { type: 'keyboard', value: 'ctrl' },
      *  { type: 'mouse', value: 'up' }
@@ -261,22 +261,6 @@ const SettingsSingleton = (() => {
       this.setShortcut('Save image', [
         { type: 'keyboard', value: 'ctrl' },
         { type: 'keyboard', value: 's' }
-      ])
-      this.setShortcut('Crop selection', [
-        { type: 'keyboard', value: 'ctrl' },
-        { type: 'keyboard', value: 'X' }
-      ])
-      this.setShortcut('Crop selection', [
-        { type: 'keyboard', value: 'ctrl' },
-        { type: 'keyboard', value: 'X' }
-      ])
-      this.setShortcut('Crop selection', [
-        { type: 'keyboard', value: 'ctrl' },
-        { type: 'keyboard', value: 'X' }
-      ])
-      this.setShortcut('Crop selection', [
-        { type: 'keyboard', value: 'ctrl' },
-        { type: 'keyboard', value: 'X' }
       ])
       this.setShortcut('Crop selection', [
         { type: 'keyboard', value: 'ctrl' },

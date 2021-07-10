@@ -17,8 +17,8 @@
 
 .settings_container {
   height: 80%;
-  min-width: 800px;
-  width: 800px;
+  min-width: 900px;
+  width: 900px;
   width: fit-content;
 
   background: var(--main-background);
@@ -78,7 +78,7 @@
   width: fit-content;
 
   .settings_main_nav_anchor {
-    padding: 1rem 0 1rem 1rem;
+    padding: .75rem 0 .75rem .75rem;
 
     min-width: 175px;
 
