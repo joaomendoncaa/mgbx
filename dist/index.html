@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/assets/favicon.17e50649.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Imagebox</title>
+  <script type="module" crossorigin src="/assets/index.9259626a.js"></script>
+  <link rel="stylesheet" href="/assets/index.83e9b822.css">
+</head>
+  <body>
+    <!-- Responsivness not available -->
+    <div class="responsive_error">
+      <span>
+        This application is only available in bigger screens at the moment
+      </span>
+    </div>
+
+    <header class="main_header">
+      <span class="main_header_editing">editing /</span>
+      <span class="main_header_span">No Image uploaded</span>
+    </header>
+
+    <main>
+      <section class="history_wrapper">
+        <header class="history_header">
+          <h2 class="history_header_title">HISTORY</h2>
+          <div class="history_header_controls">
+            <button class="history_controls_previous">
+              <svg width="9" height="8" viewBox="0 0 9 8" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M4.0625 1L1 4.0625L4.0625 7.125" stroke-linecap="round" stroke-linejoin="round"/>
+                <path d="M1 4.0625H8"  stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+            </button>
+            <button class="history_controls_next">
+              <svg width="9" height="8" viewBox="0 0 9 8" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M5.09814 1L8.28564 4.1875L5.09814 7.375" stroke-linecap="round" stroke-linejoin="round"/>
+                <path d="M8.28564 4.1875H0.99993" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+            </button>
+          </div>
+        </header>
+        <div class="history_list"></div>
+      </section>
+
+      <div class="canvas_wrapper">
+        <div class="image_preview_holder">
+          <div class="image_preview_limits">
+            <img class="image_preview" draggable="false" />
+          </div>
+        </div>
+        <div class="selection_tool_mask"></div>
+        <div class="selection_tool">
+          <div class="selection_tool_decorator_wrapper"></div>
+          <!-- Selection Tool buttons -->
+          <div class="selection_tool_controls">
+            <button class="selection_crop_btn">
+              <span class="selection_crop_btn_text">Crop selection</span>
+            </button>
+            <button class="selection_cancel_btn">
+              <span class="selection_cancel_btn_text">
+                <svg width="9" height="9" viewBox="0 0 9 9" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M8 1L1 8M8 8L1 1L8 8Z" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+              </span>
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <section class="effects_wrapper">
+        <header class="effects_header">
+          <h2 class="effects_header_title">EFFECTS</h2>
+          <button class="effects_header_reset_btn">reset all</button>
+        </header>
+        <div class="effects_list"></div>
+      </section>
+    </main>
+
+    <div class="toolbar">
+      <div class="toolbar_leftarea"></div>
+      <div class="toolbar_rightarea"></div>
+    </div>
+
+    <!-- Scripts -->
+    
+  </body>
+</html>
