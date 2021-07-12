@@ -1,5 +1,4 @@
-import $ from './DomElements'
-import DOMTools from './DomTools'
+import { $, elementsDisplay, styleElement } from './DomTools'
 import Utils from './Utils'
 import CanvasHistorySingleton from './CanvasHistory'
 import CanvasSingleton from './Canvas'
@@ -103,14 +102,14 @@ const SelectionToolSingleton = (() => {
       const top = Utils.parsePixels(this.startY)
       const left = Utils.parsePixels(this.startX)
 
-      DOMTools.styleElement($('.selection_tool'), {
+      styleElement($('.selection_tool'), {
         width,
         height,
         top,
         left
       })
 
-      DOMTools.styleElement($('.selection_tool_mask'), {
+      styleElement($('.selection_tool_mask'), {
         clipPath: this.getPolygonVectorPoints(
           width,
           height,
@@ -129,14 +128,14 @@ const SelectionToolSingleton = (() => {
       const top = Utils.parsePixels(this.endY)
       const left = Utils.parsePixels(this.startX)
 
-      DOMTools.styleElement($('.selection_tool'), {
+      styleElement($('.selection_tool'), {
         width,
         height,
         top,
         left
       })
 
-      DOMTools.styleElement($('.selection_tool_mask'), {
+      styleElement($('.selection_tool_mask'), {
         clipPath: this.getPolygonVectorPoints(
           width,
           height,
@@ -155,14 +154,14 @@ const SelectionToolSingleton = (() => {
       const top = Utils.parsePixels(this.endY)
       const left = Utils.parsePixels(this.endX)
 
-      DOMTools.styleElement($('.selection_tool'), {
+      styleElement($('.selection_tool'), {
         width,
         height,
         top,
         left
       })
 
-      DOMTools.styleElement($('.selection_tool_mask'), {
+      styleElement($('.selection_tool_mask'), {
         clipPath: this.getPolygonVectorPoints(
           width,
           height,
@@ -181,14 +180,14 @@ const SelectionToolSingleton = (() => {
       const top = Utils.parsePixels(this.startY)
       const left = Utils.parsePixels(this.endX)
 
-      DOMTools.styleElement($('.selection_tool'), {
+      styleElement($('.selection_tool'), {
         width,
         height,
         top,
         left
       })
 
-      DOMTools.styleElement($('.selection_tool_mask'), {
+      styleElement($('.selection_tool_mask'), {
         clipPath: this.getPolygonVectorPoints(
           width,
           height,
@@ -233,7 +232,7 @@ const SelectionToolSingleton = (() => {
 
       $('.selection_tool').style.display = 'initial'
 
-      DOMTools.styleElement($('.selection_tool_mask'), {
+      styleElement($('.selection_tool_mask'), {
         display: 'initial',
         width: Utils.parsePixels($('.image_preview').width),
         height: Utils.parsePixels($('.image_preview').height)
@@ -276,7 +275,7 @@ const SelectionToolSingleton = (() => {
 
     show() {
       this.isOpened = true
-      DOMTools.elementVisibility([
+      elementsDisplay([
         $('.selection_tool'),
         $('.selection_tool_mask'),
         $('.selection_tool_controls')
@@ -285,7 +284,7 @@ const SelectionToolSingleton = (() => {
 
     hide() {
       this.isOpened = false
-      DOMTools.elementVisibility([
+      elementsDisplay([
         $('.selection_tool'),
         $('.selection_tool_mask'),
         $('.selection_tool_controls')

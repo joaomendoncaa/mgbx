@@ -1,5 +1,5 @@
 import themes from './Themes'
-import $ from './DomElements'
+import { $ } from './DomTools'
 
 const ThemeSwitcherSingleton = (() => {
   class ThemeSwitcher {

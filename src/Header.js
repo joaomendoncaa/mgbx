@@ -1,4 +1,4 @@
-import $ from './DomElements'
+import { $ } from './DomTools'
 
 import '../styles/Header.scss'
 

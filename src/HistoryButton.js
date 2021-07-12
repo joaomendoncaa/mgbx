@@ -1,5 +1,4 @@
-import $ from './DomElements'
-import DOMTools from './DomTools'
+import { $, generateRandomClassPrefix } from './DomTools'
 import Utils from './Utils'
 
 import '../styles/HistoryButton.scss'
@@ -18,7 +17,7 @@ class HistoryButton {
   get historySnapshot() { return this._historySnapshot }
 
   __init__() {
-    const historyButtonClass = DOMTools.generateRandomClassPrefix(10) + '_history_button'
+    const historyButtonClass = generateRandomClassPrefix(10) + '_history_button'
 
     this.parentDomElement.insertAdjacentHTML('beforeend', /*HTML*/`
       <button class="history_button ${historyButtonClass}" data-snapshot-id="${this.historySnapshot.id}">

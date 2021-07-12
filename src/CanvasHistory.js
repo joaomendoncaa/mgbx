@@ -2,8 +2,9 @@ import HistorySingleton from './History'
 import CanvasSingleton from './Canvas'
 import HistoryButton from './HistoryButton'
 import CanvasFiltersSingleton from './CanvasFilters'
-import $ from './DomElements'
+import { $, $$ } from './DomTools'
 import Utils from './Utils'
+import { hideLoading, showLoading } from './Loading'
 
 import '../styles/History.scss'
 
@@ -54,7 +55,7 @@ const CanvasHistorySingleton = (() => {
     updateHistoryButtonListStyle(currentSnapshotID) {
       if ($('.history_button') === null) return
 
-      $(`.history_button`, true).forEach(node => {
+      $$(`.history_button`).forEach(node => {
         node.classList.remove('history_button_active')
         node.classList.add('history_button_inactive')
       })
@@ -115,6 +116,8 @@ const CanvasHistorySingleton = (() => {
     setCurrentSnapshot(snapshotId) {
       if (this.history.list.length === 0) return
 
+      showLoading()
+
       const filters = CanvasFiltersSingleton.getInstance()
 
       this.history.pointer = snapshotId
@@ -142,6 +145,8 @@ const CanvasHistorySingleton = (() => {
 
       filters.updateAllFilterButtons()
       this.updateHistoryScroll()
+
+      hideLoading()
     }
 
     addSnapshot({ action, canvasData, selectionData, filtersString, isUpload }) {

@@ -1,6 +1,5 @@
 import Toast from './Toast'
-import DOMTools from './DomTools'
-import $ from './DomElements'
+import { $, elementsDisplay } from './DomTools'
 import Utils from './Utils'
 import { initLoading, showLoading, hideLoading } from './Loading'
 import SettingsSingleton from './Settings'
@@ -48,6 +47,7 @@ class App {
   set canvasFilters(canvasFilters) { this._canvasFilters = canvasFilters }
 
   onLoadImageFromReader() {
+    showLoading()
     this.canvas = CanvasSingleton.getInstance()
     this.canvasHistory = CanvasHistorySingleton.getInstance()
     this.canvasFilters = CanvasFiltersSingleton.getInstance()
@@ -66,16 +66,13 @@ class App {
     this.canvas.setSize(this.image.width, this.image.height)
     this.canvas.ctx.clearRect(0, 0, this.image.width, this.image.height)
     this.canvas.ctx.drawImage(this.image, 0, 0)
-    
-    hideLoading()
 
     $('.image_preview').style.display = 'initial'
     $('.image_preview').src = this.canvas.toDataURL()
+    hideLoading()
   }
 
   onChangeToolbarUploadInput() {
-    showLoading()
-
     const imageUploaded = $('.toolbar_upload_input').files[0]
     const imageInstance = ImageSingleton.getInstance()
 
@@ -93,11 +90,11 @@ class App {
       this.image.src = event.target.result
       this.image.addEventListener('load', this.onLoadImageFromReader.bind(this))
 
-      DOMTools.elementVisibility([
+      elementsDisplay([
         $('.toolbar_upload_btn')
       ], 'none')
 
-      DOMTools.elementVisibility([
+      elementsDisplay([
         $('.toolbar_save_btn'),
         $('.toolbar_clear_btn'),
         $('.effects_wrapper'),

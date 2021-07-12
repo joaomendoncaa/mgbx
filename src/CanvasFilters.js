@@ -1,4 +1,4 @@
-import $ from './DomElements'
+import { $ } from './DomTools'
 import Filter from './Filter'
 import CanvasSingleton from './Canvas'
 

@@ -1,6 +1,6 @@
 import icons from './SvgIcons'
 import ThemeSwitcherSingleton from './ThemeSwitcher'
-import $ from './DomElements'
+import { $, $$ } from './DomTools'
 import Utils from './Utils'
 
 import '../styles/Settings.scss'
@@ -86,7 +86,7 @@ const SettingsSingleton = (() => {
 
       if (!isExistingTab) throw new Error('Error trying to get tab')
 
-      $('.settings_main_nav_anchor', true).forEach(node => {
+      $$('.settings_main_nav_anchor').forEach(node => {
         if (node.classList[0] === `settings_main_nav_anchor_${tab}`) {
           node.classList.add('active_anchor')
         } else {

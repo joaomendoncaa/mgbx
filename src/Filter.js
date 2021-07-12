@@ -1,6 +1,5 @@
-import DOMTools from './DomTools'
+import { $, generateRandomClassPrefix } from './DomTools'
 import icons from './SvgIcons'
-import $ from './DomElements'
 import '../styles/Filter.scss'
 import CanvasHistorySingleton from './CanvasHistory'
 import CanvasSingleton from './Canvas'
@@ -147,9 +146,9 @@ class Filter {
   }
 
   __init__() {
-    const filterInputClass = DOMTools.generateRandomClassPrefix(10) + '_filter_input'
-    const filterResetButtonClass = DOMTools.generateRandomClassPrefix(10) + '_filter_reset_btn'
-    const filterCurrentClass = DOMTools.generateRandomClassPrefix(10) + '_filter_current'
+    const filterInputClass = generateRandomClassPrefix(10) + '_filter_input'
+    const filterResetButtonClass = generateRandomClassPrefix(10) + '_filter_reset_btn'
+    const filterCurrentClass = generateRandomClassPrefix(10) + '_filter_current'
 
     this.parentDomElement.insertAdjacentHTML('beforeend', /*HTML*/`
       <div class="filter_wrapper">

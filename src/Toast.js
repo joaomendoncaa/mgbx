@@ -1,4 +1,4 @@
-import DOMTools from './DomTools'
+import { generateRandomClassPrefix } from './DomTools'
 
 class Toast {
   /**
@@ -41,7 +41,6 @@ class Toast {
     this.__init__()
   }
 
-  get domTools() { return this._domTools }
   get toast() { return this._toast }
   get toastTimeBar() { return this._toastTimeBar }
   get toastTextHeading() { return this._toastTextHeading }
@@ -56,12 +55,12 @@ class Toast {
   set areQueuesBeingDispatched(isQueueBeingDispatched) { this._areQueuesBeingDispatched = isQueueBeingDispatched }
 
   _generateToastClass() {
-    const toastClass = DOMTools.generateRandomClassPrefix(10) + '_toast'
+    const toastClass = generateRandomClassPrefix(10) + '_toast'
     return toastClass
   }
 
   _generateToastTimeBarClass() {
-    const toastTimeBarClass = DOMTools.generateRandomClassPrefix(10) + '_toast_timebar'
+    const toastTimeBarClass = generateRandomClassPrefix(10) + '_toast_timebar'
     return toastTimeBarClass
   }
 
@@ -101,10 +100,10 @@ class Toast {
       this.toast.style.display = 'initial'
       this.toastTextHeading.textContent = message
 
-      const styleToInjectId = DOMTools.generateRandomClassPrefix(10) + '_style'
-      const animationClass = DOMTools.generateRandomClassPrefix(10) + '_toast_anim'
+      const styleToInjectId = generateRandomClassPrefix(10) + '_style'
+      const animationClass = generateRandomClassPrefix(10) + '_toast_anim'
 
-      const keyframesName = DOMTools.generateRandomClassPrefix(10) + '_toast_anim_keyframes'
+      const keyframesName = generateRandomClassPrefix(10) + '_toast_anim_keyframes'
 
       const styleToInject = /*HTML*/`
         <style type="text/css" id="${styleToInjectId}">

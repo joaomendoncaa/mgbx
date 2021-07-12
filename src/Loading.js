@@ -1,4 +1,4 @@
-import $ from './DomElements'
+import { $ } from './DomTools'
 
 function initLoading() {
     $('body').insertAdjacentHTML('afterbegin', `
@@ -7,14 +7,16 @@ function initLoading() {
         </div>
     `)
 
-    // startLoading()
+    $('.loading-container').style.display = 'none'
 }
 
 function showLoading() {
-    $('.loading-container').style.display = 'flex'
+    console.log('showLoading')
+    $('.loading-container').style.display = 'initial'
 }
 
 function hideLoading() {
+    console.log('hideLoading')
     $('.loading-container').style.display = 'none'
 }
 
