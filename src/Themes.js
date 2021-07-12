@@ -74,6 +74,10 @@ export default {
     '--settings-shortcuts-borders': '#C8C8C8',
     '--settings-shortcuts-text': '#282828',
 
+    //Loading colors
+    '--loading-main': 'var(--main-accent)',
+    '--loading-bright': '#69F5C8',
+
     //scrollbars
     '--scrollbar-thumb-background': '#9D9D9D'
   },

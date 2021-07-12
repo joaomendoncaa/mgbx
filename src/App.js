@@ -2,6 +2,7 @@ import Toast from './Toast'
 import DOMTools from './DomTools'
 import $ from './DomElements'
 import Utils from './Utils'
+import { initLoading, showLoading, hideLoading } from './Loading'
 import SettingsSingleton from './Settings'
 import HeaderSingleton from './Header'
 import ToolbarSingleton from './Toolbar'
@@ -65,11 +66,16 @@ class App {
     this.canvas.setSize(this.image.width, this.image.height)
     this.canvas.ctx.clearRect(0, 0, this.image.width, this.image.height)
     this.canvas.ctx.drawImage(this.image, 0, 0)
+    
+    hideLoading()
+
     $('.image_preview').style.display = 'initial'
     $('.image_preview').src = this.canvas.toDataURL()
   }
 
   onChangeToolbarUploadInput() {
+    showLoading()
+
     const imageUploaded = $('.toolbar_upload_input').files[0]
     const imageInstance = ImageSingleton.getInstance()
 
@@ -199,6 +205,8 @@ class App {
 
   //on app init
   __init__() {
+    initLoading()
+
     $('.toolbar_upload_btn').addEventListener('click', () => this.onClickToolbarUploadBtn())
     $('.toolbar_upload_input').addEventListener('change', () => this.onChangeToolbarUploadInput())
     $('.effects_header_reset_btn').addEventListener('click', () => this.onClickEffectsHeaderResetBtn())

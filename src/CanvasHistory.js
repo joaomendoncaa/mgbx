@@ -141,6 +141,7 @@ const CanvasHistorySingleton = (() => {
       }
 
       filters.updateAllFilterButtons()
+      this.updateHistoryScroll()
     }
 
     addSnapshot({ action, canvasData, selectionData, filtersString, isUpload }) {
@@ -156,6 +157,13 @@ const CanvasHistorySingleton = (() => {
 
       this.setCurrentSnapshot(snapshotData.id)
     }
+
+    //scroll history always on bottom
+    updateHistoryScroll() {
+      const historyList = $('.history_list')
+      historyList.scrollTop = historyList.scrollHeight
+    }
+
   }//CanvasHistory
 
   let canvasHistoryInstance
