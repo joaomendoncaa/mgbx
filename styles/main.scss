@@ -69,6 +69,8 @@ main {
   .effects_list {
     display: flex;
     flex-direction: column;
+
+    overflow-y: auto;
   }
 }
 
