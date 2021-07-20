@@ -6,6 +6,26 @@
   font-size: 16px;
 
   font-family: "Roboto", sans-serif;
+
+  // Scrollbars on the app
+
+  &::-webkit-scrollbar {
+    width: 11px;
+  }
+
+  &::-webkit-scrollbar-track {
+    background: transparent;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background-color: var(--scrollbar-thumb-background);
+    border-radius: 6px;
+    border: 3px solid transparent;
+  }
+  
+
+  scrollbar-width: thin;
+  scrollbar-color: var(--scrollbar-thumb-background) transparent;
 }
 
 *:focus-visible {
