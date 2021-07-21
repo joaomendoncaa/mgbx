@@ -79,7 +79,7 @@ export default {
     '--loading-bright': '#69F5C8',
 
     //scrollbars
-    '--scrollbar-thumb-background': '#ff0000'
+    '--scrollbar-thumb-background': '#999999'
   },
   'dark': {
     '--main-background': '#2B2A33',
