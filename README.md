@@ -1,3 +1,3 @@
 # mgbx
 
-Image manipulation web app made with vanilla JavaScript 🤘
+Image manipulation web app made with vanilla JavaScript 🤘✅
